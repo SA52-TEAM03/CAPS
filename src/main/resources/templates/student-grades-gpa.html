@@ -1,1 +1,43 @@
-Showing Grades
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Student Grades</title>
+
+</head>
+
+
+<body>
+	
+	
+<!-- Add Hyperlink -->
+	
+	<a href="student-view-courses.html" th:href="@{/student/courses}">View Courses</a>
+	
+	<h1>Student Grades</h1>
+	
+	<table th:if="${not #lists.isEmpty(enrolments)}" >
+		<tr >			
+			<th >Course Id</th>
+			<th >Course Name</th>
+			<th >Credits</th>
+			<th >Grade</th>		
+		</tr>
+		
+		<tr th:each="enrolment:${enrolments}" class="table-row">
+		
+			<td th:text=${enrolment.course.id}>id</td>
+			<td th:text=${enrolment.course.name}>Course Name</td>
+			<td th:text=${enrolment.course.credit}>Credit</td>			
+			<!-- <td th:text=${enrolment.grade}>Grade</td> -->
+			<td>Grade</td>
+			
+		</tr>
+		
+		
+	</table>
+	
+</body>
+</html>

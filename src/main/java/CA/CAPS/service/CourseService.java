@@ -8,6 +8,8 @@ public interface CourseService {
 	
 	public List<Course> findAll();
 	
+	public void save(Course course);
 	
+	public Course getById(Integer id);
 
 }
