@@ -20,6 +20,18 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepo.findAll();
 	}
 
+	@Override
+	public void save(Course course) {
+
+		courseRepo.save(course);
+		
+	}
+
+	@Override
+	public Course getById(Integer id) {
+		return courseRepo.getById(id);
+	}
+
 	
 
 }
