@@ -40,7 +40,7 @@ public class UserController {
 	@RequestMapping(path = "/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "forward:/login";
+		return "forward:/";
 	}
 	
 	@RequestMapping(path = "/authenticate")
