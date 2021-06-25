@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css" 
+	th:href="@{/style.css}" />
+</head>
+<body>
+	<div th:fragment="header" id="header">
+		<table>
+			<tr>
+				<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
+				<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
+			</tr>
+		</table>
+
+	</div>
+	<div th:fragment="menu" id="menu">
+		
+			
+					<a class="btn btn-outline-info head1" th:href="@{/AdminStudent/list}">Manage Students</a>
+					<a class="btn btn-outline-info head1" th:href="@{/lecturer/list}">Manage Lecturers</a>
+					<a class="btn btn-outline-info head1" th:href="@{/course/list}">Manage Courses</a>
+					<a class="btn btn-outline-info head1" th:href="@{/enrolment/list}">Manage Enrollment</a>
+					
+					<a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/authenticate/logout}">Logout</a>
+					
+			
+		
+	</div>
+	<footer th:fragment="footer">
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/AdminStudent/list}">Back to Home</a>
+		<br/>
+		 <small>Now is: <b
+			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
+</body>
+</html>

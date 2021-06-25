@@ -1,13 +1,18 @@
 package CA.CAPS;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Student;
+import CA.CAPS.repo.StudentRepository;
 import CA.CAPS.service.CourseServiceImpl;
+import CA.CAPS.service.StudentServiceImpl;
 
 @SpringBootApplication
 public class CapsApplication {
@@ -15,8 +20,11 @@ public class CapsApplication {
 	@Autowired
 	private CourseServiceImpl courseService;
 //	
-//	@Autowired
-//	private StudentServiceImpl studentService;
+	@Autowired
+	private StudentServiceImpl studentService;
+	
+	@Autowired
+	private StudentRepository srepo;
 //	
 //	@Autowired
 //	private EnrolmentServiceImpl enrolmentService;
@@ -61,6 +69,19 @@ public class CapsApplication {
 //			enrolmentService.save(en2);
 //			enrolmentService.save(en3);
 //			enrolmentService.save(en4);
+			
+			//WW Test files
+			Student s1 = new Student("queeniewong@email.com", "password123", "Wong", "Queenie", LocalDate.now());
+			Student s2 = new Student("queenieleeg@email.com", "password123", "Lee", "Queenie", LocalDate.now());
+			Student s3 = new Student("queeniegoh@email.com", "password123", "Goh", "Queenie", LocalDate.now());
+			Student s4 = new Student("queeniezhou@email.com", "password123", "Zhou", "Queenie", LocalDate.now());
+			Student s5 = new Student("queeniecheng@email.com", "password123", "Cheng", "Queenie", LocalDate.now());
+			
+			ArrayList<Student> studentlist = new ArrayList<Student>();
+			studentlist.add(s1); studentlist.add(s2); studentlist.add(s3); studentlist.add(s4); studentlist.add(s5);
+			
+			srepo.saveAll(studentlist);
+			
 			
 		};
 	}
