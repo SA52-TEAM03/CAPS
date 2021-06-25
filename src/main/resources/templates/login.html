@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<div>
+				<ul>
+					<li><a th:href="@{/login}">studentlogin</a></li>
+					<li><a th:href="@{/logout}">logout</a></li>
+					<li><a th:href="@{/AdminStudent/list}">adminHome</a></li>
+
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<form th:object="${student}" th:action="@{/authenticate}" method="post">
+		<fieldset>
+			Name: <input type="text" th:field="*{userName}">
+		</fieldset>
+		<fieldset>
+			Password: <input type="password" th:field="*{password}">
+		</fieldset>
+		<fieldset>
+			<button type="submit">Log In</button>
+		</fieldset>
+
+	</form>
+</body>
+</html>

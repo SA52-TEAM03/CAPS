@@ -7,14 +7,12 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Student {
@@ -29,6 +27,7 @@ public class Student {
 	
 	private String firstName;
 	private String lastName;
+	@DateTimeFormat (pattern="yyyy-MM-dd")
 	private LocalDate enrollmentDate;
 
 	

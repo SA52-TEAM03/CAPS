@@ -9,8 +9,8 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	 th:href="@{/style.css}" />
 </head>
 <body style="margin-left: 20px; margin-top:20px">
-	<header th:insert="fragments/general.html :: header"> </header>
-	<div th:replace="fragments/general.html :: menu"></div>
+	<header th:insert="admin/fragments/general.html :: header"> </header>
+	<div th:replace="admin/fragments/general.html :: menu"></div>
 
 	<h1>Manage Students</h1>
 	<!-- Add Hyperlink -->
@@ -41,6 +41,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	</table>
 
 	 <br/>
-	<div th:replace="fragments/general.html :: footer"></div>
+	<div th:replace="admin/fragments/general.html :: footer"></div>
 </body>
 </html>

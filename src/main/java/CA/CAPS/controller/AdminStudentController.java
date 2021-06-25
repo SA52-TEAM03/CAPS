@@ -22,14 +22,14 @@ public class AdminStudentController {
 		public String listStudents(Model model) {
 			model.addAttribute("students", srepo.findAll());
 			
-			return "adminHome";
+			return "admin/adminHome";
 		}
 		
 		@GetMapping("/add")
 		public String addStudent(Model model) {
 			Student student = new Student();
 			model.addAttribute("student", student);
-			return "AdminStudentForm";
+			return "admin/AdminStudentForm";
 		}
 		
 		@GetMapping("/save")
@@ -41,7 +41,7 @@ public class AdminStudentController {
 		@GetMapping("/edit/{id}")
 		public String showEditForm(Model model, @PathVariable("id") Integer id) {
 			model.addAttribute("student", srepo.findById(id).get());
-			return "AdminStudentForm";
+			return "admin/AdminStudentForm";
 		}
 		
 		@GetMapping("/delete/{id}")

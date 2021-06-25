@@ -9,25 +9,36 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
+import CA.CAPS.repo.CourseRepository;
+import CA.CAPS.repo.LecturerRepository;
 import CA.CAPS.repo.StudentRepository;
-import CA.CAPS.service.CourseServiceImpl;
-import CA.CAPS.service.StudentServiceImpl;
+
 
 @SpringBootApplication
 public class CapsApplication {
 	
-	@Autowired
-	private CourseServiceImpl courseService;
-//	
-	@Autowired
-	private StudentServiceImpl studentService;
+//	@Autowired
+//	private CourseServiceImpl courseService;
+
+//	@Autowired
+//	private StudentServiceImpl studentService;
+	
+//	@Autowired
+//	private EnrolmentServiceImpl enrolmentService;
 	
 	@Autowired
 	private StudentRepository srepo;
-//	
-//	@Autowired
-//	private EnrolmentServiceImpl enrolmentService;
+
+	@Autowired
+	private LecturerRepository lrepo;
+
+	@Autowired
+	private CourseRepository crepo;
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(CapsApplication.class, args);
@@ -36,6 +47,63 @@ public class CapsApplication {
 	@Bean
 	CommandLineRunner runner() {
 		return args ->{
+			LocalDate date = LocalDate.now();
+
+			Student student1 = new Student("william@u.nus.edu", "123456", "william", "lastName", date);
+			Student student2 = new Student("larry@u.nus.edu", "123456", "larry", "lastName", date);
+			Student student3 = new Student("min@u.nus.edu", "123456", "min", "lastName", date);
+			Student student4 = new Student("andy@u.nus.edu", "123456", "andy", "lastName", date);
+			Student student5 = new Student("kaman@u.nus.edu", "123456", "kaman", "lastName", date);
+			Student student6 = new Student("jiakuang@u.nus.edu", "123456", "jiakuang", "lastName", date);
+			Student student7 = new Student("xunlong@u.nus.edu", "123456", "xunlong", "lastName", date);
+			Student student8 = new Student("danlin@u.nus.edu", "123456", "danlin", "lastName", date);
+			srepo.save(student1);
+			srepo.save(student2);
+			srepo.save(student3);
+			srepo.save(student4);
+			srepo.save(student5);
+			srepo.save(student6);
+			srepo.save(student7);
+			srepo.save(student8);
+
+			Course course1 = new Course("FOPCS", 50, 5);
+			Course course2 = new Course("C#", 50, 5);
+			Course course3 = new Course("JAVA", 50, 5);
+			Course course4 = new Course(".NET", 50, 5);
+			crepo.save(course1);
+			crepo.save(course2);
+			crepo.save(course3);
+			crepo.save(course4);
+
+			Lecturer lecturer1 = new Lecturer("liufan", "123456");
+			Lecturer lecturer2 = new Lecturer("cherhwa", "123456");
+			Lecturer lecturer3 = new Lecturer("tin", "123456");
+			lrepo.save(lecturer1);
+			lrepo.save(lecturer2);
+			lrepo.save(lecturer3);
+
+			course1.setLecturer(lecturer1);
+			course2.setLecturer(lecturer3);
+			course3.setLecturer(lecturer3);
+			course4.setLecturer(lecturer2);
+
+			course1.addEnrolments(student8);
+			course2.addEnrolments(student7);
+			course3.addEnrolments(student6);
+			course4.addEnrolments(student5);
+			crepo.save(course1);
+			crepo.save(course2);
+			crepo.save(course3);
+			crepo.save(course4);
+
+			student1.addEnrolments(course4);
+			student2.addEnrolments(course3);
+			student3.addEnrolments(course2);
+			student4.addEnrolments(course1);
+			srepo.save(student1);
+			srepo.save(student2);
+			srepo.save(student3);
+			srepo.save(student4);
 			
 //			Course c1 = new Course("CourseA", 50, 5);
 //			Course c2 = new Course("CourseB", 50, 4);

@@ -12,10 +12,8 @@ import CA.CAPS.domain.enrolmentUPK;
 
 public interface EnrolmentRepository extends JpaRepository<Enrolment, enrolmentUPK> {
 	
-	
 	public List<Enrolment> findByStudent(Student student);
 		
-	
 	@Query("Select e.course from Enrolment e where e.student = :student")
 	public List<Course> findCourseByStudent(Student student);
 
