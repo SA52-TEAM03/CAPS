@@ -10,13 +10,13 @@ import CA.CAPS.repo.CourseRepository;
 
 @Service
 public class CourseServiceImpl implements CourseService {
-	
+
 	@Autowired
 	private CourseRepository courseRepo;
 
 	@Override
 	public List<Course> findAll() {
-		
+
 		return courseRepo.findAll();
 	}
 
@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 	public void save(Course course) {
 
 		courseRepo.save(course);
-		
+
 	}
 
 	@Override
@@ -32,6 +32,9 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepo.getById(id);
 	}
 
-	
+	@Override
+	public List<Course> findLecturerCourses(int id) {
+		return courseRepo.findCoursesByLecturerId(id);
+	}
 
 }

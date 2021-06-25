@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Login Page</title>
+<title>Login</title>
 </head>
 <body>
 	<header>
 		<nav>
 			<div>
 				<ul>
-					<li><a th:href="@{/login}">studentlogin</a></li>
-					<li><a th:href="@{/logout}">logout</a></li>
+					<li><a th:href="@{/login}">login</a></li>
+					<li><a th:href="@{/logout}">indexpage</a></li>
 					<li><a th:href="@{/AdminStudent/list}">adminHome</a></li>
 
 				</ul>
@@ -18,7 +18,8 @@
 		</nav>
 	</header>
 
-	<form th:object="${student}" th:action="@{/authenticate}" method="post">
+	<form action="" th:object="${student}" th:action="@{/authenticate}"
+		method="get">
 		<fieldset>
 			Name: <input type="text" th:field="*{userName}">
 		</fieldset>
@@ -29,5 +30,9 @@
 			<button type="submit">Log In</button>
 		</fieldset>
 	</form>
+	<footer>
+		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> <br />
+		<small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
 </body>
 </html>

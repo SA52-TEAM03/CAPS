@@ -43,10 +43,10 @@ public class UserImplementation implements UserService {
 	@Override
 	public boolean authenticate(Student student) {
 		Student fromDB = srepo.findUserByUserNameAndPassword(student.getUserName(), student.getPassword());
-		if (fromDB == null)
-			return false;
-		else
+		if (fromDB != null)
 			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -77,10 +77,10 @@ public class UserImplementation implements UserService {
 	@Override
 	public boolean authenticate(Lecturer lecturer) {
 		Lecturer fromDB = lrepo.findUserByUserNameAndPassword(lecturer.getUserName(), lecturer.getPassword());
-		if (fromDB==null)
-			return false;
-		else
+		if (fromDB!=null)
 			return true;
+		else
+			return false;
 	}
 
 	@Override

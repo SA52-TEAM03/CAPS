@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Student Profile</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</head>
+<div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
+<body>
+<div>
+<br/>
+<h2>Student's Detail</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th  scope="col">Student Id</th>
+      <th  scope="col">Name</th>
+      <th  scope="col">Enrollment Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td  th:text=${student.id}>Id</td>
+      <td  th:text="${student.firstName + ' ' + student.lastName}">Name</td>
+	  <td  th:text=${student.enrollmentDate}>Enrollment Date</td>
+	</tr>
+  </tbody>
+</table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th  scope="col">Course Id</th>
+      <th  scope="col">Name</th>
+      <th  scope="col">Grade</th>
+      <th  scope="col">Changes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="enrolment, iStat : ${enrolments}">
+      <td  th:text=${enrolment.course.id}>Id</td>
+      <td  th:text=${courseName[iStat.index]}>Name</td>
+	  <td  th:text="(${grades[iStat.index]} != null)? ${grades[iStat.index]} : ''">Grade</td>
+	  <td>
+	  <form method="get" action="#" th:action="@{'/lecturer/save/' + ${lecturer.id} + '/' + ${student.id} + '/' + ${enrolment.course.id}}" class="form-inline" th:each="lectCourse : ${lecturer.courses}" th:if="${lectCourse.id} == ${enrolment.course.id}">
+	    <div class="form-group">
+	      <input type="number" class="form-control w-10" id="grade" placeholder="Grade" th:name="grade" th:value="${grade}">
+  	    </div>
+  	    <br/>
+  	    <button type="submit" value="submit" class="btn btn-secondary pl-2">Confirm Changes</button>
+	  </form>
+	  </td>
+	</tr>
+  </tbody>
+</table>
+</div>
+<br/>
+<footer th:fragment="footer">
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/homepage'}">Back to Home</a>
+		<br/>
+		 <small>Now is: <b
+			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
+</footer>>
+</body>
+</html>

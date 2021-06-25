@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Lecturer's Teaching Courses</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</head>
+<body>
+<div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
+<div>
+<br/>
+<h2 th:if="${not #lists.isEmpty(courses)}">Course List</h2>
+<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Course Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Size</th>
+      <th scope="col">Credit</th>
+      <th scope="col">Current Enrollment</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="course : ${courses}">
+      <td th:text=${course.id}>id</td>
+      <td th:text=${course.name}>name</td>
+	  <td th:text=${course.size}>size</td>
+	  <td th:text=${course.credit}>credit</td>
+	  <td th:text=${course.enrolments.size}>Current Enrollment</td>
+	  <td><a class="btn btn-secondary" href="#" th:href="@{'/lecturer/enrolment/' + ${lecturer.id} + '/' + ${course.id}}" role="button">View Enrolment</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<br/>
+<footer th:fragment="footer">
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/homepage'}">Back to Home</a>
+		<br/>
+		 <small>Now is: <b
+			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
+</footer>
+</body>
+</html>

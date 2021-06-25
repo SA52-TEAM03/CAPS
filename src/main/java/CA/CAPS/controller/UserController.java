@@ -52,7 +52,7 @@ public class UserController {
 		} else if (uservice.authenticate(lecturer)) {
 			Lecturer u = uservice.findByLecturerUserName(lecturer.getUserName());
 			session.setAttribute("usession", u);
-			return "lecturer/homepage";
+			return ("forward:/lecturer/homepage");
 		}
 		return "login";
 	}
