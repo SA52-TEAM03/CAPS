@@ -6,4 +6,6 @@ import CA.CAPS.domain.Lecturer;
 
 public interface LecturerRepository extends JpaRepository<Lecturer, Integer> {
 
+	Lecturer findLecturerByUserName(String userName);
+	
 }

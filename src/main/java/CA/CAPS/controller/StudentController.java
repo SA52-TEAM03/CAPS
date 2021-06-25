@@ -47,7 +47,7 @@ public class StudentController {
 		//To update the student after implement log in function
 	    List<Course> coursesTakenByStudent = enrolmentService.findCourseByStudent(studentService.getById(4));
 	    
-	    List<Course> allCourses = courseService.findAll();
+	    List<Course> allCourses = courseService.listAllCourses();
 	    
 	    List<Course> coursesNotTakenByStudent = new ArrayList<Course>();
 	    
