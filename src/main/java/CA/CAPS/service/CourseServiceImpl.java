@@ -31,7 +31,10 @@ public class CourseServiceImpl implements CourseService {
 	public Course getById(Integer id) {
 		return courseRepo.getById(id);
 	}
-
 	
+	@Override
+	public List<Course> findLecturerCourses(int id) {
+		return courseRepo.findCoursesByLecturerId(id);
+	}
 
 }

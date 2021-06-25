@@ -13,5 +13,13 @@ public interface EnrolmentService {
 	public List<Enrolment> findByStudent(Student student);
 	
 	public List<Course> findCourseByStudent(Student student);
+	
+	public List<Student> findStudentsByCourse(int id);
+	
+	public List<Integer> findGradesByCourse(int id);
+	
+	public List<Enrolment> findEnrolByStudent(int id);
+	
+	public List<Integer> findGradeByStudent(int id);
 
 }

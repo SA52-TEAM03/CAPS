@@ -35,5 +35,25 @@ public class EnrolmentServiceImpl implements EnrolmentService{
 		return enrolmentRepo.findCourseByStudent(student);
 	}
 	
+	@Override
+	public List<Student> findStudentsByCourse(int id) {
+		return enrolmentRepo.findStudentIdbyCourseId(id);
+	}
+
+	@Override
+	public List<Integer> findGradesByCourse(int id) {
+		return enrolmentRepo.findGradeByCourseId(id);
+	}
+
+	@Override
+	public List<Enrolment> findEnrolByStudent(int id) {
+		return enrolmentRepo.findEnrolByStudentId(id);
+	}
+
+	@Override
+	public List<Integer> findGradeByStudent(int id) {
+		return enrolmentRepo.findGradeByStudentId(id);
+	}
+	
 
 }
