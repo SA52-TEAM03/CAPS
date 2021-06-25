@@ -1,4 +1,18 @@
-You have successfully enroll for the course!
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-	<a href="student-view-courses.html" href="@{/student/courses}">View Courses</a>
-	<a href="student-view-courses.html" href="@{/student/grades}">View grades</a>
+<head>
+<meta charset="UTF-8">
+
+<title>Student Grades</title>
+
+</head>
+
+<body>
+
+	<p> You have successfully enroll for the course! </p>
+	
+	<a th:href="@{/student/courses}">View Courses</a>
+	
+</body>
+</html>
