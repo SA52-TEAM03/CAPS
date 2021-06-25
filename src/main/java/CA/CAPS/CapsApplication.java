@@ -75,9 +75,9 @@ public class CapsApplication {
 			crepo.save(course3);
 			crepo.save(course4);
 
-			Lecturer lecturer1 = new Lecturer("liufan", "123456");
-			Lecturer lecturer2 = new Lecturer("cherhwa", "123456");
-			Lecturer lecturer3 = new Lecturer("tin", "123456");
+			Lecturer lecturer1 = new Lecturer("liufan@u.nus.edu", "123456");
+			Lecturer lecturer2 = new Lecturer("cherhwa@u.nus.edu", "123456");
+			Lecturer lecturer3 = new Lecturer("tin@u.nus.edu", "123456");
 			lrepo.save(lecturer1);
 			lrepo.save(lecturer2);
 			lrepo.save(lecturer3);

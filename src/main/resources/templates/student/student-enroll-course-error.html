@@ -1,4 +1,17 @@
-You can't enroll for the course because the class size reach maximum capacity!
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
 
-	<a href="student-view-courses.html" href="@{/student/courses}">View Courses</a>
-	<a href="student-view-courses.html" href="@{/student/grades}">View grades</a>
+<title>Student Grades</title>
+
+</head>
+
+<body>
+	<ul>
+		<li><a th:href="@{/logout}">logout</a></li>
+	</ul>
+	<p>You can't enroll for the course because the class size reach
+		maximum capacity!</p>
+</body>
+</html>

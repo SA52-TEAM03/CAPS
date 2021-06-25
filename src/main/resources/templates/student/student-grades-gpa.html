@@ -7,10 +7,10 @@
 <title>Student Grades</title>
 
 </head>
-<ul>
-<li><a th:href="@{/logout}">logout</a></li>
-</ul>
 <body>
+	<ul>
+		<li><a th:href="@{/logout}">logout</a></li>
+	</ul>
 	<h1>Welcome Page</h1>
 	<h2 th:utext="'Hello '+${session.usession.userName}">Hello</h2>
 

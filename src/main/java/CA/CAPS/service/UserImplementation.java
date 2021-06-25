@@ -10,13 +10,12 @@ import CA.CAPS.domain.Student;
 import CA.CAPS.repo.LecturerRepository;
 import CA.CAPS.repo.StudentRepository;
 
-
 @Service
 public class UserImplementation implements UserService {
 
 	@Autowired
-	StudentRepository srepo;	
-	
+	StudentRepository srepo;
+
 	@Autowired
 	LecturerRepository lrepo;
 
@@ -44,15 +43,15 @@ public class UserImplementation implements UserService {
 	@Override
 	public boolean authenticate(Student student) {
 		Student fromDB = srepo.findUserByUserNameAndPassword(student.getUserName(), student.getPassword());
-		if (fromDB.getUserName().equals(student.getUserName()) && fromDB.getPassword().equals(student.getPassword()))
-			return true;
-		else
+		if (fromDB == null)
 			return false;
+		else
+			return true;
 	}
 
 	@Override
 	public Student findByStudentUserName(String userName) {
-   		return srepo.findUserByUserName(userName);
+		return srepo.findUserByUserName(userName);
 	}
 
 	@Override
@@ -78,14 +77,14 @@ public class UserImplementation implements UserService {
 	@Override
 	public boolean authenticate(Lecturer lecturer) {
 		Lecturer fromDB = lrepo.findUserByUserNameAndPassword(lecturer.getUserName(), lecturer.getPassword());
-		if (fromDB.getUserName().equals(lecturer.getUserName()) && fromDB.getPassword().equals(lecturer.getPassword()))
-			return true;
-		else
+		if (fromDB==null)
 			return false;
+		else
+			return true;
 	}
 
 	@Override
 	public Lecturer findByLecturerUserName(String userName) {
-   		return lrepo.findUserByUserName(userName);
+		return lrepo.findUserByUserName(userName);
 	}
 }
