@@ -15,26 +15,53 @@ public class CourseServiceImpl implements CourseService {
 	private CourseRepository courseRepo;
 
 	@Override
-	public List<Course> findAll() {
-		
-		return courseRepo.findAll();
-	}
-
-	@Override
-	public void save(Course course) {
-
+	public void saveCourse(Course course) {
 		courseRepo.save(course);
-		
 	}
 
 	@Override
-	public Course getById(Integer id) {
-		return courseRepo.getById(id);
+	public void updateCourse(Course course) {
+		courseRepo.save(course);
+	}
+
+	@Override
+	public void deleteCourse(Course course) {
+		courseRepo.delete(course);
+	}
+	
+	@Override
+	public List<Course> listAllCourses() {
+		return courseRepo.findAll();
 	}
 	
 	@Override
 	public List<Course> findLecturerCourses(int id) {
 		return courseRepo.findCoursesByLecturerId(id);
+	}
+	
+	public List<Course> listAllCoursesOrderByCode(){
+		return courseRepo.listAllCourseOrderByCode();
+	}
+	
+	@Override
+	public Course findById(Integer id) {
+		return courseRepo.findById(id).get();
+	}
+	
+	@Override
+	public Course findByCode(String code) {
+		return courseRepo.findCourseByCode(code);
+	}
+
+	@Override
+	public Boolean isCodeExist(Course course) {
+		for (Course c : courseRepo.findAll()) {
+			if (c.getId()==course.getId())
+				continue;
+			if (c.getCode().equalsIgnoreCase(course.getCode()))
+				return true;
+		}
+		return false;
 	}
 
 }

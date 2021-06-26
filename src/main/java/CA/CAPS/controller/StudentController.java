@@ -50,7 +50,7 @@ public class StudentController {
 
 		List<Course> coursesTakenByStudent = enrolmentService.findCourseByStudent(student);
 	    
-	    List<Course> allCourses = courseService.findAll();
+	    List<Course> allCourses = courseService.listAllCourses();
 	    
 	    List<Course> coursesNotTakenByStudent = new ArrayList<Course>();
 	    
