@@ -36,7 +36,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 </div>
 <br/>
 <footer th:fragment="footer">
-		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/homepage'}">Back to Home</a>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/' + ${session.lsession.id}}">Back to Home</a>
 		<br/>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>

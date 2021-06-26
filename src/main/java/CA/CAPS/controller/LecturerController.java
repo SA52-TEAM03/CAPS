@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,24 +38,43 @@ public class LecturerController {
 	@Autowired
 	private StudentService ss;
 	
+	@RequestMapping(path = "/login")
+	public String login(Model model) {
+		Lecturer lecturer = new Lecturer();
+		model.addAttribute("lecturer", lecturer);
+		return "lecturer/lecturer-login";
+	}
+	
+	@GetMapping("/authenticate")
+	public String authenticate(@ModelAttribute("lecturer") Lecturer lec, Model model, HttpSession session) {
+		
+		if(ls.authenticateLecturer(lec.getUserName(), lec.getPassword())) {
+			Lecturer lecturer = ls.findLecturerByUserName(lec.getUserName());
+			session.setAttribute("lsession", lecturer);
+			int id = lecturer.getId();
+			
+			return ("forward:/lecturer/" + id);
+		}
+		
+		return "index";
+	}
+	
+	@RequestMapping(path = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "forward:/lecturer/login";
+	}
 	
 	@GetMapping("/{id}") //need to setup HttpSession subsequently
-	public String getHomePage(Model model, HttpSession session) {
-		
-		Lecturer lecturer=(Lecturer) session.getAttribute("usession");
-		
-		model.addAttribute("lecturer", lecturer);
-		
+	public String getHomePage(@PathVariable("id") int id, Model model) {
+		model.addAttribute("lecturer", ls.findLecturer(id));
 		return "lecturer/lecturer-index";
 	}
 	
 	@GetMapping("/courses/{id}")
 	public String getLecturerCourse(@PathVariable("id") int id, Model model) {
-		
 		model.addAttribute("courses", cs.findLecturerCourses(id));
-		
 		model.addAttribute("lecturer", ls.findLecturer(id));
-		
 		return "lecturer/lecturer-view-courses";
 	}
 	
@@ -62,7 +82,7 @@ public class LecturerController {
 	public String getCourseEnrolment(@PathVariable("id") int id, @PathVariable("courseId") int courseId, Model model) {
 		model.addAttribute("students", es.findStudentsByCourse(courseId));
 		model.addAttribute("lecturer", ls.findLecturer(id));
-		model.addAttribute("course", cs.getById(courseId));
+		model.addAttribute("course", cs.findById(courseId));
 		model.addAttribute("grades", es.findGradesByCourse(courseId));
 		model.addAttribute("lecturerCourses", cs.findLecturerCourses(id));
 		return "lecturer/lecturer-view-enrolment";
@@ -75,7 +95,7 @@ public class LecturerController {
 		model.addAttribute("student", ss.getById(studentId));
 		
 		List<Enrolment> enrols = es.findEnrolByStudent(studentId);
-		List<Course> courses = cs.findAll();
+		List<Course> courses = cs.listAllCourses();
 		
 		List<String> courseName = new ArrayList<>();
 		for(Enrolment enrol : enrols) {
