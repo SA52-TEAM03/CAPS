@@ -10,7 +10,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
 <div>
 <br/>
-<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course: ' + ${course.name}">Class List</h2>
+<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course: '+ ${course.name} ">Class List</h2>
 
 <div class="btn-group" role="group" aria-label="Basic example" th:each="course : ${lecturerCourses}">
   <a class="btn btn-secondary" href="#" th:href="@{'/lecturer/enrolment/' + ${lecturer.id} + '/' + ${course.id}}" role="button" th:text=${course.name}>Courses</a>
@@ -40,7 +40,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 </div>
 <br/>
 <footer th:fragment="footer">
-		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/' + ${session.lsession.id}}">Back to Home</a>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/' + ${session.usession.id}}">Back to Home</a>
 		<br/>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>

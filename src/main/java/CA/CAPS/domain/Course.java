@@ -25,23 +25,30 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@Column(unique = true)
 	@NotEmpty(message="Code is required")
 	@Pattern(regexp="^[a-zA-Z0-9]*", message = "Code must not contain special characters")
 	private String code;
+	
 	@NotEmpty(message="Name is required")
 	private String name;
+	
 	@NotNull(message="Size is required")
 	@Range(min = 0, max = 100)
 	private Integer size;
+	
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
 	private Collection<Enrolment> enrolments;
+	
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "lecturer_id", nullable = true)
 	private Lecturer lecturer;
+	
 	@NotNull(message="Credit is required")
 	@Range(min = 3, max = 8)
 	private Integer credit;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 

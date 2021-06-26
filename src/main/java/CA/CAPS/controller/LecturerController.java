@@ -3,20 +3,17 @@ package CA.CAPS.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
-import CA.CAPS.domain.Lecturer;
 import CA.CAPS.service.CourseService;
 import CA.CAPS.service.EnrolmentService;
 import CA.CAPS.service.LecturerService;
@@ -37,33 +34,6 @@ public class LecturerController {
 	
 	@Autowired
 	private StudentService ss;
-	
-	@RequestMapping(path = "/login")
-	public String login(Model model) {
-		Lecturer lecturer = new Lecturer();
-		model.addAttribute("lecturer", lecturer);
-		return "lecturer/lecturer-login";
-	}
-	
-	@GetMapping("/authenticate")
-	public String authenticate(@ModelAttribute("lecturer") Lecturer lec, Model model, HttpSession session) {
-		
-		if(ls.authenticateLecturer(lec.getUserName(), lec.getPassword())) {
-			Lecturer lecturer = ls.findLecturerByUserName(lec.getUserName());
-			session.setAttribute("lsession", lecturer);
-			int id = lecturer.getId();
-			
-			return ("forward:/lecturer/" + id);
-		}
-		
-		return "index";
-	}
-	
-	@RequestMapping(path = "/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "forward:/lecturer/login";
-	}
 	
 	@GetMapping("/{id}") //need to setup HttpSession subsequently
 	public String getHomePage(@PathVariable("id") int id, Model model) {

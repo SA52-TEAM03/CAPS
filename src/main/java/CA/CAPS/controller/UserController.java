@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import CA.CAPS.domain.Lecturer;
@@ -52,8 +53,8 @@ public class UserController {
 		} else if (uservice.authenticate(lecturer)) {
 			Lecturer u = uservice.findByLecturerUserName(lecturer.getUserName());
 			session.setAttribute("usession", u);
-			return ("forward:/lecturer/homepage");
-		}
+			int id = u.getId();
+			return ("forward:/lecturer/" + id);}
 		return "login";
 	}
 }

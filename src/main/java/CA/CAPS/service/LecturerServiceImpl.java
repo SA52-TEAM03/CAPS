@@ -21,16 +21,6 @@ public class LecturerServiceImpl implements LecturerService{
 	}
 
 	@Override
-	public boolean authenticateLecturer(String userName, String password) {
-		
-		Lecturer lecturer = lecturerRepo.findUserByUserNameAndPassword(userName, password);
-		if(lecturer != null) {
-			return true;
-		}
-		return false;
-	}
-
-	@Override
 	public Lecturer findLecturerByUserName(String userName) {
 		return lecturerRepo.findUserByUserName(userName);
 	}

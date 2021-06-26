@@ -7,9 +7,7 @@ import CA.CAPS.domain.Lecturer;
 public interface LecturerService {
 
 	public Lecturer findLecturer(int id);
-	
-	public boolean authenticateLecturer(String userName, String password);
-	
+		
 	public Lecturer findLecturerByUserName(String userName);
 	public void saveLecturer(Lecturer lecturer);
 	public void deleteLecturer(Lecturer lecturer);
