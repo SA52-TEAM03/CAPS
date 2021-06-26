@@ -82,7 +82,7 @@ public class LecturerController {
 	public String getCourseEnrolment(@PathVariable("id") int id, @PathVariable("courseId") int courseId, Model model) {
 		model.addAttribute("students", es.findStudentsByCourse(courseId));
 		model.addAttribute("lecturer", ls.findLecturer(id));
-		model.addAttribute("course", cs.getById(courseId));
+		model.addAttribute("course", cs.findById(courseId));
 		model.addAttribute("grades", es.findGradesByCourse(courseId));
 		model.addAttribute("lecturerCourses", cs.findLecturerCourses(id));
 		return "lecturer/lecturer-view-enrolment";
@@ -95,7 +95,7 @@ public class LecturerController {
 		model.addAttribute("student", ss.getById(studentId));
 		
 		List<Enrolment> enrols = es.findEnrolByStudent(studentId);
-		List<Course> courses = cs.findAll();
+		List<Course> courses = cs.listAllCourses();
 		
 		List<String> courseName = new ArrayList<>();
 		for(Enrolment enrol : enrols) {

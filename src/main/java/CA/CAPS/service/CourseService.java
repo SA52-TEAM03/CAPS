@@ -15,10 +15,6 @@ public interface CourseService {
 	public Course findByCode(String code);
 	public Boolean isCodeExist(Course course);
 	
-	public void save(Course course);
-	
-	public Course getById(Integer id);
-	
 	public List<Course> findLecturerCourses(int id);
 
 }
