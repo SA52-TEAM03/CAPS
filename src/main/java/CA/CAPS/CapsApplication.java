@@ -66,18 +66,19 @@ public class CapsApplication {
 			srepo.save(student7);
 			srepo.save(student8);
 
-			Course course1 = new Course("FOPCS", 50, 5);
-			Course course2 = new Course("C#", 50, 5);
-			Course course3 = new Course("JAVA", 50, 5);
-			Course course4 = new Course(".NET", 50, 5);
+			Course course1 = new Course("COMP101","FOPCS", 50, 5, LocalDate.of(2021, 8, 01));
+			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01));
+			Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01));
+			Course course4 = new Course("COMP104", ".NET", 50, 5, LocalDate.of(2021, 8, 01));
+
 			crepo.save(course1);
 			crepo.save(course2);
 			crepo.save(course3);
 			crepo.save(course4);
 
-			Lecturer lecturer1 = new Lecturer("liufan@u.nus.edu", "123456");
-			Lecturer lecturer2 = new Lecturer("cherhwa@u.nus.edu", "123456");
-			Lecturer lecturer3 = new Lecturer("tin@u.nus.edu", "123456");
+			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "liufan@u.nus.edu", "123456");
+			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "cherhwa@u.nus.edu", "123456");
+			Lecturer lecturer3 = new Lecturer("Tri","Tin", "tin@u.nus.edu", "123456");
 			lrepo.save(lecturer1);
 			lrepo.save(lecturer2);
 			lrepo.save(lecturer3);

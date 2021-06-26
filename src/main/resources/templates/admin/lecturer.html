@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Management</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css"
+	 th:href="@{/style.css}" />
+</head>
+
+<body style="margin-left: 20px; margin-top:20px">
+	<header th:insert="admin/fragments/general.html :: header"> </header>
+	<div th:replace="admin/fragments/general.html :: menu"></div>
+	<h1>Manage Lecturers</h1>
+	<!-- Add Hyperlink -->
+	<a class="btn btn-primary" href="lecturerform.html" th:href="@{/admin/lecturer/add}">Add Lecturer</a>
+
+	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(lecturers)}">Course List</h2>
+	<table th:if="${not #lists.isEmpty(lecturers)}">
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Username</th>
+			<th>Password</th>
+			<th>Edit Lecturer</th>
+			<th>Delete Lecturer</th>
+		</tr>
+		<tr th:each="lecturer:${lecturers}">
+			<td th:text="${lecturer.firstName}">First Name</td>
+			<td th:text="${lecturer.lastName}">Last Name</td>
+			<td th:text="${lecturer.userName}">Username</td>
+			<td th:text="${lecturer.password}">Password</td>
+			<td><a class="btn btn-secondary" 
+				th:href="@{/admin/lecturer/edit/}+${lecturer.Id}">Edit</a></td>
+			<td><a class="btn btn-outline-danger" 
+				th:href="@{/admin/lecturer/delete/}+${lecturer.Id}">Delete</a></td>
+		</tr>
+	</table>
+	 <br/>
+	<div th:replace="admin/fragments/general.html :: footer"></div>
+</body>
+
+</html>
