@@ -46,7 +46,7 @@ public class Course {
 	private Lecturer lecturer;
 	
 	@NotNull(message="Credit is required")
-	@Range(min = 3, max = 8)
+	@Range(min = 2, max = 12)
 	private Integer credit;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
