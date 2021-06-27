@@ -42,7 +42,7 @@ public class EnrolmentServiceImpl implements EnrolmentService{
 
 	@Override
 	public List<Integer> findGradesByCourse(int id) {
-		return enrolmentRepo.findGradeByCourseId(id);
+		return enrolmentRepo.findMarksByCourseId(id);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class EnrolmentServiceImpl implements EnrolmentService{
 
 	@Override
 	public List<Integer> findGradeByStudent(int id) {
-		return enrolmentRepo.findGradeByStudentId(id);
+		return enrolmentRepo.findMarksByStudentId(id);
 	}
 	
 
