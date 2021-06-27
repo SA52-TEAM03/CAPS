@@ -56,7 +56,7 @@ public class Enrolment {
 		this.course = course;
 	}
 
-	public int getGrade() {
+	public Integer getGrade() {
 		return grade;
 	}
 

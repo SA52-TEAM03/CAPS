@@ -37,8 +37,20 @@ public class StudentController {
 		Student student=(Student) session.getAttribute("usession");
 
 		List<Enrolment> enrolments = enrolmentService.findByStudent(student);
+		
+		List<String> grades = new ArrayList<String>();
+		
+		for(Enrolment enrolment : enrolments) {					
+			
+			if(enrolment.getGrade() == null) {				
+				grades.add(" ");				
+			}else {				
+				grades.add(String.valueOf(enrolment.getGrade()));				
+			}			
+		}		
 				
 		model.addAttribute("enrolments", enrolments);
+		model.addAttribute("grades", grades);
 		
 		return "student/student-grades-gpa";
 	}
