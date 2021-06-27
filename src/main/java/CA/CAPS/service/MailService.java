@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @Service
@@ -17,15 +15,12 @@ public class MailService {
 	@Value("${spring.mail.username}")
 	private String from;
 
-	public boolean sendMail(String email, HttpSession session) {
+	public boolean sendMail(String toemail, String subject, String text) {
 		try {
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
-			mailMessage.setSubject("validation code for CAPS registration");
-			String code = randomCode();
-			session.setAttribute("email", email);
-			session.setAttribute("code", code);
-			mailMessage.setText("Your registration verification code is: " + code);
-			mailMessage.setTo(email);
+			mailMessage.setSubject(subject);
+			mailMessage.setText(text);
+			mailMessage.setTo(toemail);
 			mailMessage.setFrom(from);
 			mailSender.send(mailMessage);
 			return true;
@@ -35,7 +30,7 @@ public class MailService {
 		}
 	}
 
-	public String randomCode() {
+	public String ValidationCode() {
 		StringBuilder str = new StringBuilder();
 		Random random = new Random();
 		for (int i = 0; i < 6; i++) {
