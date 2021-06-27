@@ -1,44 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Student Courses</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+		<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
+	</head>
 
-<title>Student Grades</title>
-
-</head>
-
-<body>
-	<ul>
-		<li><a th:href="@{/logout}">logout</a></li>
-	</ul>
-
-	<h1>Welcome Page</h1>
-	<h2 th:utext="'Hello '+${session.usession.userName}">Hello</h2>
-
-	<!-- Add Hyperlink -->
-	<a th:href="@{/student/grades}">View grades</a>
-
-	<h1>Courses</h1>
-
-	<table th:if="${not #lists.isEmpty(courses)}">
-		<tr>
-			<th>Course Id</th>
-			<th>Course Name</th>
-			<th>Credits</th>
-			<th>Enroll</th>
-		</tr>
-
-		<tr th:each="course:${courses}">
-
-			<td th:text=${course.id}>id</td>
-			<td th:text=${course.name}>Course Name</td>
-			<td th:text=${course.credit}>Credit</td>
-			<td><a th:href="@{/student/enroll-course/}+${course.id}">Enroll</a></td>
-
-		</tr>
-	</table>
-	<p>
-		<span th:utext="#{custom.message(${session.usession.userName})}"></span>
-	</p>
-</body>
+	<body>
+		<div>
+			<header th:fragment="copyh">
+				<table>
+					<tr style="margin-left: 20px; margin-top:20px">
+						<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
+						<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
+					</tr>
+				</table>
+				<h2 th:utext="'Welcome ' + ${session.usession.userName}">Welcome</h2>
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarNav">
+						<ul class="navbar-nav">
+							<li class="nav-item active">
+								<a class="nav-link" href="#" th:href="@{/student/grades}">Grades & GPA</a>
+							</li>
+							<li class="nav-item active">
+								<a class="nav-link" href="#" th:href="@{/student/courses}">View & Enroll Courses</a>
+							</li>
+						</ul>
+					</div>
+					<a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
+				</nav>
+			</header>
+			<br/>
+			<h2 th:if="${not #lists.isEmpty(courses)}">Course List</h2>
+			<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
+				<thead>
+				    <tr>
+				      <th scope="col">Course Id</th>
+				      <th scope="col">Name</th>
+				      <th scope="col">Current Enrollment</th>
+				      <th></th>
+				    </tr>
+			    </thead>
+				<tbody>
+					<tr th:each="course:${courses}">
+						<td th:text=${course.id}>Course Id</td>
+						<td th:text=${course.name}>Course Name</td>
+						<td><a class="btn btn-secondary" th:href="@{/student/enroll-course/}+${course.id}">Enroll Now</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br/>
+		<footer th:fragment="footer">
+			<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/student/grades}">Back to Home</a>
+			<br/>
+			<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> 
+			<br /> 
+			<small>(c)Course Application Processing System , ISS, NUS 2021</small>
+		</footer>
+	</body>
 </html>
