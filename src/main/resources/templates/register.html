@@ -19,20 +19,43 @@
 		xmlhttp.send();
 	}
 
-	function validate() {
+	function validateForm() {
+		document.getElementById('p1').innerHTML = "";
+		document.getElementById("emailcheck").innerHTML = "";
+		document.getElementById("vcodecheck").innerHTML = "";
+		document.getElementById("firstnamecheck").innerHTML = "";
+		document.getElementById("lastnamecheck").innerHTML = "";
+		document.getElementById("pw1check").innerHTML = "";
+		document.getElementById("pw2check").innerHTML = "";
+
+		var email = document.getElementById("email").value;
+		var validationcode = document.getElementById("vcode").value;
+		var firstname = document.getElementById("firstname").value;
+		var lastname = document.getElementById("lastname").value;
 		var pw1 = document.getElementById("pw1").value;
 		var pw2 = document.getElementById("pw2").value;
-		if (pw1 == pw2) {
-			document.getElementById("reminder").innerHTML = "<font color='green'>ok</font>";
-			document.getElementById("submit").disabled = false;
-		} else {
-			document.getElementById("reminder").innerHTML = "<font color='red'>different password</font>";
-			document.getElementById("submit").disabled = true;
-		}
-	}
 
-	function eliminate() {
-		document.getElementById('p1').innerHTML = "";
+		if (email.search("@u.nus.edu") < 0) {
+			document.getElementById("emailcheck").innerHTML = "<font color='red'>please use nus email for registration</font>";
+			return false;
+		} else if (validationcode == "") {
+			document.getElementById("vcodecheck").innerHTML = "<font color='red'>validation code can not be null</font>";
+			return false;
+		} else if (firstname == "") {
+			document.getElementById("firstnamecheck").innerHTML = "<font color='red'>firstname can not be null</font>";
+			return false;
+		} else if (lastname == "") {
+			document.getElementById("lastnamecheck").innerHTML = "<font color='red'>lastname can not be null</font>";
+			return false;
+		} else if (pw1 == "") {
+			document.getElementById("pw1check").innerHTML = "<font color='red'>password can not be null</font>";
+			return false;
+		} else if (pw1 != pw2) {
+			document.getElementById("pw2check").innerHTML = "<font color='red'>different password</font>";
+			return false;
+		} else {
+			return true;
+		}
 	}
 </script>
 <style type="text/css">
@@ -66,28 +89,35 @@ footer {
 	<p id="p1">
 		<span th:text="${message}"></span>
 	</p>
-	<form action="/regist" method="post">
+	<form action="/regist" method="post" id="form">
 		<fieldset>
-			Email: <input type="text" name="userName" id="email" onkeyup="eliminate()">
+			Email: <input type="text" name="userName" id="email"><span
+				id="emailcheck"></span>
 		</fieldset>
 		<fieldset>
-			Validation code: <input type="text" name="vcode" id="validationcode">
+			Validation code: <input type="text" name="vcode" id="vcode"><span
+				id="vcodecheck"></span>
 		</fieldset>
 		<fieldset>
-			FirstName: <input type="text" name="firstName" id="firstname">
+			FirstName: <input type="text" name="firstName" id="firstname"
+				onKeyUp="value=value.replace(/[^a-zA-Z]/g,'')"><span
+				id="firstnamecheck"></span>
 		</fieldset>
 		<fieldset>
-			LastName: <input type="text" name="lastName" id="lastname">
+			LastName: <input type="text" name="lastName" id="lastname"
+				onKeyUp="value=value.replace(/[^a-zA-Z]/g,'')"><span
+				id="lastnamecheck"></span>
 		</fieldset>
 		<fieldset>
-			Password: <input type="password" id="pw1">
+			Password: <input type="password" id="pw1"><span id="pw1check"></span>
 		</fieldset>
 		<fieldset>
-			Ensure Password: <input type="password" name="password" id="pw2"
-				onkeyup="validate()"><span id="reminder"></span>
+			Ensure Password: <input type="password" name="password" id="pw2"><span
+				id="pw2check"></span>
 		</fieldset>
 		<fieldset>
-			<button type="submit" id="submit">register</button>
+			<input type="submit" id="submit" onclick="return validateForm()"
+				value="register">
 		</fieldset>
 	</form>
 	<button onclick="loadXMLDoc()">send validation code</button>

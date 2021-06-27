@@ -7,6 +7,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 @Service
 public class MailService {
 	@Autowired
@@ -28,6 +30,15 @@ public class MailService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public boolean sendValidationCode(String email, HttpSession session) {
+		String code = ValidationCode();
+		session.setAttribute("email", email);
+		session.setAttribute("code", code);
+		String subject = "validation code for CAPS registration";
+		String text = "Your registration verification code is: " + code;
+		return sendMail(email, subject, text);
 	}
 
 	public String ValidationCode() {

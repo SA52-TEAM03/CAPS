@@ -61,6 +61,7 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.enrollmentDate = enrollmentDate;
+		this.enrolments = new ArrayList<Enrolment>();
 	}
 
 	public Student(String userName, String password, String firstName, String lastName) {
