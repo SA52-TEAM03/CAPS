@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function loadXMLDoc() {
+		var email = document.getElementById('email').value;
+		var xmlhttp = new XMLHttpRequest();
+
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && this.status == 200) {
+				document.getElementById('p1').innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("POST", '/sendEmail/' + email, true);
+		xmlhttp.setRequestHeader("Content-Type",
+				"application/x-www-form-urlencoded; charset=utf8");
+		xmlhttp.send();
+	}
+
+	function validate() {
+		var pw1 = document.getElementById("pw1").value;
+		var pw2 = document.getElementById("pw2").value;
+		if (pw1 == pw2) {
+			document.getElementById("reminder").innerHTML = "<font color='green'>ok</font>";
+			document.getElementById("submit").disabled = false;
+		} else {
+			document.getElementById("reminder").innerHTML = "<font color='red'>different password</font>";
+			document.getElementById("submit").disabled = true;
+		}
+	}
+
+	function eliminate() {
+		document.getElementById('p1').innerHTML = "";
+	}
+</script>
+<style type="text/css">
+form {
+	float: left;
+	text-align: center;
+}
+
+botton {
+	float: left;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100% ；
+}
+</style>
+</head>
+<body>
+	<h1>Register Form</h1>
+	<header>
+		<nav>
+			<div>
+				<ul>
+					<li><a th:href="@{/}">login</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<p id="p1">
+		<span th:text="${message}"></span>
+	</p>
+	<form action="/regist" method="post">
+		<fieldset>
+			Email: <input type="text" name="userName" id="email"
+				onkeyup="eliminate()">
+		</fieldset>
+		<fieldset>
+			Validation code: <input type="text" name="vcode">
+		</fieldset>
+		<fieldset>
+			FirstName: <input type="text" name="firstName">
+		</fieldset>
+		<fieldset>
+			LastName: <input type="text" name="lastName">
+		</fieldset>
+		<fieldset>
+			Password: <input type="password" id="pw1">
+		</fieldset>
+		<fieldset>
+			Ensure Password: <input type="password" name="password" id="pw2"
+				onkeyup="validate()"><span id="reminder"></span>
+		</fieldset>
+		<fieldset>
+			Role:<select name="role">
+				<option value="student">Student</option>
+				<option value="lecturer">Lecturer</option>
+				<option value="admin">Manager</option>
+			</select>
+		</fieldset>
+		<fieldset>
+			EnrolmentDate(only required for student): <input type="date"
+				name="date">
+		</fieldset>
+		<fieldset>
+			<button type="submit" id="submit">register</button>
+		</fieldset>
+	</form>
+	<button onclick="loadXMLDoc()">send validation code</button>
+	<footer>
+		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> <br />
+		<small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
+</body>
+</html>

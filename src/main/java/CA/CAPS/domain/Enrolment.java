@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Range;
+
 
 @Entity
 @IdClass(enrolmentUPK.class)
@@ -17,6 +19,7 @@ public class Enrolment {
 	@Id
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private Course course;
+	@Range(min = 0, max = 100)
 	private Integer grade;
 
 	public Enrolment(Student student, Course course, Integer grade) {

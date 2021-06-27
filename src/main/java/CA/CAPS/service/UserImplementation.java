@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import CA.CAPS.domain.Admin;
 import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
+import CA.CAPS.repo.AdminRepository;
 import CA.CAPS.repo.LecturerRepository;
 import CA.CAPS.repo.StudentRepository;
 
@@ -18,6 +20,9 @@ public class UserImplementation implements UserService {
 
 	@Autowired
 	LecturerRepository lrepo;
+
+	@Autowired
+	AdminRepository arepo;
 
 	@Override
 	public void createStudent(Student student) {
@@ -42,8 +47,8 @@ public class UserImplementation implements UserService {
 
 	@Override
 	public boolean authenticate(Student student) {
-		Student fromDB = srepo.findUserByUserNameAndPassword(student.getUserName(), student.getPassword());
-		if (fromDB != null)
+		Student fromDB = srepo.findUserByUserName(student.getUserName());
+		if (fromDB != null && fromDB.getPassword().equals(student.getPassword()))
 			return true;
 		else
 			return false;
@@ -76,8 +81,8 @@ public class UserImplementation implements UserService {
 
 	@Override
 	public boolean authenticate(Lecturer lecturer) {
-		Lecturer fromDB = lrepo.findUserByUserNameAndPassword(lecturer.getUserName(), lecturer.getPassword());
-		if (fromDB!=null)
+		Lecturer fromDB = lrepo.findUserByUserName(lecturer.getUserName());
+		if (fromDB != null && fromDB.getPassword().equals(lecturer.getPassword()))
 			return true;
 		else
 			return false;
@@ -86,5 +91,35 @@ public class UserImplementation implements UserService {
 	@Override
 	public Lecturer findByLecturerUserName(String userName) {
 		return lrepo.findUserByUserName(userName);
+	}
+
+	@Override
+	public boolean authenticate(Admin admin) {
+		Admin fromDB = arepo.findUserByUserName(admin.getUserName());
+		if (fromDB != null && fromDB.getPassword().equals(admin.getPassword()))
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public Admin findByAdminUserName(String userName) {
+		return arepo.findUserByUserName(userName);
+	}
+
+	@Override
+	public void createAdmin(Admin admin) {
+		arepo.save(admin);
+	}
+
+	@Override
+	public Object findByUserName(String userName) {
+		if (this.findByAdminUserName(userName) != null)
+			return this.findByAdminUserName(userName);
+		else if (this.findByLecturerUserName(userName) != null)
+			return this.findByLecturerUserName(userName);
+		else if (this.findByStudentUserName(userName) != null)
+			return this.findByStudentUserName(userName);
+		return null;
 	}
 }

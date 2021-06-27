@@ -6,5 +6,6 @@ import CA.CAPS.domain.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 	public Student findUserByUserNameAndPassword(String userName, String password);
-    public Student findUserByUserName(String userName);
+
+	public Student findUserByUserName(String userName);
 }

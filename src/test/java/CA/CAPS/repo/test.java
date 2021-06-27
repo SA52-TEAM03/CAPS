@@ -4,11 +4,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,9 +34,6 @@ public class test {
 
 	@Autowired
 	private CourseRepository crepo;
-
-	@Autowired
-	private EnrolmentRepository erepo;
 
 	@Test
 	@Order(1)
