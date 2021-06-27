@@ -1,0 +1,27 @@
+package CA.CAPS.service;
+
+import java.util.List;
+
+import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Lecturer;
+
+public interface AdminService {
+
+	public void saveLecturer(Lecturer lecturer);
+	public void deleteLecturer(Lecturer lecturer);
+	public List<Lecturer> listAllLecturers();
+	public Lecturer findByUserName(String name);
+	public Lecturer findLecturerById(Integer id);
+	public Boolean isUserNameExist(Lecturer lecturer);
+	public void removeLecturerFromCourses(Lecturer Lecturer);
+	
+	public void saveCourse(Course course);
+	public void updateCourse(Course course);
+	public void deleteCourse(Course course);
+	public List<Course> listAllCourses();
+	public List<Course> listAllCoursesOrderByCode();
+	public Course findCourseById(Integer id);
+	public Course findByCode(String code);
+	public Boolean isCodeExist(Course course);
+	
+}
