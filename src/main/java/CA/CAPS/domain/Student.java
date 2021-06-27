@@ -58,10 +58,18 @@ public class Student {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.enrolments = new ArrayList<Enrolment>();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.enrollmentDate = enrollmentDate;
+	}
+
+	public Student(String userName, String password, String firstName, String lastName) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.enrolments = new ArrayList<Enrolment>();
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	public Student(String userName, String password) {

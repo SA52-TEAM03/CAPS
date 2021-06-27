@@ -55,7 +55,7 @@ public class UserImplementation implements UserService {
 	}
 
 	@Override
-	public Student findByStudentUserName(String userName) {
+	public Student findStudentByUserName(String userName) {
 		return srepo.findUserByUserName(userName);
 	}
 
@@ -89,7 +89,7 @@ public class UserImplementation implements UserService {
 	}
 
 	@Override
-	public Lecturer findByLecturerUserName(String userName) {
+	public Lecturer findLecturerByUserName(String userName) {
 		return lrepo.findUserByUserName(userName);
 	}
 
@@ -103,7 +103,7 @@ public class UserImplementation implements UserService {
 	}
 
 	@Override
-	public Admin findByAdminUserName(String userName) {
+	public Admin findAdminByUserName(String userName) {
 		return arepo.findUserByUserName(userName);
 	}
 
@@ -114,12 +114,12 @@ public class UserImplementation implements UserService {
 
 	@Override
 	public Object findByUserName(String userName) {
-		if (this.findByAdminUserName(userName) != null)
-			return this.findByAdminUserName(userName);
-		else if (this.findByLecturerUserName(userName) != null)
-			return this.findByLecturerUserName(userName);
-		else if (this.findByStudentUserName(userName) != null)
-			return this.findByStudentUserName(userName);
+		if (this.findAdminByUserName(userName) != null)
+			return this.findAdminByUserName(userName);
+		else if (this.findLecturerByUserName(userName) != null)
+			return this.findLecturerByUserName(userName);
+		else if (this.findStudentByUserName(userName) != null)
+			return this.findStudentByUserName(userName);
 		return null;
 	}
 }

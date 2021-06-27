@@ -1,8 +1,5 @@
 package CA.CAPS.controller;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,61 +38,25 @@ public class UserController {
 
 	@PostMapping("/regist")
 	public String register(String userName, String vcode, String firstName, String lastName, String password,
-			String role, String date, Model model, HttpSession session) {
+			Model model, HttpSession session) {
+
+		Student student = uservice.findStudentByUserName(userName);
+
+		if (student != null) {
+			model.addAttribute("message", "The student already exists.");
+			return "register";
+		}
+		
 		String email = (String) session.getAttribute("email");
 		String code = (String) session.getAttribute("code");
 
-		Object user = uservice.findByUserName(userName);
-
-		if (user != null) {
-			model.addAttribute("message", "The user already exists.");
-			return "register";
-		}
-
 		if (userName.equals(email) && vcode.equals(code)) {
-			if (role.equals("student")) {
-
-				DateTimeFormatter df1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-				LocalDate enrollmentDate;
-
-				if (date.equals("")) {
-					model.addAttribute("message", "missing enrolmentDate for student.");
-					return "register";
-				} else {
-					enrollmentDate = LocalDate.parse(date, df1);
-				}
-
-				Student newstudent = new Student(userName, password, firstName, lastName, enrollmentDate);
-				uservice.createStudent(newstudent);
-				Student s = uservice.findByStudentUserName(userName);
-				session.setAttribute("usession", s);
-				return "redirect:/student/grades";
-
-			} else if (role.equals("lecturer")) {
-
-				Lecturer newlecturer = new Lecturer(firstName, lastName, userName, password);
-				uservice.createLecturer(newlecturer);
-				Lecturer l = uservice.findByLecturerUserName(userName);
-				session.setAttribute("usession", l);
-				int id = l.getId();
-				return ("redirect:/lecturer/" + id);
-
-			} else if (role.equals("admin")) {
-
-				Admin newadmin = new Admin(firstName, lastName, userName, password);
-				uservice.createAdmin(newadmin);
-				Admin a = uservice.findByAdminUserName(userName);
-				session.setAttribute("usession", a);
-				return "redirect:/AdminStudent/list";
-
-			} else {
-
-				return "register";
-			}
-		} else
-
-		{
-
+			Student newstudent = new Student(userName, password, firstName, lastName);
+			uservice.createStudent(newstudent);
+			Student s = uservice.findStudentByUserName(userName);
+			session.setAttribute("usession", s);
+			return "redirect:/student/grades";
+		} else {
 			model.addAttribute("message", "Incorrect email or validation code.");
 			return "register";
 		}
@@ -138,18 +99,18 @@ public class UserController {
 		Admin admin = new Admin(userName, password);
 
 		if (uservice.authenticate(student)) {
-			Student u = uservice.findByStudentUserName(student.getUserName());
+			Student u = uservice.findStudentByUserName(student.getUserName());
 			session.setAttribute("usession", u);
 			return "redirect:/student/grades";
 
 		} else if (uservice.authenticate(lecturer)) {
-			Lecturer u = uservice.findByLecturerUserName(lecturer.getUserName());
+			Lecturer u = uservice.findLecturerByUserName(lecturer.getUserName());
 			session.setAttribute("usession", u);
 			int id = u.getId();
 			return ("redirect:/lecturer/" + id);
 
 		} else if (uservice.authenticate(admin)) {
-			Admin u = uservice.findByAdminUserName(admin.getUserName());
+			Admin u = uservice.findAdminByUserName(admin.getUserName());
 			session.setAttribute("usession", u);
 			return "redirect:/AdminStudent/list";
 		}

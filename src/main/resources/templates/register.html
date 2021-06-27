@@ -68,17 +68,16 @@ footer {
 	</p>
 	<form action="/regist" method="post">
 		<fieldset>
-			Email: <input type="text" name="userName" id="email"
-				onkeyup="eliminate()">
+			Email: <input type="text" name="userName" id="email" onkeyup="eliminate()">
 		</fieldset>
 		<fieldset>
-			Validation code: <input type="text" name="vcode">
+			Validation code: <input type="text" name="vcode" id="validationcode">
 		</fieldset>
 		<fieldset>
-			FirstName: <input type="text" name="firstName">
+			FirstName: <input type="text" name="firstName" id="firstname">
 		</fieldset>
 		<fieldset>
-			LastName: <input type="text" name="lastName">
+			LastName: <input type="text" name="lastName" id="lastname">
 		</fieldset>
 		<fieldset>
 			Password: <input type="password" id="pw1">
@@ -86,17 +85,6 @@ footer {
 		<fieldset>
 			Ensure Password: <input type="password" name="password" id="pw2"
 				onkeyup="validate()"><span id="reminder"></span>
-		</fieldset>
-		<fieldset>
-			Role:<select name="role">
-				<option value="student">Student</option>
-				<option value="lecturer">Lecturer</option>
-				<option value="admin">Manager</option>
-			</select>
-		</fieldset>
-		<fieldset>
-			EnrolmentDate(only required for student): <input type="date"
-				name="date">
 		</fieldset>
 		<fieldset>
 			<button type="submit" id="submit">register</button>
