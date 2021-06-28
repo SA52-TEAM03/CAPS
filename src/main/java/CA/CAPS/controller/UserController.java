@@ -32,7 +32,7 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/register")
-	public String register(Model model) {
+	public String register() {
 		return "register";
 	}
 
@@ -46,7 +46,7 @@ public class UserController {
 			model.addAttribute("message", "The student already exists.");
 			return "register";
 		}
-		
+
 		String email = (String) session.getAttribute("email");
 		String code = (String) session.getAttribute("code");
 
@@ -62,11 +62,11 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/sendEmail/{email}")
 	@ResponseBody
+	@PostMapping("/sendEmail/{email}")
 	public String sendEmail(@PathVariable("email") String email, HttpSession session) {
 
-		if (email.length() > 10 && email.substring(email.length() - 10, email.length()).equals("@u.nus.edu")) {
+		if (email.length() > 10 && email.endsWith("@u.nus.edu")) {
 
 			String code = mailservice.ValidationCode();
 			session.setAttribute("email", email);
@@ -75,7 +75,9 @@ public class UserController {
 			String subject = "validation code for CAPS registration";
 			String text = "Your registration verification code is: " + code;
 
-			if (mailservice.sendMail(email, subject, text)) {
+			boolean mailsent = mailservice.sendMail(email, subject, text);
+
+			if (mailsent == true) {
 				return "The verification code has been sent to your email.";
 			} else {
 				return "Oops, something wrong with our mail server, please register after a while";

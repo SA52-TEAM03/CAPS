@@ -11,7 +11,7 @@ import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
 
 @Component
-public class LoggingInterceptor implements HandlerInterceptor {
+public class LoginInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
