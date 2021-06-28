@@ -8,13 +8,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 </head>
 <body>
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
-<div>
 <br/>
-<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course: '+ ${course.name} ">Class List</h2>
-
+<div>
 <div class="btn-group" role="group" aria-label="Basic example" th:each="course : ${lecturerCourses}">
-  <a class="btn btn-secondary" href="#" th:href="@{'/lecturer/enrolment/' + ${lecturer.id} + '/' + ${course.id}}" role="button" th:text=${course.name}>Courses</a>
+  <a class="btn btn-secondary" href="#" th:href="@{'/lecturer/enrolment/' + ${course.id}}" role="button" th:text=${course.name}>Courses</a>
 </div>
+<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course Enrolment: '+ ${course.name} +' '+ ${course.code}">Class List</h2>
 <div>
 <table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
   <thead>
@@ -32,15 +31,15 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
       <td  th:text="${student.firstName + ' ' + student.lastName}">Name</td>
 	  <td  th:text=${student.enrollmentDate}>Enrollment Date</td>
 	  <td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grades</td>
-	  <td><a class="btn btn-secondary" href="#" th:href="@{'/lecturer/student/' + ${lecturer.id} + '/' + ${student.id}}" role="button" th:text="${grades[iStat.index]}!=null? 'Edit Grade' : 'Add Grade'">Add Grade</a></td>
+	  <td><a class="btn btn-secondary" href="#" th:href="@{'/lecturer/student/' + ${student.id}}" role="button" th:text="${grades[iStat.index]}!=null? 'Edit Grade' : 'Add Grade'">Add Grade</a></td>
 	</tr>
   </tbody>
 </table>
 </div>
 </div>
 <br/>
-<footer th:fragment="footer">
-		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/' + ${session.usession.id}}">Back to Home</a>
+<footer>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/lecturer/courses}">Back to Home</a>
 		<br/>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
