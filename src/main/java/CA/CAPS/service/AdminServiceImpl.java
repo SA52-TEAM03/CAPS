@@ -85,15 +85,15 @@ public class AdminServiceImpl implements AdminService {
 		for (Lecturer l : lecturerRepo.findAll()) {
 			if(l.getId()==lecturer.getId())
 				continue;
-			if(l.getUserName().equals(lecturer.getUserName()))
+			if(l.getUserName().equalsIgnoreCase(lecturer.getUserName()))
 				return true;
 		}
 		for (Student s : studentRepo.findAll()) {
-			if (s.getUserName().equals(lecturer.getUserName()))
+			if (s.getUserName().equalsIgnoreCase(lecturer.getUserName()))
 				return true;
 		}
 		for (Admin a : adminRepo.findAll()) {
-			if (a.getUserName().equals(lecturer.getUserName()))
+			if (a.getUserName().equalsIgnoreCase(lecturer.getUserName()))
 				return true;
 		}
 		return false;

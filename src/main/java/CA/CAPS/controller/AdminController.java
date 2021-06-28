@@ -69,9 +69,9 @@ public class AdminController {
 					+ "Username: " + lecturer.getUserName() + "\n"
 					+ "Password: " + lecturer.getPassword();
 
-			boolean mailsent = mailservice.sendMail(lecturer.getUserName(), subject, text);
+			boolean mailSent = mailservice.sendMail(lecturer.getUserName(), subject, text);
 			
-			if (mailsent)
+			if (mailSent)
 				message = "You have created Lecturer " + lecturer + ". Acount details has been sent to the Lecturer.";
 			else
 				message = "You have created Lecturer " + lecturer + ".";			
@@ -100,7 +100,7 @@ public class AdminController {
 		adminService.removeLecturerFromCourses(lecturer);
 		adminService.deleteLecturer(lecturer);
 		
-		String message = "You have deleted Lectuerer " + lecturer;
+		String message = "You have deleted Lecturer " + lecturer + ".";	
 		model.addAttribute("message", message);
 		
 		return "forward:/admin/lecturer/list";
@@ -155,10 +155,28 @@ public class AdminController {
 			course.setLecturer(adminService.findByUserName(course.getLecturer().getUserName()));
 		
 		String message = "";
-		if (course.getId()==0)
-			message = "You have created Course " + course + ".";
-		else
-			message = "You have updated Course " + course + ".";
+		if (course.getId()==0) {
+			String subject = "Course Assignment";
+			String text = "Below course has been assigned to you.\n"
+					+ "Code: " + course.getCode() + "\n"
+					+ "Name: " + course.getName() + "\n"
+					+ "Start Date: " + course.getStartDate() + "\n"
+					+ "End Date: " + course.getStartDate().plusDays(course.getDuration()) + "\n"
+					+ "Duration: " + course.getDuration() + "\n"
+					+ "Lecturer: " + course.getLecturer();
+
+			boolean mailSent = false;
+			if (course.getLecturer()!=null)
+				mailSent = mailservice.sendMail(course.getLecturer().getUserName(), subject, text);
+			
+			if (mailSent)
+				message = "You have created Course " + course + ". Course details has been sent to the assigned Lecturer.";
+			else
+				message = "You have created Course " + course + ".";	
+		}
+		else {
+			message = "You have updated Course " + course + ".";	
+		}
 		
 		adminService.saveCourse(course);
 		model.addAttribute("message", message);
@@ -181,7 +199,7 @@ public class AdminController {
 		Course course = adminService.findCourseById(id);
 		adminService.deleteCourse(course);
 		
-		String message = " You have deleted Course " + course;
+		String message = "You have deleted Course " + course + ".";			
 		model.addAttribute("message", message);
 		
 		return "forward:/admin/course/list";
