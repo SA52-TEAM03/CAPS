@@ -42,14 +42,14 @@ public class CapsApplication {
 		return args -> {
 			LocalDate date = LocalDate.now();
 
-			Student student1 = new Student("william@u.nus.edu", "123456", "william", "lastName", date);
-			Student student2 = new Student("larry@u.nus.edu", "123456", "larry", "lastName", date);
-			Student student3 = new Student("min@u.nus.edu", "123456", "min", "lastName", date);
-			Student student4 = new Student("andy@u.nus.edu", "123456", "andy", "lastName", date);
-			Student student5 = new Student("kaman@u.nus.edu", "123456", "kaman", "lastName", date);
-			Student student6 = new Student("jiakuang@u.nus.edu", "123456", "jiakuang", "lastName", date);
-			Student student7 = new Student("xunlong@u.nus.edu", "123456", "xunlong", "lastName", date);
-			Student student8 = new Student("danlin@u.nus.edu", "123456", "danlin", "lastName", date);
+			Student student1 = new Student("student1@email.com", "123456", "william", "lastName", date);
+			Student student2 = new Student("student2@email.com", "123456", "larry", "lastName", date);
+			Student student3 = new Student("student3@email.com", "123456", "min", "lastName", date);
+			Student student4 = new Student("student4@email.com", "123456", "andy", "lastName", date);
+			Student student5 = new Student("student5@email.com", "123456", "kaman", "lastName", date);
+			Student student6 = new Student("student6@email.com", "123456", "jiakuang", "lastName", date);
+			Student student7 = new Student("student7@email.com", "123456", "xunlong", "lastName", date);
+			Student student8 = new Student("student8@email.com", "123456", "danlin", "lastName", date);
 			srepo.save(student1);
 			srepo.save(student2);
 			srepo.save(student3);
@@ -69,9 +69,9 @@ public class CapsApplication {
 			crepo.save(course3);
 			crepo.save(course4);
 
-			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "liufan@u.nus.edu", "123456");
-			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "cherhwa@u.nus.edu", "123456");
-			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "tin@u.nus.edu", "123456");
+			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@u.nus.edu", "123456");
+			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "lecturer2@u.nus.edu", "123456");
+			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@u.nus.edu", "123456");
 			lrepo.save(lecturer1);
 			lrepo.save(lecturer2);
 			lrepo.save(lecturer3);			
@@ -99,8 +99,8 @@ public class CapsApplication {
 			srepo.save(student3);
 			srepo.save(student4);
 			
-			Admin admin1=new Admin("esther", "tan", "esther@u.nus.edu", "123456");
-			Admin admin2=new Admin("megan", "wang", "megan@u.nus.edu", "123456");
+			Admin admin1=new Admin("esther", "tan", "admin1@u.nus.edu", "123456");
+			Admin admin2=new Admin("megan", "wang", "admin2@u.nus.edu", "123456");
 			arepo.save(admin1);
 			arepo.save(admin2);
 			
