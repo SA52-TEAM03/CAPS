@@ -26,21 +26,12 @@ import CA.CAPS.service.StudentService;
 public class LecturerController {
 
 	@Autowired
-	private LecturerService ls;
-	
-	@Autowired
-	private CourseService cs;
-	
-	@Autowired
-	private EnrolmentService es;
-	
-	@Autowired
-	private StudentService ss;
+	private LecturerService lecturerService;
 	
 	@GetMapping("/index")
 	public String getHomePage(Model model, HttpSession session) {
 		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
-		model.addAttribute("lecturer", ls.findLecturer(lecturer.getId()));
+		model.addAttribute("lecturer", lecturerService.findLecturer(lecturer.getId()));
 		return "lecturer/lecturer-index";
 	}
 	
@@ -48,8 +39,8 @@ public class LecturerController {
 	public String getLecturerCourse(Model model, HttpSession session) {
 		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
 		int id = lecturer.getId();
-		model.addAttribute("courses", cs.findLecturerCourses(id));
-		model.addAttribute("lecturer", ls.findLecturer(id));
+		model.addAttribute("courses", lecturerService.findLecturerCourses(id));
+		model.addAttribute("lecturer", lecturerService.findLecturer(id));
 		return "lecturer/lecturer-view-courses";
 	}
 	
@@ -64,13 +55,13 @@ public class LecturerController {
 			model.addAttribute("grades", new ArrayList<>());
 		} 
 		else {
-			model.addAttribute("students", es.findStudentsByCourse(courseId));
-			model.addAttribute("course", cs.findById(courseId));
-			model.addAttribute("grades", es.findGradesByCourse(courseId));
+			model.addAttribute("students", lecturerService.findStudentsByCourse(courseId));
+			model.addAttribute("course", lecturerService.findById(courseId));
+			model.addAttribute("grades", lecturerService.findGradesByCourse(courseId));
 		}
 		
-		model.addAttribute("lecturer", ls.findLecturer(id));
-		model.addAttribute("lecturerCourses", cs.findLecturerCourses(id));
+		model.addAttribute("lecturer", lecturer);
+		model.addAttribute("lecturerCourses", lecturerService.findLecturerCourses(id));
 		return "lecturer/lecturer-view-enrolment";
 	}
 	
@@ -79,11 +70,11 @@ public class LecturerController {
 		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
 		int id = lecturer.getId();
 		
-		model.addAttribute("lecturer", ls.findLecturer(id));
-		model.addAttribute("student", ss.getById(studentId));
+		model.addAttribute("lecturer", lecturerService.findLecturer(id));
+		model.addAttribute("student", lecturerService.getById(studentId));
 		
-		List<Enrolment> enrols = es.findEnrolByStudent(studentId);
-		List<Course> courses = cs.listAllCourses();
+		List<Enrolment> enrols = lecturerService.findEnrolByStudent(studentId);
+		List<Course> courses = lecturerService.listAllCourses();
 		
 		List<String> courseName = new ArrayList<>();
 		for(Enrolment enrol : enrols) {
@@ -95,8 +86,8 @@ public class LecturerController {
 		}
 		model.addAttribute("enrolments", enrols);
 		model.addAttribute("courseName", courseName);
-		model.addAttribute("grades", es.findGradeByStudent(studentId));
-		return "lecturer/lecture-view-student";
+		model.addAttribute("grades", lecturerService.findGradeByStudent(studentId));
+		return "lecturer/lecturer-view-student";
 	}
 	
 	@GetMapping("/save/{studentId}/{courseId}")
@@ -104,11 +95,11 @@ public class LecturerController {
 			@PathVariable("studentId") int studentId, 
 			@PathVariable("courseId") int courseId) {
 		
-		List<Enrolment> enrolments = es.findEnrolByStudent(studentId);
+		List<Enrolment> enrolments = lecturerService.findEnrolByStudent(studentId);
 		for(Enrolment enrolment : enrolments) {
 			if(enrolment.getCourse().getId() == courseId) {
 				enrolment.setGrade(grade);
-				es.save(enrolment);
+				lecturerService.save(enrolment);
 			}
 		}
 		

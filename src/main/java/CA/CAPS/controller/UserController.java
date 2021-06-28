@@ -106,8 +106,7 @@ public class UserController {
 		} else if (uservice.authenticate(lecturer)) {
 			Lecturer u = uservice.findLecturerByUserName(lecturer.getUserName());
 			session.setAttribute("usession", u);
-			int id = u.getId();
-			return ("redirect:/lecturer/" + id);
+			return ("redirect:/lecturer/courses");
 
 		} else if (uservice.authenticate(admin)) {
 			Admin u = uservice.findAdminByUserName(admin.getUserName());

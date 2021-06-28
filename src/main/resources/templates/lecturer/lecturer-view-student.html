@@ -32,7 +32,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th  scope="col">Course Id</th>
+      <th  scope="col">Course Code</th>
       <th  scope="col">Name</th>
       <th  scope="col">Grade</th>
       <th  scope="col">Changes</th>
@@ -40,7 +40,7 @@
   </thead>
   <tbody>
     <tr th:each="enrolment, iStat : ${enrolments}">
-      <td  th:text=${enrolment.course.id}>Id</td>
+      <td  th:text=${enrolment.course.code}>Id</td>
       <td  th:text=${courseName[iStat.index]}>Name</td>
 	  <td  th:text="(${grades[iStat.index]} != null)? ${grades[iStat.index]} : ''">Grade</td>
 	  <td>
@@ -57,8 +57,8 @@
 </table>
 </div>
 <br/>
-<footer th:fragment="footer">
-		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/lecturer/index}">Back to Home</a>
+<footer>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/lecturer/courses}">Back to Home</a>
 		<br/>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
