@@ -3,6 +3,7 @@ package CA.CAPS.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
+import CA.CAPS.domain.Lecturer;
 import CA.CAPS.service.CourseService;
 import CA.CAPS.service.EnrolmentService;
 import CA.CAPS.service.LecturerService;
@@ -35,31 +37,47 @@ public class LecturerController {
 	@Autowired
 	private StudentService ss;
 	
-	@GetMapping("/{id}") //need to setup HttpSession subsequently
-	public String getHomePage(@PathVariable("id") int id, Model model) {
-		model.addAttribute("lecturer", ls.findLecturer(id));
+	@GetMapping("/index")
+	public String getHomePage(Model model, HttpSession session) {
+		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+		model.addAttribute("lecturer", ls.findLecturer(lecturer.getId()));
 		return "lecturer/lecturer-index";
 	}
 	
-	@GetMapping("/courses/{id}")
-	public String getLecturerCourse(@PathVariable("id") int id, Model model) {
+	@GetMapping("/courses")
+	public String getLecturerCourse(Model model, HttpSession session) {
+		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+		int id = lecturer.getId();
 		model.addAttribute("courses", cs.findLecturerCourses(id));
 		model.addAttribute("lecturer", ls.findLecturer(id));
 		return "lecturer/lecturer-view-courses";
 	}
 	
-	@GetMapping("/enrolment/{id}/{courseId}")
-	public String getCourseEnrolment(@PathVariable("id") int id, @PathVariable("courseId") int courseId, Model model) {
-		model.addAttribute("students", es.findStudentsByCourse(courseId));
+	@GetMapping("/enrolment/{courseId}")
+	public String getCourseEnrolment(@PathVariable("courseId") int courseId, Model model, HttpSession session) {
+		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+		int id = lecturer.getId();
+		
+		if(courseId == 0) {
+			model.addAttribute("students", new ArrayList<>());
+			model.addAttribute("course", new Course());
+			model.addAttribute("grades", new ArrayList<>());
+		} 
+		else {
+			model.addAttribute("students", es.findStudentsByCourse(courseId));
+			model.addAttribute("course", cs.findById(courseId));
+			model.addAttribute("grades", es.findGradesByCourse(courseId));
+		}
+		
 		model.addAttribute("lecturer", ls.findLecturer(id));
-		model.addAttribute("course", cs.findById(courseId));
-		model.addAttribute("grades", es.findGradesByCourse(courseId));
 		model.addAttribute("lecturerCourses", cs.findLecturerCourses(id));
 		return "lecturer/lecturer-view-enrolment";
 	}
 	
-	@GetMapping("/student/{id}/{studentId}")
-	public String getStudent(@PathVariable("id") int id, @PathVariable("studentId") int studentId, Model model) {
+	@GetMapping("/student/{studentId}")
+	public String getStudent(@PathVariable("studentId") int studentId, Model model, HttpSession session) {
+		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+		int id = lecturer.getId();
 		
 		model.addAttribute("lecturer", ls.findLecturer(id));
 		model.addAttribute("student", ss.getById(studentId));
@@ -81,9 +99,8 @@ public class LecturerController {
 		return "lecturer/lecture-view-student";
 	}
 	
-	@GetMapping("/save/{id}/{studentId}/{courseId}")
+	@GetMapping("/save/{studentId}/{courseId}")
 	public String saveGrade(@RequestParam(value="grade") int grade,
-			@PathVariable("id") int lecturerId,
 			@PathVariable("studentId") int studentId, 
 			@PathVariable("courseId") int courseId) {
 		
@@ -95,7 +112,7 @@ public class LecturerController {
 			}
 		}
 		
-		return ("forward:/lecturer/student/" + lecturerId + "/" + studentId);
+		return ("forward:/lecturer/student/" + studentId);
 	}
 }
 

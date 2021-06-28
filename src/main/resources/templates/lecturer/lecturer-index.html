@@ -22,10 +22,10 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#" th:href="@{'/lecturer/courses/' + ${lecturer.id}}">View Teaching Courses</a>
+        <a class="nav-link" href="#" th:href="@{/lecturer/courses/}">View Teaching Courses</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="#" th:href="@{'/lecturer/enrolment/' + ${lecturer.id} +'/0'}">Course Enrollment/Grading</a>
+        <a class="nav-link" href="#" th:href="@{'/lecturer/enrolment/' +'/0'}">Course Enrollment/Grading</a>
       </li>
     </ul>
   </div>
