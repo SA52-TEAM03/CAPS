@@ -1,5 +1,7 @@
 package CA.CAPS.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +59,23 @@ public class StudentServiceImpl implements StudentService{
 		Enrolment enrolment = new Enrolment(studentRepo.getById(studentId), courseRepo.getById(courseId));
 		
 		enrolmentRepo.save(enrolment);
+	}
+	
+	@Override
+	public List<Enrolment> findEnrolmentsByStudent(Student student) {
+		
+		return enrolmentRepo.findByStudent(student);
+	}
+	
+	@Override
+	public List<Course> findCoursesEnrolledByStudent(Student student) {
+		
+		return enrolmentRepo.findCourseByStudent(student);
+	}
+	
+	@Override
+	public List<Course> listAllCourses() {
+		return courseRepo.findAll();
 	}
 	
 

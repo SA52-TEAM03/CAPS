@@ -14,29 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Student;
-import CA.CAPS.service.CourseServiceImpl;
-import CA.CAPS.service.EnrolmentServiceImpl;
 import CA.CAPS.service.StudentServiceImpl;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+		
 	
 	@Autowired
-	private EnrolmentServiceImpl enrolmentService;
-	
-	@Autowired
-	private StudentServiceImpl studentService;
-	
-	@Autowired
-	private CourseServiceImpl courseService;
+	private StudentServiceImpl studentService;	
+
 
 	@RequestMapping("/grades")
 	public String showGrades(Model model, HttpSession session) {
 		
 		Student student=(Student) session.getAttribute("usession");
 
-		List<Enrolment> enrolments = enrolmentService.findByStudent(student);
+		List<Enrolment> enrolments = studentService.findEnrolmentsByStudent(student);
 		
 		List<String> grades = new ArrayList<String>();
 		
@@ -60,9 +54,9 @@ public class StudentController {
 		
 		Student student=(Student) session.getAttribute("usession");
 
-		List<Course> coursesTakenByStudent = enrolmentService.findCourseByStudent(student);
+		List<Course> coursesTakenByStudent = studentService.findCoursesEnrolledByStudent(student);
 	    
-	    List<Course> allCourses = courseService.listAllCourses();
+	    List<Course> allCourses = studentService.listAllCourses();
 	    
 	    List<Course> coursesNotTakenByStudent = new ArrayList<Course>();
 	    
