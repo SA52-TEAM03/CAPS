@@ -159,7 +159,7 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", size=" + size + ", credit=" + credit + "]";
+		return code + " " + name;
 	}
 
 }

@@ -1,6 +1,5 @@
 package CA.CAPS.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,24 +135,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Page<Course> findCoursePaginated(Pageable pageable){
 		return new PageImpl<Course>(listAllCourses(pageable), pageable, courseRepo.findAll().size());
-	}
-	
-	@Override
-	public List<LocalDate> listAllCoursesEndDate(){
-		List<LocalDate> endDate = new ArrayList<LocalDate>();
-		for(Course c : courseRepo.findAll()) {
-			endDate.add(c.getStartDate().plusDays(c.getDuration()));			
-		}
-		return endDate;
-	}
-	
-	@Override
-	public List<LocalDate> listAllCoursesEndDate(Pageable pageable){
-		List<LocalDate> endDate = new ArrayList<LocalDate>();
-		for(Course c : listAllCourses(pageable)) {
-			endDate.add(c.getStartDate().plusDays(c.getDuration()));			
-		}
-		return endDate;
 	}
 	
 	@Override

@@ -15,6 +15,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<h1>Manage Lecturers</h1>
 	<!-- Add Hyperlink -->
 	<a class="btn btn-primary" href="lecturerform.html" th:href="@{/admin/lecturer/add}">Add Lecturer</a>
+	<span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(lecturers)}">Lecturer List</h2>
 	<table th:if="${not #lists.isEmpty(lecturers)}">
