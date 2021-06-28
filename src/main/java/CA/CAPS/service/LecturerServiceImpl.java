@@ -1,5 +1,6 @@
 package CA.CAPS.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import CA.CAPS.repo.CourseRepository;
 import CA.CAPS.repo.EnrolmentRepository;
 import CA.CAPS.repo.LecturerRepository;
 import CA.CAPS.repo.StudentRepository;
+import CA.CAPS.util.GradeCount;
 
 @Service
 public class LecturerServiceImpl implements LecturerService {
@@ -83,4 +85,36 @@ public class LecturerServiceImpl implements LecturerService {
 	public void save(Enrolment enrolment) {	
 		enrolmentRepo.save(enrolment);	
 	}
+
+	@Override
+	public List<GradeCount> getDataPoints(int id) {
+		
+		List<GradeCount> gradeCounts = new ArrayList<>();
+		
+		List<Integer> grades = findGradesByCourse(id);	
+		List<Integer> gradeList = new ArrayList<>();
+		List<Integer> gradeNum = new ArrayList<>();
+		
+		for(int grade : grades) {
+			if(gradeList.contains(grade)){
+				int index = gradeList.indexOf(grade);
+				int count = gradeNum.get(index);
+				count++;
+				gradeNum.add(index, count);
+			}
+			else {
+				gradeList.add(grade);
+				gradeNum.add(1);
+			}
+		}
+		
+		for(int i = 0; i < gradeList.size(); i++) {
+			GradeCount gradeCount = new GradeCount();
+			gradeCount.setX(gradeList.get(i));
+			gradeCount.setY(gradeNum.get(i));
+			gradeCounts.add(gradeCount);
+		}
+		return gradeCounts;
+	}
+
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Course Result</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+</head>
+<body>
+<div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
+<h2 th:text="${course.code} +' ' + ${course.name} + ' Result Chart'">Course Name</h2>
+<br/>
+<script th:inline="javascript">
+window.onload = function() {
+/*<![CDATA[*/
+
+    var pontos = /*[[${data}]]*/ 'default';
+    
+    pontos.forEach(myFunction);
+    function myFunction(value, index, array) {
+    	console.log(value); 
+    }    
+    
+    var chart = new CanvasJS.Chart("chartContainer", {
+    	animationEnabled: true,
+    	theme: "light2",
+    	axisX: {
+    		title:"Grades",
+    		interval: 10,
+    		minimum: 0,
+    		maximum: 100
+    	},
+    	axisY:{
+    		title:"Number of Students",
+    		includeZero: false,
+    		interval: 1
+    	},
+    	dataPointWidth: 10,
+    	data: [{        
+    		type: "column",       
+    		dataPoints: []
+    	}]
+    });
+    chart.render();			
+
+    /*<![CDATA[*/
+    	/* Update dataPoints from AJAX and render the chart*/	
+    		chart.options.data[0].dataPoints = pontos;	
+    		chart.render();		
+    /*]]>*/
+    	
+}	
+</script>    
+    <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+    <footer>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/enrolment/' + ${course.id}}">Back to Enrolment</a>
+		<br/>
+		 <small>Now is: <b
+			th:text="${execInfo.now.time}"></b></small> <br /> <small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
+import CA.CAPS.util.GradeCount;
 
 public interface LecturerService {
 
@@ -31,4 +32,5 @@ public interface LecturerService {
 	
 	public void save(Enrolment enrolment);
 
+	public List<GradeCount> getDataPoints(int id);
 }

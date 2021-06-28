@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
-import CA.CAPS.service.CourseService;
-import CA.CAPS.service.EnrolmentService;
 import CA.CAPS.service.LecturerService;
-import CA.CAPS.service.StudentService;
+import CA.CAPS.util.GradeCount;
 
 @Controller
 @RequestMapping("/lecturer")
@@ -104,6 +103,16 @@ public class LecturerController {
 		}
 		
 		return ("forward:/lecturer/student/" + studentId);
+	}
+	
+	@GetMapping("/plot/{courseId}")
+	public String plotGrades(@PathVariable("courseId") int courseId, ModelMap model) {	
+		
+		List<GradeCount> data = lecturerService.getDataPoints(courseId);
+		Course course = lecturerService.findById(courseId);
+		model.addAttribute("data", data);		
+		model.addAttribute("course", course);
+		return "lecturer/plot";
 	}
 }
 
