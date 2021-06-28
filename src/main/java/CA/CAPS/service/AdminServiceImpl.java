@@ -1,14 +1,23 @@
 package CA.CAPS.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import CA.CAPS.domain.Admin;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Lecturer;
+import CA.CAPS.domain.Student;
+import CA.CAPS.repo.AdminRepository;
 import CA.CAPS.repo.CourseRepository;
 import CA.CAPS.repo.LecturerRepository;
+import CA.CAPS.repo.StudentRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -18,6 +27,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private CourseRepository courseRepo;
+	
+	@Autowired
+	private StudentRepository studentRepo;
+	
+	@Autowired
+	private AdminRepository adminRepo;
 
 	@Override
 	public void saveLecturer(Lecturer lecturer) {
@@ -32,6 +47,23 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Lecturer> listAllLecturers() {
 		return lecturerRepo.findAll();
+	}	
+	
+	@Override
+    public List<Lecturer> listAllLecturers(Pageable pageable){
+ 
+        Page<Lecturer> pagedResult = lecturerRepo.findAll(pageable);
+         
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Lecturer>();
+        }
+    }
+	
+	@Override
+	public Page<Lecturer> findLecturerPaginated(Pageable pageable){
+		return new PageImpl<Lecturer>(listAllLecturers(pageable), pageable, lecturerRepo.findAll().size());
 	}
 
 	@Override
@@ -50,6 +82,14 @@ public class AdminServiceImpl implements AdminService {
 			if(l.getId()==lecturer.getId())
 				continue;
 			if(l.getUserName().equals(lecturer.getUserName()))
+				return true;
+		}
+		for (Student s : studentRepo.findAll()) {
+			if (s.getUserName().equals(lecturer.getUserName()))
+				return true;
+		}
+		for (Admin a : adminRepo.findAll()) {
+			if (a.getUserName().equals(lecturer.getUserName()))
 				return true;
 		}
 		return false;
@@ -82,8 +122,38 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List<Course> listAllCoursesOrderByCode(){
-		return courseRepo.listAllCourseOrderByCode();
+    public List<Course> listAllCourses(Pageable pageable){
+ 
+        Page<Course> pagedResult = courseRepo.findAll(pageable);
+         
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Course>();
+        }
+    }
+	
+	@Override
+	public Page<Course> findCoursePaginated(Pageable pageable){
+		return new PageImpl<Course>(listAllCourses(pageable), pageable, courseRepo.findAll().size());
+	}
+	
+	@Override
+	public List<LocalDate> listAllCoursesEndDate(){
+		List<LocalDate> endDate = new ArrayList<LocalDate>();
+		for(Course c : courseRepo.findAll()) {
+			endDate.add(c.getStartDate().plusDays(c.getDuration()));			
+		}
+		return endDate;
+	}
+	
+	@Override
+	public List<LocalDate> listAllCoursesEndDate(Pageable pageable){
+		List<LocalDate> endDate = new ArrayList<LocalDate>();
+		for(Course c : listAllCourses(pageable)) {
+			endDate.add(c.getStartDate().plusDays(c.getDuration()));			
+		}
+		return endDate;
 	}
 	
 	@Override
@@ -97,7 +167,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Boolean isCodeExist(Course course) {
+	public Boolean isCourseCodeExist(Course course) {
 		for (Course c : courseRepo.findAll()) {
 			if (c.getId()==course.getId())
 				continue;

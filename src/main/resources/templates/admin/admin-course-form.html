@@ -15,19 +15,19 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div class="row">
     <div class="col-sm-10">
 	<h1 class="mb-4">Course Form</h1>
-		<form class="form-card" action="" th:object="${course}" th:action="@{/admin/course/save}" method="get">
+		<form class="form-card" action="" th:object="${course}" th:action="@{/admin/course/save}" method="post">
 			<input type="hidden" class="form-control" th:field="*{id}" />
 			<div class="row justify-content-start text-left">
 				<div class="form-group col-sm-5">						              
 					<label>
-						Code<span class="text-danger"> *</span>
+						Code<span class="text-danger">*</span>
 					</label>
 					<input type="text" class="form-control" th:field="*{code}"> 
 					<p class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p>	
 				</div>
 				<div class="form-group col-sm-5">        							
 					<label>
-						Name<span class="text-danger"> *</span>
+						Name<span class="text-danger">*</span>
 					</label>
 						<input type="text" class="form-control" th:field="*{name}">
 						<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
@@ -36,14 +36,14 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<div class="row justify-content-start text-left">
 				<div class="form-group col-sm-5">	
 					<label>
-						Size <span class="text-danger"> *</span>
+						Size<span class="text-danger">*</span>
 					</label>
 					<input type="number" class="form-control" th:field="*{size}">
 					<p class="text-danger" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
 				</div>				
 				<div class="form-group col-sm-5">
 					<label>
-						Credit <span class="text-danger"> *</span>
+						Credit<span class="text-danger">*</span>
 					</label>
 					<input type="number" class="form-control" th:field="*{credit}">
 					<p class="text-danger" th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></p>
@@ -52,13 +52,24 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<div class="row justify-content-start text-left">
 				<div class="form-group col-sm-5">
 					<label>
-					StartDate </label>
+						Start Date<span class="text-danger">*</span>
+					</label> 
 					<input type="date" class="form-control" th:field="*{startDate}">
 					<p class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
 				</div>
 				<div class="form-group col-sm-5">
 					<label>
-					Lecturer </label>
+						Duration (days)<span class="text-danger">*</span>
+					</label>
+					<input type="number" min="1" class="form-control" th:field="*{duration}">
+					<p class="text-danger" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
+				</div>
+			</div>
+			<div class="row justify-content-start text-left">				
+				<div class="form-group col-sm-5">
+					<label>
+						Lecturer
+					</label>
 					<select class="form-control" th:field="*{lecturer.userName}">
 						<option th:each="lecturer:${lecturers}"
 						th:value="${lecturer.userName}"

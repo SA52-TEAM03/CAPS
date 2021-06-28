@@ -55,10 +55,10 @@ public class test {
 		srepo.save(student7);
 		srepo.save(student8);
 
-		Course course1 = new Course("COMP101", "FOPCS", 50, 5, null);
-		Course course2 = new Course("COMP102", "C#", 50, 5, null);
-		Course course3 = new Course("COMP103", "JAVA", 50, 5, null);
-		Course course4 = new Course("COMP201", ".NET", 50, 5, null);
+		Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
+		Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);
+		Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01), 5);
+		Course course4 = new Course("COMP201", ".NET", 50, 5, LocalDate.of(2021, 8, 01), 5);
 		crepo.save(course1);
 		crepo.save(course2);
 		crepo.save(course3);
