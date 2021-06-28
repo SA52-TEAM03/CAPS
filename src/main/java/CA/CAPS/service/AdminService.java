@@ -1,6 +1,5 @@
 package CA.CAPS.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -26,8 +25,6 @@ public interface AdminService {
 	public void deleteCourse(Course course);
 	public List<Course> listAllCourses();
 	public List<Course> listAllCourses(Pageable pageable);
-	public List<LocalDate> listAllCoursesEndDate();
-	public List<LocalDate> listAllCoursesEndDate(Pageable pageable);
 	public Page<Course> findCoursePaginated(Pageable pageable);
 	public Course findCourseById(Integer id);
 	public Course findByCode(String code);

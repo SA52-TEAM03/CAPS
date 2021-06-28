@@ -16,6 +16,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<h1>Manage Courses</h1>
 	<!-- Add Hyperlink -->
 	<a class="btn btn-primary" href="courseform.html" th:href="@{/admin/course/add}">Add Course</a>
+	<span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(courses)}">Course List</h2>
 	<table th:if="${not #lists.isEmpty(courses)}">
@@ -31,13 +32,13 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<th>Edit Course</th>
 			<th>Delete Course</th>
 		</tr>
-		<tr th:each="course,iStat:${courses}">
+		<tr th:each="course:${courses}">
 			<td th:text="${course.code}">ID</td>
 			<td th:text="${course.name}">Name</td>
 			<td th:text="${course.size}">Size</td>
 			<td th:text="${course.credit}">Credit</td>
 			<td th:text="${course.startDate}">StartDate</td>
-			<td th:text="${endDate.get(iStat.index)}">EndDate</td>
+			<td th:text="${course.startDate.plusDays(course.duration)}">EndDate</td>
 			<td class="text-center" th:text="${course.duration}">Duration</td>			
 			<td th:text="${course.lecturer}">Lecturer</td>
 			<td><a class="btn btn-secondary" 
