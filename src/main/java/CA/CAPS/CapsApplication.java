@@ -69,9 +69,9 @@ public class CapsApplication {
 			crepo.save(course3);
 			crepo.save(course4);
 
-			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@u.nus.edu", "123456");
-			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "lecturer2@u.nus.edu", "123456");
-			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@u.nus.edu", "123456");
+			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@email.com", "123456");
+			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "lecturer2@email.com", "123456");
+			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@email.com", "123456");
 			lrepo.save(lecturer1);
 			lrepo.save(lecturer2);
 			lrepo.save(lecturer3);			
@@ -99,8 +99,8 @@ public class CapsApplication {
 			srepo.save(student3);
 			srepo.save(student4);
 			
-			Admin admin1=new Admin("esther", "tan", "admin1@u.nus.edu", "123456");
-			Admin admin2=new Admin("megan", "wang", "admin2@u.nus.edu", "123456");
+			Admin admin1=new Admin("esther", "tan", "admin1@email.com", "123456");
+			Admin admin2=new Admin("megan", "wang", "admin2@email.com", "123456");
 			arepo.save(admin1);
 			arepo.save(admin2);
 			
