@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -49,10 +50,16 @@ public class Course {
 	@Range(min = 2, max = 12)
 	private Integer credit;
 	
+	@NotNull(message="Start Date is required")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
+	
+	@NotNull(message="Duration is required")
+	@Min(value=1)
+	private Integer duration;
 
-	public Course(String code, String name, Integer size, Collection<Enrolment> enrolments, Lecturer lecturer, Integer credit, LocalDate startDate) {
+	public Course(String code, String name, Integer size, Collection<Enrolment> enrolments, 
+			Lecturer lecturer, Integer credit, LocalDate startDate, Integer duration) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -61,10 +68,11 @@ public class Course {
 		this.lecturer = lecturer;
 		this.credit = credit;
 		this.startDate = startDate;
+		this.duration = duration;
 	}
 
-	public Course(String code, String name, Integer size, Integer credit, LocalDate startDate) {
-		this(code, name, size, new ArrayList<Enrolment>(), null, credit, startDate);
+	public Course(String code, String name, Integer size, Integer credit, LocalDate startDate, Integer duration) {
+		this(code, name, size, new ArrayList<Enrolment>(), null, credit, startDate, duration);
 	}
 
 	public Course() {
@@ -139,6 +147,14 @@ public class Course {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
+	}
+
+	public Integer getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
 	}
 
 	@Override
