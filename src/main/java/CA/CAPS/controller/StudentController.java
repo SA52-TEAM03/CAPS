@@ -15,6 +15,7 @@ import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Student;
 import CA.CAPS.service.StudentServiceImpl;
+import CA.CAPS.util.GradeMapping;
 
 @Controller
 @RequestMapping("/student")
@@ -32,18 +33,23 @@ public class StudentController {
 
 		List<Enrolment> enrolments = studentService.findEnrolmentsByStudent(student);
 		
+		List<String> gradePoints = new ArrayList<String>();
 		List<String> grades = new ArrayList<String>();
 		
 		for(Enrolment enrolment : enrolments) {					
 			
 			if(enrolment.getGrade() == null) {				
-				grades.add(" ");				
+				gradePoints.add("");	
+				grades.add("");
 			}else {				
-				grades.add(String.valueOf(enrolment.getGrade()));				
-			}			
+				gradePoints.add(GradeMapping.getGrade(enrolment.getGrade()).getGradePoint());	
+				grades.add(GradeMapping.getGrade(enrolment.getGrade()).getGrade());	
+			}	
+					
 		}		
 				
 		model.addAttribute("enrolments", enrolments);
+		model.addAttribute("gradePoints", gradePoints);
 		model.addAttribute("grades", grades);
 		
 		return "student/student-grades-gpa";

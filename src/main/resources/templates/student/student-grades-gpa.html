@@ -43,6 +43,7 @@
 				      <th scope="col">Course Id</th>
 				      <th scope="col">Course Name</th>
 				      <th scope="col">Credit</th>
+				      <th scope="col">Grade Point</th>
 				      <th scope="col">Grade</th>
 				      <th></th>
 				    </tr>
@@ -56,7 +57,8 @@
 						<!-- <td th:if="${enrolment.grade} == 'null'">Grade</td> -->
 						<!-- <td th:text="${enrolment.grade} ? : 'Grade'">Grade</td> -->
 						<!-- <td th:test=${enrolment.grade}>Grade</td> -->
-						<td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grade</td>	
+						<td  th:text="(${gradePoints[iStat.index]}!= null)? ${gradePoints[iStat.index]} : ''">GradePoint</td>	
+						<td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grade</td>
 						
 					</tr>
 				</tbody>
