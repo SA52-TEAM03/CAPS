@@ -35,8 +35,8 @@
 		var pw1 = document.getElementById("pw1").value;
 		var pw2 = document.getElementById("pw2").value;
 
-		if (email.search("@u.nus.edu") < 0) {
-			document.getElementById("emailcheck").innerHTML = "<font color='red'>please use nus email for registration</font>";
+		if (email == "") {
+			document.getElementById("emailcheck").innerHTML = "<font color='red'>email can not be null</font>";
 			return false;
 		} else if (validationcode == "") {
 			document.getElementById("vcodecheck").innerHTML = "<font color='red'>validation code can not be null</font>";
