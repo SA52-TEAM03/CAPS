@@ -57,6 +57,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+			<version>4.10</version>
 	</dependencies>
 
 	<build>
