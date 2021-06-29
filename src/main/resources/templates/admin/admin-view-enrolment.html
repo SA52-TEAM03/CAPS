@@ -20,13 +20,14 @@
 	<span th:text="${message}">message</span> -->
 
 	<h2 style="margin-top: 15px; margin-bottom: 15px;"
-		th:if="${not #lists.isEmpty(enrolments)}">Enrollment List</h2>
-	<table th:if="${not #lists.isEmpty(enrolments)}">
+		th:if="${not #lists.isEmpty(enrolStudents)}">Enrollment List</h2>
+	<table th:if="${not #lists.isEmpty(enrolStudents)}">
 		<tr>
-			<th>Course Name</th>
+			
 			<th>Student Id</th>
 			<th>Student FirstName</th>
 			<th>Student LastName</th>
+			<th>Course Name</th>
 			<!-- 			<th>Size</th>
 			<th>Credit</th>
 			<th>Start Date</th>
@@ -36,17 +37,18 @@
 			<th>Edit Course</th>
 			<th>Delete Course</th> -->
 		</tr>
-		<tr th:each="enrolment:${enrolments}">
-		<tr th:each="course:${courses}">
-			<td th:text="${course.name}">Course Name</td>
 		<tr th:each="student:${enrolStudents}">
-
 			<td th:text="${student.Id}">Student Id</td>
 			<td th:text="${student.firstName}">Student firstName</td>
 			<td th:text="${student.lastName}">Student lastName</td>
-
+		<td>
+		<table th:if="${not #lists.isEmpty(student.enrolments)}">
+		<tr th:each="enrolment:${student.enrolments}">
+		<td th:text=${enrolment.course.getName()}>Course</td>
 		</tr>
+		</table>
 		</tr>
+		
 		<!-- 			<td th:text="${course.size}">Size</td>
 			<td th:text="${course.credit}">Credit</td>
 			<td th:text="${course.startDate}">StartDate</td>
