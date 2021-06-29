@@ -2,15 +2,15 @@ package CA.CAPS.util;
 
 public class Grade {
 	
-	private String gradePoint;
+	private Double gradePoint;
 	private String grade;
 	
-	public Grade (String gradePoint, String grade) {			
+	public Grade (Double gradePoint, String grade) {			
 		this.gradePoint = gradePoint;
 		this.grade = grade;
 	}
 	
-	public String getGradePoint() {
+	public Double getGradePoint() {
 		return gradePoint;
 	}	
 

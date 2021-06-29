@@ -21,5 +21,7 @@ public interface StudentService {
 	public List<Course> findCoursesEnrolledByStudent(Student student);
 	
 	public List<Course> listAllCourses();
+	
+	public Double getGPAOfStudent(Student student);
 
 }
