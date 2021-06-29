@@ -21,4 +21,6 @@ public interface EnrolmentService {
 	public List<Enrolment> findEnrolByStudent(int id);
 
 	public List<Integer> findGradeByStudent(int id);
+	
+	public Enrolment findByStudentCourse(Student student, Course course);
 }

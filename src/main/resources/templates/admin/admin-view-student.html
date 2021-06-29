@@ -14,7 +14,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 
 	<h1>Manage Students</h1>
 	<!-- Add Hyperlink -->
-	<a class="btn btn-primary" href="studentForm.html" th:href="@{/AdminStudent/add}">Add Student</a>
+	<a class="btn btn-primary" href="admin-student-form.html" th:href="@{/admin/student/add}">Add Student</a>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(students)}">Student List</h2>
 	<table th:if="${not #lists.isEmpty(students)}">
@@ -34,12 +34,31 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<td th:text=${student.userName}>Username</td>
 			<td th:text=${student.enrollmentDate}>Enrollment Date</td>
 			<td><a class="btn btn-secondary" 
-				th:href="@{/AdminStudent/edit/}+${student.Id}">Edit</a></td>
+				th:href="@{/admin/student/edit/}+${student.Id}">Edit</a></td>
 			<td><a class="btn btn-outline-danger" 
-				th:href="@{/AdminStudent/delete/}+${student.Id}">Delete</a></td>
+				th:href="@{/admin/student/delete/}+${student.Id}">Delete</a></td>
 		</tr>
 	</table>
-
+<nav aria-label="Page navigation" th:if="${adminPage.TotalPages > 0}">
+		<ul class="pagination">
+			<li th:class="${adminPage.hasPrevious} ? 'page-item' : 'page-item disabled'">
+				<a class="page-link" th:href="@{/admin/student/list(page=${adminPage.number})}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+				</a>
+			</li>
+			<li th:class="${pageNumber==adminPage.number + 1} ? 'page-item active' : 'page-item'" 
+				th:each="pageNumber : ${pageNumbers}">
+				<a class="page-link" th:href="@{/admin/student/list(page=${pageNumber})}" 
+					th:text="${pageNumber}">pageNumber</a></li>			
+			<li th:class="${adminPage.hasNext} ? 'page-item' : 'page-item disabled'">
+				<a class="page-link" th:href="@{/admin/student/list(page=${adminPage.number+2})}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
 	 <br/>
 	<div th:replace="admin/fragments/general.html :: footer"></div>
 </body>

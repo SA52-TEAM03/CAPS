@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Management</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+</head>
+
+<body style="margin-left: 20px; margin-top: 20px">
+	<header th:insert="admin/fragments/general.html :: header"> </header>
+	<div th:replace="admin/fragments/general.html :: menu"></div>
+
+	<h1>Manage Enrolment</h1>
+	<!-- Add Hyperlink -->
+	<!-- 	<a class="btn btn-primary" href="courseform.html" th:href="@{/admin/course/add}">Add Course</a>
+	<span th:text="${message}">message</span> -->
+
+	<h2 style="margin-top: 15px; margin-bottom: 15px;"
+		th:if="${not #lists.isEmpty(enrolStudents)}">Enrollment List</h2>
+	<table th:if="${not #lists.isEmpty(enrolStudents)}">
+		<tr>
+			
+			<th>Student Id</th>
+			<th>Student FirstName</th>
+			<th>Student LastName</th>
+			<th>Course Name</th>
+			<!-- 			<th>Size</th>
+			<th>Credit</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Duration (days)</th>			
+			<th>Lecturer</th>
+			<th>Edit Course</th>
+			<th>Delete Course</th> -->
+		</tr>
+		<tr th:each="student:${enrolStudents}">
+			<td th:text="${student.Id}">Student Id</td>
+			<td th:text="${student.firstName}">Student firstName</td>
+			<td th:text="${student.lastName}">Student lastName</td>
+		<td>
+		<table th:if="${not #lists.isEmpty(student.enrolments)}">
+		<tr th:each="enrolment:${student.enrolments}">
+		<td th:text=${enrolment.course.getName()}>Course</td>
+		</tr>
+		</table>
+		</tr>
+		
+		<!-- 			<td th:text="${course.size}">Size</td>
+			<td th:text="${course.credit}">Credit</td>
+			<td th:text="${course.startDate}">StartDate</td>
+			<td th:text="${course.startDate.plusDays(course.duration)}">EndDate</td>
+			<td class="text-center" th:text="${course.duration}">Duration</td>			
+			<td th:text="${course.lecturer}">Lecturer</td>
+			<td><a class="btn btn-secondary" 
+				th:href="@{/admin/enrol/course/}+${course.Id}">Enrol</a></td> -->
+		</tr>
+
+	</table>
+	<br />
+	<div th:replace="admin/fragments/general.html :: footer"></div>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	<div th:replace="admin/fragments/general.html :: menu"></div>
 
 	<h1>Admin Student Form</h1>
-	<form action="#" th:object="${student}" th:action="@{/AdminStudent/save}" method="get">
+	<form action="#" th:object="${student}" th:action="@{/admin/student/save}" method="get">
 	
 	<fieldset> <input type="hidden" th:field="*{id}"> </fieldset>
 	<fieldset> Last Name	:<input type="text" th:field="*{lastName}"> </fieldset>

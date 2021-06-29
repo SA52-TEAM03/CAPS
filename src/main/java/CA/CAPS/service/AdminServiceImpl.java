@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import CA.CAPS.domain.Admin;
 import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
 import CA.CAPS.repo.AdminRepository;
 import CA.CAPS.repo.CourseRepository;
+import CA.CAPS.repo.EnrolmentRepository;
 import CA.CAPS.repo.LecturerRepository;
 import CA.CAPS.repo.StudentRepository;
 
@@ -32,6 +34,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	private AdminRepository adminRepo;
+	
+	@Autowired
+	private EnrolmentRepository enrolmentRepo;
 
 	@Override
 	public void saveLecturer(Lecturer lecturer) {
@@ -158,4 +163,168 @@ public class AdminServiceImpl implements AdminService {
 		return false;
 	}
 	
+	
+	@Override
+	public void saveStudent(Student student) {
+		studentRepo.save(student);
+	}
+
+	@Override
+	public void updateStudent(Student student) {
+		studentRepo.save(student);
+	}
+
+	@Override
+	public void deleteStudent(Student student) {
+		studentRepo.delete(student);
+	}
+	
+	@Override
+	public List<Student> listStudents() {
+		return studentRepo.findAll();
+	}
+	
+	@Override
+    public List<Student> listStudents(Pageable pageable){
+ 
+        Page<Student> pagedResult = studentRepo.findAll(pageable);
+         
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Student>();
+        }
+    }
+	
+	@Override
+	public Page<Student> findStudentPaginated(Pageable pageable){
+		return new PageImpl<Student>(listStudents(pageable), pageable, studentRepo.findAll().size());
+	}
+	
+	@Override
+	public Boolean isStudentExist(Student student) {
+		for (Student s : studentRepo.findAll()) {
+			if (s.getId()==student.getId())
+				continue;
+			if (s.getUserName().equalsIgnoreCase(student.getUserName()))
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public Student findStudentById(Integer id) {
+		return studentRepo.findById(id).get();
+	}
+	
+	@Override
+	public void saveEnrolment(Enrolment enrolment) {		
+		enrolmentRepo.save(enrolment);
+	}
+	
+	@Override
+	public void updateEnrolment(Enrolment enrolment) {
+		enrolmentRepo.save(enrolment);
+	}
+	
+	@Override
+	public void deleteEnrolment(Enrolment enrolment) {
+		enrolmentRepo.delete(enrolment);
+	}
+	
+	@Override
+	public List<Enrolment> listAllEnrolments() {
+		return enrolmentRepo.findAll();
+	}
+	
+	@Override
+    public List<Enrolment> listAllEnrolments(Pageable pageable){
+ 
+        Page<Enrolment> pagedResult = enrolmentRepo.findAll(pageable);
+         
+        if(pagedResult.hasContent()) {
+            return pagedResult.getContent();
+        } else {
+            return new ArrayList<Enrolment>();
+        }
+    }
+	
+	
+	@Override
+	public Page<Enrolment> findEnrolmentPaginated(Pageable pageable){
+		return new PageImpl<Enrolment>(listAllEnrolments(pageable), pageable, enrolmentRepo.findAll().size());
+	}
+	
+	@Override
+	public List<Enrolment> findEnrolmentByStudentId(Integer id){
+		List<Enrolment> enrolment = enrolmentRepo.findEnrolByStudentId(id);
+		return enrolment;
+	}
+	
+	@Override
+	public Boolean isEnrolmentExist(Enrolment enrolment) {
+		for (Enrolment e : enrolmentRepo.findAll()) {
+			if (e.getStudent()==enrolment.getStudent() && e.getCourse()==enrolment.getCourse())
+				continue;
+			if (e.getStudent().getUserName().equals(enrolment.getStudent().getUserName()))
+				return true;
+		}
+		return false;
+	}
+	
+	@Override
+	public List<Student> findNotEnrolStudentsByCourseId(Integer id){
+		
+		List<Student> student = enrolmentRepo.findStudentIdbyCourseId(id);
+		if (student.isEmpty()) {
+			return studentRepo.findAll();
+		}
+		
+		return studentRepo.findStudentsNotIn(enrolmentRepo.findStudentIdbyCourseId(id));
+		
+	}
+	
+	@Override
+	public List<Student> findEnrolStudentsByCourseId(Integer id){
+		return studentRepo.findStudentsIn(enrolmentRepo.findStudentIdbyCourseId(id));
+	}
+	
+	@Override
+	public void enrollStudentsInCourse(List<Student> students, int courseId) {
+		for (Student s : students) {
+			Enrolment enrolment = new Enrolment(s, courseRepo.getById(courseId));
+			enrolmentRepo.save(enrolment);
+		}
+	}
+	
+	@Override
+	public void updateCourseSize(int courseId) {
+		Course course = courseRepo.findCourseById(courseId);
+		Integer courseSize = course.getSize();
+		try {
+		if (courseSize > 0) {
+			course.setSize( courseSize - 1);	
+		} 
+		} catch (Exception e) {
+			
+			throw e;
+		}
+		courseRepo.save(course);
+	}
+	
+	@Override
+	public void ReturnCourseSize(int courseId) {
+		Course course = courseRepo.findCourseById(courseId);
+		Integer courseSize = course.getSize();
+		try {
+		if (courseSize >= 0) {
+			course.setSize( courseSize + 1);	
+		} 
+		} catch (Exception e) {
+			
+			throw e;
+		}
+		courseRepo.save(course);
+	}
+
 }

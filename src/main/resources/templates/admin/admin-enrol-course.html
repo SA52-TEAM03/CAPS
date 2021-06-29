@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Management</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link rel="stylesheet" type="text/css"
+	 th:href="@{/style.css}" />
+</head>
+
+<body style="margin-left: 20px; margin-top:20px">
+	<header th:insert="admin/fragments/general.html :: header"> </header>
+	<div th:replace="admin/fragments/general.html :: menu"></div>
+	
+	<h1>Manage Enrolment</h1>
+	<!-- Add Hyperlink -->
+	<a class="btn btn-primary" href="admin-student-form.html" th:href="@{/admin/enrol/list}">View All Enrollments</a>
+	<span th:text="${message}">message</span>
+
+	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(courses)}">Course List</h2>
+	<table th:if="${not #lists.isEmpty(courses)}">
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Size</th>
+			<th>Credit</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Duration (days)</th>			
+			<th>Lecturer</th>
+			<th>Enrol Course</th>
+			<th>Show Enrolled Students</th>
+		</tr>
+		<tr th:each="course:${courses}">
+			<td th:text="${course.code}">ID</td>
+			<td th:text="${course.name}">Name</td>
+			<td th:text="${course.size}">Size</td>
+			<td th:text="${course.credit}">Credit</td>
+			<td th:text="${course.startDate}">StartDate</td>
+			<td th:text="${course.startDate.plusDays(course.duration)}">EndDate</td>
+			<td class="text-center" th:text="${course.duration}">Duration</td>			
+			<td th:text="${course.lecturer}">Lecturer</td>
+			<td><a class="btn btn-secondary" 
+				th:href="@{/admin/enrol/course/}+${course.Id}">Enrol</a></td>
+			<td width="80px;"><a class="btn btn-info" 
+				th:href="@{/admin/enrol/list/}+${course.Id}">Show Enrolled Students</a></td>
+		</tr>
+	</table>
+	<br/>
+	<div th:replace="admin/fragments/general.html :: footer"></div>
+</body>
+
+</html>
