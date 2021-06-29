@@ -32,9 +32,13 @@ public class StudentServiceImpl implements StudentService{
 		
 	}
 
+	@Override
+	public Student findByUserName(String username) {
+		return studentRepo.findUserByUserName(username);
+	}
 
 	@Override
-	public Student getById(Integer id) {
+	public Student findById(Integer id) {
 		return studentRepo.getById(id);
 	}
 	

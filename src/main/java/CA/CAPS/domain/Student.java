@@ -116,11 +116,6 @@ public class Student {
 		this.enrolments = enrolments;
 	}
 
-	public void addEnrolments(Course course) {
-		Enrolment e = new Enrolment(this, course);
-		this.enrolments.add(e);
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}

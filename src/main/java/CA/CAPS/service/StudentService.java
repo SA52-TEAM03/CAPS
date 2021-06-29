@@ -10,7 +10,7 @@ public interface StudentService {
 		
 	public void save(Student student);
 	
-	public Student getById(Integer id);
+	public Student findById(Integer id);
 	
 	public boolean checkCourseAvailability(Integer id);
 	
@@ -21,5 +21,7 @@ public interface StudentService {
 	public List<Course> findCoursesEnrolledByStudent(Student student);
 	
 	public List<Course> listAllCourses();
+
+	Student findByUserName(String username);
 
 }

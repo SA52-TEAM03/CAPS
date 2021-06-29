@@ -3,9 +3,8 @@ package CA.CAPS.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -28,15 +27,21 @@ public class LecturerController {
 	private LecturerService lecturerService;
 	
 	@GetMapping("/index")
-	public String getHomePage(Model model, HttpSession session) {
-		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+	public String getHomePage(Model model) {
+		
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Lecturer lecturer=lecturerService.findLecturerByUserName(username);	
+		
 		model.addAttribute("lecturer", lecturerService.findLecturer(lecturer.getId()));
 		return "lecturer/lecturer-index";
 	}
 	
 	@GetMapping("/courses")
-	public String getLecturerCourse(Model model, HttpSession session) {
-		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+	public String getLecturerCourse(Model model) {
+		
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Lecturer lecturer=lecturerService.findLecturerByUserName(username);		
+		
 		int id = lecturer.getId();
 		model.addAttribute("courses", lecturerService.findLecturerCourses(id));
 		model.addAttribute("lecturer", lecturerService.findLecturer(id));
@@ -44,8 +49,11 @@ public class LecturerController {
 	}
 	
 	@GetMapping("/enrolment/{courseId}")
-	public String getCourseEnrolment(@PathVariable("courseId") int courseId, Model model, HttpSession session) {
-		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+	public String getCourseEnrolment(@PathVariable("courseId") int courseId, Model model) {
+		
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Lecturer lecturer=lecturerService.findLecturerByUserName(username);	
+		
 		int id = lecturer.getId();
 		
 		if(courseId == 0) {
@@ -65,8 +73,11 @@ public class LecturerController {
 	}
 	
 	@GetMapping("/student/{studentId}")
-	public String getStudent(@PathVariable("studentId") int studentId, Model model, HttpSession session) {
-		Lecturer lecturer = (Lecturer) session.getAttribute("usession");
+	public String getStudent(@PathVariable("studentId") int studentId, Model model) {
+		
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
+		Lecturer lecturer=lecturerService.findLecturerByUserName(username);	
+		
 		int id = lecturer.getId();
 		
 		model.addAttribute("lecturer", lecturerService.findLecturer(id));

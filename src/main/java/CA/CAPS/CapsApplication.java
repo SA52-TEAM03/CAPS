@@ -11,27 +11,24 @@ import org.springframework.context.annotation.Bean;
 
 import CA.CAPS.domain.Admin;
 import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
-import CA.CAPS.repo.AdminRepository;
-import CA.CAPS.repo.CourseRepository;
-import CA.CAPS.repo.LecturerRepository;
-import CA.CAPS.repo.StudentRepository;
+import CA.CAPS.repo.EnrolmentRepository;
+import CA.CAPS.service.AdminServiceImpl;
+import CA.CAPS.service.UserServiceImple;
 
 @SpringBootApplication
 public class CapsApplication {
 
 	@Autowired
-	private StudentRepository srepo;
-
+	private UserServiceImple userService;
+	
 	@Autowired
-	private LecturerRepository lrepo;
-
+	private AdminServiceImpl adminService;
+	
 	@Autowired
-	private CourseRepository crepo;
-
-	@Autowired
-	private AdminRepository arepo;
+	private EnrolmentRepository erepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CapsApplication.class, args);
@@ -41,6 +38,11 @@ public class CapsApplication {
 	CommandLineRunner runner() {
 		return args -> {
 			LocalDate date = LocalDate.now();
+			
+			Admin admin1=new Admin("esther", "tan", "admin1@email.com", "123456");
+			Admin admin2=new Admin("megan", "wang", "admin2@email.com", "123456");
+			userService.createAdmin(admin1);
+			userService.createAdmin(admin2);
 
 			Student student1 = new Student("student1@email.com", "123456", "william", "lastName", date);
 			Student student2 = new Student("student2@email.com", "123456", "larry", "lastName", date);
@@ -50,59 +52,57 @@ public class CapsApplication {
 			Student student6 = new Student("student6@email.com", "123456", "jiakuang", "lastName", date);
 			Student student7 = new Student("student7@email.com", "123456", "xunlong", "lastName", date);
 			Student student8 = new Student("student8@email.com", "123456", "danlin", "lastName", date);
-			srepo.save(student1);
-			srepo.save(student2);
-			srepo.save(student3);
-			srepo.save(student4);
-			srepo.save(student5);
-			srepo.save(student6);
-			srepo.save(student7);
-			srepo.save(student8);
-
-			Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course4 = new Course("COMP104", ".NET", 50, 5, LocalDate.of(2021, 8, 01), 5);
-
-			crepo.save(course1);
-			crepo.save(course2);
-			crepo.save(course3);
-			crepo.save(course4);
+			userService.createStudent(student1);
+			userService.createStudent(student2);
+			userService.createStudent(student3);
+			userService.createStudent(student4);
+			userService.createStudent(student5);
+			userService.createStudent(student6);
+			userService.createStudent(student7);
+			userService.createStudent(student8);
 
 			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@email.com", "123456");
 			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "lecturer2@email.com", "123456");
 			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@email.com", "123456");
-			lrepo.save(lecturer1);
-			lrepo.save(lecturer2);
-			lrepo.save(lecturer3);			
-
+			userService.createLecturer(lecturer1);
+			userService.createLecturer(lecturer2);
+			userService.createLecturer(lecturer3);	
+			
+			Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course4 = new Course("COMP104", ".NET", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			adminService.saveCourse(course1);
+			adminService.saveCourse(course2);
+			adminService.saveCourse(course3);
+			adminService.saveCourse(course4);
+			
 			course1.setLecturer(lecturer1);
 			course2.setLecturer(lecturer3);
 			course3.setLecturer(lecturer3);
 			course4.setLecturer(lecturer2);
+			adminService.saveCourse(course1);
+			adminService.saveCourse(course2);
+			adminService.saveCourse(course3);
+			adminService.saveCourse(course4);
+		
+			Enrolment enrolment1=new Enrolment(student5,course4);
+			Enrolment enrolment2=new Enrolment(student6,course3);
+			Enrolment enrolment3=new Enrolment(student7,course2);
+			Enrolment enrolment4=new Enrolment(student8,course1);
+			Enrolment enrolment5=new Enrolment(student1,course1);
+			Enrolment enrolment6=new Enrolment(student2,course2);
+			Enrolment enrolment7=new Enrolment(student3,course3);
+			Enrolment enrolment8=new Enrolment(student4,course4);
 
-			course1.addEnrolments(student8);
-			course2.addEnrolments(student7);
-			course3.addEnrolments(student6);
-			course4.addEnrolments(student5);
-			crepo.save(course1);
-			crepo.save(course2);
-			crepo.save(course3);
-			crepo.save(course4);
-
-			student1.addEnrolments(course4);
-			student2.addEnrolments(course3);
-			student3.addEnrolments(course2);
-			student4.addEnrolments(course1);
-			srepo.save(student1);
-			srepo.save(student2);
-			srepo.save(student3);
-			srepo.save(student4);
-			
-			Admin admin1=new Admin("esther", "tan", "admin1@email.com", "123456");
-			Admin admin2=new Admin("megan", "wang", "admin2@email.com", "123456");
-			arepo.save(admin1);
-			arepo.save(admin2);
+			erepo.save(enrolment1);
+			erepo.save(enrolment2);
+			erepo.save(enrolment3);
+			erepo.save(enrolment4);
+			erepo.save(enrolment5);
+			erepo.save(enrolment6);
+			erepo.save(enrolment7);
+			erepo.save(enrolment8);
 			
 			
 //			Course c1 = new Course("CourseA", 50, 5);
@@ -151,7 +151,7 @@ public class CapsApplication {
 			studentlist.add(s4);
 			studentlist.add(s5);
 
-			srepo.saveAll(studentlist);
+//			srepo.saveAll(studentlist);
 
 		};
 	}

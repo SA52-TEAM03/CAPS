@@ -3,9 +3,8 @@ package CA.CAPS.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +26,12 @@ public class StudentController {
 
 
 	@RequestMapping("/grades")
-	public String showGrades(Model model, HttpSession session) {
+	public String showGrades(Model model) {
 		
-		Student student=(Student) session.getAttribute("usession");
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
 
+		Student student=studentService.findByUserName(username);
+		
 		List<Enrolment> enrolments = studentService.findEnrolmentsByStudent(student);
 		
 		List<String> gradePoints = new ArrayList<String>();
@@ -56,10 +57,12 @@ public class StudentController {
 	}
 	
 	@RequestMapping("/courses")
-	public String viewCourses(Model model, HttpSession session) {
+	public String viewCourses(Model model) {
 		
-		Student student=(Student) session.getAttribute("usession");
+		String username=SecurityContextHolder.getContext().getAuthentication().getName();
 
+		Student student=studentService.findByUserName(username);
+		
 		List<Course> coursesTakenByStudent = studentService.findCoursesEnrolledByStudent(student);
 	    
 	    List<Course> allCourses = studentService.listAllCourses();
@@ -79,11 +82,13 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value = "/enroll-course/{id}")
-	public String enrollCourse(@PathVariable("id") Integer id, HttpSession session) {
+	public String enrollCourse(@PathVariable("id") Integer id) {
 		
 		if(studentService.checkCourseAvailability(id)) {
 			
-			Student student=(Student) session.getAttribute("usession");
+			String username=SecurityContextHolder.getContext().getAuthentication().getName();
+
+			Student student=studentService.findByUserName(username);	
 			
 			studentService.enrollCourse(student.getId(), id);
 			

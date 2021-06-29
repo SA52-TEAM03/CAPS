@@ -2,52 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
-<style type="text/css">
-form {
-	width: 500px;
-	float: left;
-	text-align: center;
-}
-
-footer {
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-}
-</style>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>Login Form</h1>
-
-	<header>
-		<nav>
-			<div>
-				<ul>
-					<li><a th:href="@{/register}">register</a></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-	<h2>
-		<span th:text="${message}"></span> <br> <span th:text="${msg}"
-			th:if="${not #strings.isEmpty(msg)}"></span>
-	</h2>
-	<form action="" th:action="@{/authenticate}" method="get">
-		<fieldset>
-			UserName: <input type="text" name="userName">
-		</fieldset>
-		<fieldset>
-			Password: <input type="password" name="password">
-		</fieldset>
-		<fieldset>
-			<button type="submit">Log In</button>
-		</fieldset>
-	</form>
-
-	<footer>
-		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> <br />
-		<small>(c)Course Application Processing System , ISS, NUS 2021</small>
-	</footer>
+<form action="/logout" method="post">
+    <button type="submit" class="btn">Log Out</button>
+</form>
+<br>
+<br>
+<br>
+<a href="/AdminStudent/list">admin</a>
+<a href="/student/grades">student</a>
+<a href="/lecturer/index">lecturer</a>
 </body>
 </html>

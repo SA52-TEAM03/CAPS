@@ -17,7 +17,7 @@
 						<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
 					</tr>
 				</table>
-				<h2 th:utext="'Welcome ' + ${session.usession.userName}">Welcome</h2>
+				<h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
 				<nav class="navbar navbar-expand-lg navbar-light bg-light">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
