@@ -18,12 +18,13 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 
 	</div>
 	<div th:fragment="menu" id="menu">
-		
-			
-					<a class="btn btn-outline-info head1" th:href="@{/AdminStudent/list}">Manage Students</a>
+					<br>
+					<h2 th:utext="'Welcome ' + ${session.usession.userName}">Welcome</h2>
+					<br>
+					<a class="btn btn-outline-info head1" th:href="@{/admin/student/list}">Manage Students</a>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/lecturer/list}">Manage Lecturers</a>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage Courses</a>
-					<a class="btn btn-outline-info head1" th:href="@{/enrolment/list}">Manage Enrollment</a>
+					<a class="btn btn-outline-info head1" th:href="@{/admin/enrol}">Manage Enrollment</a>
 					
 					<a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
 					
@@ -31,7 +32,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		
 	</div>
 	<footer th:fragment="footer">
-		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/AdminStudent/list}">Back to Home</a>
+		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/admin/student/list}">Back to Home</a>
 		<br/>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>	&copy; Course Application Processing System , ISS, NUS 2021</small>

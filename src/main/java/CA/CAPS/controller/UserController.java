@@ -113,7 +113,7 @@ public class UserController {
 		} else if (uservice.authenticate(admin)) {
 			Admin u = uservice.findAdminByUserName(admin.getUserName());
 			session.setAttribute("usession", u);
-			return "redirect:/AdminStudent/list";
+			return "redirect:/admin/student/list";
 		}
 
 		model.addAttribute("message", "Email or password error");

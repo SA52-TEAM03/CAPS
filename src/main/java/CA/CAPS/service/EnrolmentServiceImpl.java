@@ -55,5 +55,8 @@ public class EnrolmentServiceImpl implements EnrolmentService{
 		return enrolmentRepo.findMarksByStudentId(id);
 	}
 	
-
+	@Override
+	public Enrolment findByStudentCourse(Student student, Course course) {
+		return enrolmentRepo.findEnrolByStudentCourse(student, course);
+	}
 }

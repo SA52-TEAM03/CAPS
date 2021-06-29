@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import CA.CAPS.domain.Course;
+import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
+import CA.CAPS.domain.Student;
 
 public interface AdminService {
 
@@ -33,4 +35,29 @@ public interface AdminService {
 	public Course findByCode(String code);
 	public Boolean isCourseCodeExist(Course course);
 	
+	public void saveStudent(Student student);
+	public void updateStudent(Student student);
+	public void deleteStudent(Student student);
+	public List<Student> listStudents();
+	public List<Student> listStudents(Pageable pageable);
+	public Page<Student> findStudentPaginated(Pageable pageable);
+	public Student findStudentById(Integer id);
+	public Boolean isStudentExist(Student student);
+	
+	public void saveEnrolment(Enrolment enrolment);
+	public void updateEnrolment(Enrolment enrolment);
+	public void deleteEnrolment(Enrolment enrolment);
+	public List<Enrolment> listAllEnrolments();
+	
+	public List<Enrolment> listAllEnrolments(Pageable pageable);
+	public Page<Enrolment> findEnrolmentPaginated(Pageable pageable);
+	public List<Enrolment> findEnrolmentByStudentId(Integer id);
+	public Boolean isEnrolmentExist(Enrolment enrolment);
+	
+	public List<Student> findNotEnrolStudentsByCourseId(Integer id);
+	public List<Student> findEnrolStudentsByCourseId(Integer id);
+	public void enrollStudentsInCourse(List<Student> students, int courseId);
+	
+	public void updateCourseSize(int courseId);
+	public void ReturnCourseSize(int courseId);
 }
