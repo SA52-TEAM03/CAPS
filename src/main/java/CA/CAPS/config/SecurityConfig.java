@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/login.html", "/login","/afterlogout.html","/register","/sendEmail/**","/regist").permitAll()
 		.antMatchers("/student/**").hasAnyAuthority("student")
 		.antMatchers("/lecturer/**").hasAnyAuthority("lecturer")
-		.antMatchers("/admin/**","/AdminStudent/**").hasAnyAuthority("admin")
+		.antMatchers("/admin/**").hasAnyAuthority("admin")
 		.anyRequest().authenticated()
 		.and()
         .logout()

@@ -19,7 +19,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	</div>
 	<div th:fragment="menu" id="menu">
 					<br>
-					<h2 th:utext="'Welcome ' + ${session.usession.userName}">Welcome</h2>
+					<h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
 					<br>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/student/list}">Manage Students</a>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/lecturer/list}">Manage Lecturers</a>

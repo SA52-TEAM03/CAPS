@@ -23,7 +23,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         
         if (authorities.contains("admin")){
-            new DefaultRedirectStrategy().sendRedirect(request, response, "/AdminStudent/list");
+            new DefaultRedirectStrategy().sendRedirect(request, response, "/admin/student/list");
             return;
         }
         
