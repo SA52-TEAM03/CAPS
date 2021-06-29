@@ -28,21 +28,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.rememberMe()
 		.and()
 		.formLogin()
-		.loginPage("/login.html")
+		.loginPage("/loginpage")
 		.loginProcessingUrl("/login")
 		.usernameParameter("username")
 		.passwordParameter("password")
 		.successHandler(authenticationSuccessHandlerImpl)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/login.html", "/login","/afterlogout.html","/register","/sendEmail/**","/regist").permitAll()
+		.antMatchers("/loginpage","/login","/").permitAll()
 		.antMatchers("/student/**").hasAnyAuthority("student")
 		.antMatchers("/lecturer/**").hasAnyAuthority("lecturer")
 		.antMatchers("/admin/**").hasAnyAuthority("admin")
 		.anyRequest().authenticated()
 		.and()
         .logout()
-        .logoutSuccessUrl("/afterlogout.html");
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/");
 	}
 
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -56,6 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers("/image/**", "/style/**");
+		web.ignoring().antMatchers("/image/**", "/style.css");
 	}
 }

@@ -18,13 +18,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 
 	</div>
 	<div th:fragment="menu" id="menu">
-					<br>
-					<h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
-					<br>
+		
+			
 					<a class="btn btn-outline-info head1" th:href="@{/admin/student/list}">Manage Students</a>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/lecturer/list}">Manage Lecturers</a>
 					<a class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage Courses</a>
-					<a class="btn btn-outline-info head1" th:href="@{/admin/enrol}">Manage Enrollment</a>
+					<a class="btn btn-outline-info head1" th:href="@{/admin/enrolment/list}">Manage Enrollment</a>
 					
 					<a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
 					

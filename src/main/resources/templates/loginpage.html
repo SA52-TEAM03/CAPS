@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body>
+	<div th:fragment="header" id="header">
+		<table>
+			<tr>
+				<td width="120px" height="50px"><img width="100%"
+					th:src="@{/image/logo.png}" /></td>
+				<td style="padding-left: 30px;"><h1>Course Application
+						Processing System</h1></td>
+				<td><a th:href="@{/}"><i class="fa fa-home"
+						style="font-size: 96px; color: grey; padding-left: 240px"></i></a></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="page-header">
+		<div class="page-header-image"
+			style="background-image: url(image/main.jpg)"></div>
+		<h2>
+			<span th:text="${message}"></span> <br> <span th:text="${msg}"
+				th:if="${not #strings.isEmpty(msg)}"></span>
+		</h2>
+		<div class="login">
+			<div class="inset">
+				<form action="/login" method="post"
+					class="login-form">
+					<fieldset>
+						UserName: <input type="text" name="username" class="login-pwd">
+					</fieldset>
+					<fieldset>
+						Password: <input type="password" name="password" class="login-pwd">
+					</fieldset>
+					<fieldset class="sign">
+						<input type="submit" class="btn btn-info btn-primary"
+							value="login">
+					</fieldset>
+					<div class="text-foot">
+						Don't have an account? <a th:href="@{/registerpage}"
+							class="register-link">Register</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> <br />
+		<small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
+</body>
+</html>

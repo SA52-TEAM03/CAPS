@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'>
+
+</head>
+<body>
+	<div id="header">
+		<table>
+			<tr>
+				<td width="120px" height="50px"><img width="100%"
+					th:src="@{/image/logo.png}" /></td>
+				<td style="padding-left: 30px;"><h1>Course Application
+						Processing System</h1></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="page-header">
+		<div class="page-header-image"
+			style="background-image: url(image/main.jpg)"></div>
+		<div class="img-tip1">
+			Better Education For <span class="img-tip2">Better Programmer</span>
+		</div>
+		<div class="img-tip3">
+			<a class="btn btn-info btn-primary" th:href="@{/registerpage}">Register</a>
+			<a class="btn btn-info btn-primary" th:href="@{/loginpage}">Login</a>
+		</div>
+	</div>
+	<br>
+
+
+	<div class="block no-bottom">
+		<div class="container-fluid">
+			<div class="heading">
+				<h2>EDUCATION PHOTOTS</h2>
+				<p>Teamwork For Course Assignments</p>
+			</div>
+			<div class="gallery-car owl-carousel owl-theme row">
+				<div class="gallery-meta">
+					&nbsp; <img class="gallery-img" src="image/gallery1.jpeg" alt="">
+					<img class="gallery-img" src="image/gallery2.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery3.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery4.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<br />
+	<footer th:fragment="footer">
+		<small>Now is: <b th:text="${execInfo.now.time}"></b></small> <br />
+		<small>(c)Course Application Processing System , ISS, NUS 2021</small>
+	</footer>
+
+</body>
+
+</html>

@@ -272,7 +272,7 @@ public class AdminController {
 	@RequestMapping("/enrolment/list")
 	public String listAllEnrolments(@RequestParam("page") Optional<Integer> page, Model model) {
 		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage -1, pageSize, Sort.by("id"));
+		Pageable pageable = PageRequest.of(requestPage -1, pageSize, Sort.by("course_id"));
 		Page<Enrolment> adminPage = adminService.findEnrolmentPaginated(pageable);
 		model.addAttribute("adminPage", adminPage);
 		
