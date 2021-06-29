@@ -40,7 +40,7 @@
 			<table th:if="${not #lists.isEmpty(enrolments)}" class="table table-striped">
 				<thead>
 				    <tr>
-				      <th scope="col">Course Id</th>
+				      <th scope="col">Course Code</th>
 				      <th scope="col">Course Name</th>
 				      <th scope="col">Credit</th>
 				      <th scope="col">Grade Point</th>
@@ -49,18 +49,24 @@
 				    </tr>
 			    </thead>
 			    <tbody>
+					
 					<tr th:each="enrolment, iStat :${enrolments}">
-						<td th:text=${enrolment.course.id}>Course Id</td>
+						<td th:text=${enrolment.course.code}>Course Code</td>
 						<td th:text=${enrolment.course.name}>Course Name</td>
-						<td th:text=${enrolment.course.credit}>Credit</td>
-						<!-- <td th:if="${not #strings.isEmpty(enrolment.grade)}">Grade</td> -->
-						<!-- <td th:if="${enrolment.grade} == 'null'">Grade</td> -->
-						<!-- <td th:text="${enrolment.grade} ? : 'Grade'">Grade</td> -->
-						<!-- <td th:test=${enrolment.grade}>Grade</td> -->
+						<td th:text=${enrolment.course.credit}>Credit</td>						
 						<td  th:text="(${gradePoints[iStat.index]}!= null)? ${gradePoints[iStat.index]} : ''">GradePoint</td>	
 						<td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grade</td>
 						
 					</tr>
+					
+					<tr>
+						<td></td>
+						<td></td>
+						<td>Grade Point Average (GPA)</td>
+						<td th:text=${gpa}>GPA</td>
+						<td></td>					
+					</tr>
+					
 				</tbody>
 			</table>
 		</div>

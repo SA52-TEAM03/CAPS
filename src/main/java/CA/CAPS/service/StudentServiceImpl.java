@@ -11,6 +11,7 @@ import CA.CAPS.domain.Student;
 import CA.CAPS.repo.CourseRepository;
 import CA.CAPS.repo.EnrolmentRepository;
 import CA.CAPS.repo.StudentRepository;
+import CA.CAPS.util.GradeMapping;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -82,5 +83,31 @@ public class StudentServiceImpl implements StudentService{
 		return courseRepo.findAll();
 	}
 	
+	@Override
+	public Double getGPAOfStudent(Student student) {
+		
+		Double gpa = null;
+		int creditGradePoints = 0;
+		int totalCredit = 0;
+		int moduleCount = 0;
+		
+		List<Enrolment> enrolments = findEnrolmentsByStudent(student);
+		
+		for(Enrolment enrolment: enrolments) {
+			
+			if(enrolment.getGrade()!=null && enrolment.getGrade()!=0) {
+				moduleCount++;
+				totalCredit += enrolment.getCourse().getCredit();
+				creditGradePoints += GradeMapping.getGrade(enrolment.getGrade()).getGradePoint() * enrolment.getCourse().getCredit();
+			}
+		}
+		
+		if(moduleCount!=0) {
+			
+			gpa = (double) creditGradePoints/totalCredit;
+		}
+			
+		return gpa;
+	}
 
 }

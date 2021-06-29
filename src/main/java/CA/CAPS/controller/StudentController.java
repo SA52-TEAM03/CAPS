@@ -34,13 +34,16 @@ public class StudentController {
 		
 		List<Enrolment> enrolments = studentService.findEnrolmentsByStudent(student);
 		
-		List<String> gradePoints = new ArrayList<String>();
+		List<Double> gradePoints = new ArrayList<Double>();
+		
 		List<String> grades = new ArrayList<String>();
+		
+		Double gpa = studentService.getGPAOfStudent(student);
 		
 		for(Enrolment enrolment : enrolments) {					
 			
 			if(enrolment.getGrade() == null) {				
-				gradePoints.add("");	
+				gradePoints.add(null);	
 				grades.add("");
 			}else {				
 				gradePoints.add(GradeMapping.getGrade(enrolment.getGrade()).getGradePoint());	
@@ -52,6 +55,7 @@ public class StudentController {
 		model.addAttribute("enrolments", enrolments);
 		model.addAttribute("gradePoints", gradePoints);
 		model.addAttribute("grades", grades);
+		model.addAttribute("gpa", gpa);
 		
 		return "student/student-grades-gpa";
 	}
