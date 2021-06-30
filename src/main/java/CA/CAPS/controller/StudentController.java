@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Student;
+import CA.CAPS.service.MailService;
 import CA.CAPS.service.StudentServiceImpl;
 import CA.CAPS.util.GradeMapping;
 
@@ -23,6 +24,9 @@ public class StudentController {
 	
 	@Autowired
 	private StudentServiceImpl studentService;	
+	
+	@Autowired
+	MailService mailservice;
 
 
 	@RequestMapping("/grades")
@@ -94,9 +98,21 @@ public class StudentController {
 
 			Student student=studentService.findByUserName(username);	
 			
-			studentService.enrollCourse(student.getId(), id);
+			Course course = studentService.getCourseById(id);
 			
-			return "student/student-enroll-course-success";
+			if(student!=null && course!=null) {
+				
+				studentService.enrollCourse(student.getId(), id);	
+				
+				String emailSubject = "Course Enrollment Successful";
+				
+				String emailContent = "You have successfully enrolled for " + course.getCode() + " - " + course.getName() + ".";
+				
+				mailservice.sendMail(student.getUserName(), emailSubject, emailContent);			
+				
+				return "student/student-enroll-course-success";
+			}
+			
 		}
 		
 		return "student/student-enroll-course-error";
