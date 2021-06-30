@@ -44,7 +44,7 @@
 				<label>
 					Password<span class="text-danger">*</span>
 				</label>
-				<input type="text" class="form-control" th:field="*{password}">
+				<input type="password" class="form-control" th:field="*{password}">
 				<p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 			</div>
 		</div>
