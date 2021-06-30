@@ -102,6 +102,15 @@ public class StudentController {
 			
 			if(student!=null && course!=null) {
 				
+				try {
+					
+					studentService.enrollCourse(student.getId(), id);
+					
+				}catch(Exception e) {
+					
+					return "forward:/student/grades";
+				}
+				
 				studentService.enrollCourse(student.getId(), id);	
 				
 				String emailSubject = "Course Enrollment Successful";
