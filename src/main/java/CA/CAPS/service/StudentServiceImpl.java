@@ -49,11 +49,12 @@ public class StudentServiceImpl implements StudentService{
 		boolean result = false;
 		
 		Course course = courseRepo.getById(id);
-					
-		if(course.getEnrolments().size() < course.getSize()) {
-			result = true;
-		}
-				
+		
+		if(course!=null) {
+			if(course.getEnrolments().size() < course.getSize()) {
+				result = true;
+			}
+		}	
 		return result;
 		
 	}

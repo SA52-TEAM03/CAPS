@@ -40,7 +40,7 @@
 			<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
 				<thead>
 				    <tr>
-				      <th scope="col">Course Id</th>
+				      <th scope="col">Course Code</th>
 				      <th scope="col">Name</th>
 				      <th scope="col">Current Enrollment</th>
 				      <th></th>
@@ -48,7 +48,7 @@
 			    </thead>
 				<tbody>
 					<tr th:each="course:${courses}">
-						<td th:text=${course.id}>Course Id</td>
+						<td th:text=${course.code}>Course Code</td>
 						<td th:text=${course.name}>Course Name</td>
 						<td><a class="btn btn-secondary" th:href="@{/student/enroll-course/}+${course.id}">Enroll Now</a></td>
 					</tr>
