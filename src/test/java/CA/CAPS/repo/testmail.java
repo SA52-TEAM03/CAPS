@@ -23,7 +23,7 @@ public class testmail {
 	
 	@Test
 	public void sendMail() {
-		mailservice.sendMail("e0696868@u.nus.edu", "subject", "some test text.");
-		System.out.println("mail task deploy success");
+		boolean result= mailservice.sendMail("e0696868@u.nus.edu", "subject", "some test text.");
+		System.out.println("sendsuccess="+result);
 	}
 }
