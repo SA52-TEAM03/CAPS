@@ -20,10 +20,10 @@ public class testmail {
 
 	@Autowired
 	MailService mailservice;
-	
+
 	@Test
 	public void sendMail() {
-		boolean result= mailservice.sendMail("e0696868@u.nus.edu", "subject", "some test text.");
-		System.out.println("sendsuccess="+result);
+		mailservice.sendMail("e0696868@u.nus.edu", "subject", "some test text.");
+		System.out.println("mail task deploy success");
 	}
 }
