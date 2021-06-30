@@ -287,26 +287,6 @@ public class AdminController {
 		return "forward:/admin/student/list";
 	}
 	
-	@RequestMapping("/enrolment/list")
-	public String listAllEnrolments(@RequestParam("page") Optional<Integer> page, Model model) {
-		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage -1, pageSize, Sort.by("course_id"));
-		Page<Enrolment> adminPage = adminService.findEnrolmentPaginated(pageable);
-		model.addAttribute("adminPage", adminPage);
-		
-		int totalPages = adminPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1,  totalPages)
-					.boxed()
-					.collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		
-		List<Enrolment> enrolments = adminService.listAllEnrolments(pageable);
-		model.addAttribute("enrolments", enrolments);
-		return "admin/admin-view-enrolment";
-	}
-	
 	@GetMapping("enrol/course/{id}")
 	public String enrolCourse(@PathVariable("id") Integer id, Model model) {
 		Course course = adminService.findCourseById(id);
