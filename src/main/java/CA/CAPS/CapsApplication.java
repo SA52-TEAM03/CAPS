@@ -60,9 +60,9 @@ public class CapsApplication {
 			userService.saveStudent(student7);
 			userService.saveStudent(student8);
 
-			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@email.com", "123456");
-			Lecturer lecturer2 = new Lecturer("Cher", "Wah", "lecturer2@email.com", "123456");
-			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@email.com", "123456");
+			Lecturer lecturer1 = new Lecturer("Fan", "Liu", "lecturer1@email.com", "123456");
+			Lecturer lecturer2 = new Lecturer("Cher Wah", "Tan", "lecturer2@email.com", "123456");
+			Lecturer lecturer3 = new Lecturer("Tri Tin", "Nguyen", "lecturer3@email.com", "123456");
 			userService.saveLecturer(lecturer1);
 			userService.saveLecturer(lecturer2);
 			userService.saveLecturer(lecturer3);	

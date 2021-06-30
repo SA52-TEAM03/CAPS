@@ -19,10 +19,10 @@ public class Lecturer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@NotEmpty(message = "First Name is required.")
-	@Pattern(regexp = "^[a-zA-Z]*", message = "First Name must not contain numbers/special characters")
+	@Pattern(regexp = "^[a-zA-Z ]*", message = "First Name must not contain numbers/special characters")
 	private String firstName;
 	@NotEmpty(message = "Last Name is required.")
-	@Pattern(regexp = "^[a-zA-Z]*", message = "Last Name must not contain numbers/special characters")
+	@Pattern(regexp = "^[a-zA-Z ]*", message = "Last Name must not contain numbers/special characters")
 	private String lastName;
 	@Column(unique = true)
 	@NotEmpty(message = "Username is required.")
