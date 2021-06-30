@@ -16,6 +16,4 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	@Query("SELECT s FROM Student s WHERE s NOT IN (:students)")
 	public List<Student> findStudentsNotIn(@Param("students") List<Student> students);
 	
-	@Query("SELECT s FROM Student s WHERE s IN (:students)")
-	public List<Student> findStudentsIn(@Param("students") List<Student> students);
 }

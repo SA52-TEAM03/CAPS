@@ -40,8 +40,8 @@ public class CapsApplication {
 			
 			Admin admin1=new Admin("esther", "tan", "admin1@email.com", "123456");
 			Admin admin2=new Admin("megan", "wang", "admin2@email.com", "123456");
-			userService.createAdmin(admin1);
-			userService.createAdmin(admin2);
+			userService.saveAdmin(admin1);
+			userService.saveAdmin(admin2);
 
 			Student student1 = new Student("student1@email.com", "123456", "William", "Wu", date);
 			Student student2 = new Student("student2@email.com", "123456", "Larry", "Sim", date);
@@ -51,21 +51,21 @@ public class CapsApplication {
 			Student student6 = new Student("student6@email.com", "123456", "Jia Kuang", "Wong", date);
 			Student student7 = new Student("student7@email.com", "123456", "Xunlong", "Zou", date);
 			Student student8 = new Student("student8@email.com", "123456", "Dan Lin", "Chen", date);
-			userService.createStudent(student1);
-			userService.createStudent(student2);
-			userService.createStudent(student3);
-			userService.createStudent(student4);
-			userService.createStudent(student5);
-			userService.createStudent(student6);
-			userService.createStudent(student7);
-			userService.createStudent(student8);
+			userService.saveStudent(student1);
+			userService.saveStudent(student2);
+			userService.saveStudent(student3);
+			userService.saveStudent(student4);
+			userService.saveStudent(student5);
+			userService.saveStudent(student6);
+			userService.saveStudent(student7);
+			userService.saveStudent(student8);
 
 			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@email.com", "123456");
 			Lecturer lecturer2 = new Lecturer("Cher", "Wah", "lecturer2@email.com", "123456");
 			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@email.com", "123456");
-			userService.createLecturer(lecturer1);
-			userService.createLecturer(lecturer2);
-			userService.createLecturer(lecturer3);	
+			userService.saveLecturer(lecturer1);
+			userService.saveLecturer(lecturer2);
+			userService.saveLecturer(lecturer3);	
 			
 			Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
 			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);

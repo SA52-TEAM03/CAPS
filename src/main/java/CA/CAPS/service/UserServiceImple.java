@@ -36,17 +36,17 @@ public class UserServiceImple implements UserDetailsService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	public void createStudent(Student student) {
+	public void saveStudent(Student student) {
 		student.setPassword(passwordEncoder.encode(student.getPassword()));
 		srepo.save(student);
 	}
 
-	public void createLecturer(Lecturer lecturer) {
+	public void saveLecturer(Lecturer lecturer) {
 		lecturer.setPassword(passwordEncoder.encode(lecturer.getPassword()));
 		lrepo.save(lecturer);
 	}
 
-	public void createAdmin(Admin admin) {
+	public void saveAdmin(Admin admin) {
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		arepo.save(admin);
 	}

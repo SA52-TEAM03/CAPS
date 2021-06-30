@@ -48,7 +48,7 @@ public class LecturerServiceImpl implements LecturerService {
 	
 	@Override
 	public List<Student> findStudentsByCourse(int id) {
-		return enrolmentRepo.findStudentIdbyCourseId(id);
+		return enrolmentRepo.findStudentsbyCourseId(id);
 	}
 
 	@Override

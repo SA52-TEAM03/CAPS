@@ -17,23 +17,20 @@ public interface AdminService {
 	public List<Lecturer> listAllLecturers();
 	public List<Lecturer> listAllLecturers(Pageable pageable);
 	public Page<Lecturer> findLecturerPaginated(Pageable pageable);
-	public Lecturer findByUserName(String name);
+	public Lecturer findLecturerByUserName(String name);
 	public Lecturer findLecturerById(Integer id);
-	public Boolean isUserNameExist(Lecturer lecturer);
+	public Boolean isLecturerExist(Lecturer lecturer);
 	public void removeLecturerFromCourses(Lecturer Lecturer);
 	
 	public void saveCourse(Course course);
-	public void updateCourse(Course course);
 	public void deleteCourse(Course course);
 	public List<Course> listAllCourses();
 	public List<Course> listAllCourses(Pageable pageable);
 	public Page<Course> findCoursePaginated(Pageable pageable);
 	public Course findCourseById(Integer id);
-	public Course findByCode(String code);
 	public Boolean isCourseCodeExist(Course course);
 	
 	public void saveStudent(Student student);
-	public void updateStudent(Student student);
 	public void deleteStudent(Student student);
 	public List<Student> listStudents();
 	public List<Student> listStudents(Pageable pageable);
@@ -42,7 +39,6 @@ public interface AdminService {
 	public Boolean isStudentExist(Student student);
 	
 	public void saveEnrolment(Enrolment enrolment);
-	public void updateEnrolment(Enrolment enrolment);
 	public void deleteEnrolment(Enrolment enrolment);
 	public List<Enrolment> listAllEnrolments();
 	

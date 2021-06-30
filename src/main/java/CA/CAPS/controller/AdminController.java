@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +29,7 @@ import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
 import CA.CAPS.service.AdminService;
 import CA.CAPS.service.MailService;
+import CA.CAPS.service.UserServiceImple;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +37,12 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminService;
+	
+	@Autowired
+	UserServiceImple userService;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	MailService mailservice;
@@ -53,11 +61,11 @@ public class AdminController {
 	@RequestMapping("/lecturer/save")
 	public String saveLecturer(@ModelAttribute("lecturer") @Valid Lecturer lecturer, BindingResult bindingResult, Model model) {
 		
-		if (adminService.isUserNameExist(lecturer))
+		if (adminService.isLecturerExist(lecturer))
 			bindingResult.rejectValue("userName", "error.userName", "Username already exists.");
 		
-		if(!lecturer.getUserName().isBlank() && !lecturer.getUserName().endsWith("@u.nus.edu"))
-			bindingResult.rejectValue("userName", "error.userName", "Please use NUS email as Username.");
+		if(!lecturer.getUserName().isBlank() && !lecturer.getUserName().contains("@"))
+			bindingResult.rejectValue("userName", "error.userName", "Please use email as Username.");
 		
 		if (bindingResult.hasErrors())
 			return "admin/admin-lecturer-form";
@@ -69,6 +77,8 @@ public class AdminController {
 					+ "Username: " + lecturer.getUserName() + "\n"
 					+ "Password: " + lecturer.getPassword();
 
+			userService.saveLecturer(lecturer);
+			
 			boolean mailSent = mailservice.sendMail(lecturer.getUserName(), subject, text);
 			
 			if (mailSent)
@@ -77,9 +87,25 @@ public class AdminController {
 				message = "You have created Lecturer " + lecturer + ".";			
 		}
 		else
+		{
+			String oldPassword = adminService.findLecturerById(lecturer.getId()).getPassword();
+			String newPassword = lecturer.getPassword();
+			
+			if (passwordEncoder.matches(oldPassword, newPassword))
+				adminService.saveLecturer(lecturer);
+			else {
+				String subject = "CAPS Account Updated";
+				String text = "Your password has been updated.\n"
+						+ "Username: " + lecturer.getUserName() + "\n"
+						+ "Password: " + lecturer.getPassword();
+				
+				userService.saveLecturer(lecturer);
+				mailservice.sendMail(lecturer.getUserName(), subject, text);
+			}				
+			
 			message = "You have updated Lecturer " + lecturer + ".";
-		
-		adminService.saveLecturer(lecturer);		
+		}	
+				
 		model.addAttribute("message", message);
 		
 		return "forward:/admin/lecturer/list";
@@ -146,13 +172,16 @@ public class AdminController {
 		if (adminService.isCourseCodeExist(course))
 			bindingResult.rejectValue("code", "error.code", "This course code already exists.");
 		
+		if (adminService.findEnrolStudentsByCourseId(course.getId()).size()>course.getSize())
+			bindingResult.rejectValue("size", "error.size", "Course size less than enrolled students");
+		
 		if (bindingResult.hasErrors())
 			return "admin/admin-course-form";
 		
 		if (course.getLecturer()==null)
 			course.setLecturer(null);
 		else
-			course.setLecturer(adminService.findByUserName(course.getLecturer().getUserName()));
+			course.setLecturer(adminService.findLecturerByUserName(course.getLecturer().getUserName()));
 		
 		String message = "";
 		if (course.getId()==0) {
@@ -229,7 +258,7 @@ public class AdminController {
 	@RequestMapping("/student/list")
 	public String listStudents(@RequestParam("page") Optional<Integer> page, Model model) {
 		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage -1, pageSize, Sort.by("id"));
+		Pageable pageable = PageRequest.of(requestPage -1, pageSize, Sort.by("userName"));
 		Page<Student> adminPage = adminService.findStudentPaginated(pageable);
 		model.addAttribute("adminPage", adminPage);
 		
@@ -258,8 +287,11 @@ public class AdminController {
 		
 		
 		if (adminService.isStudentExist(student)) {
-				bindingResult.rejectValue("Username", "error.username", "Student with this username already exists.");
+				bindingResult.rejectValue("Username", "error.username", "Username already exists.");
 		}
+		
+		if(!student.getUserName().isBlank() && !student.getUserName().contains("@"))
+			bindingResult.rejectValue("userName", "error.userName", "Please use email as Username.");
 		
 		if (bindingResult.hasErrors()) {
 			return "admin/admin-student-form";
@@ -269,7 +301,45 @@ public class AdminController {
 			student.setEnrolments(null);
 		else
 			student.setEnrolments(adminService.findEnrolmentByStudentId((Integer)student.getId()));
-		adminService.saveStudent(student);
+		
+		String message = "";
+		if (student.getId()==0) {
+			String subject = "CAPS Account";
+			String text = "Your CAPS Account has been created.\n"
+					+ "Username: " + student.getUserName() + "\n"
+					+ "Password: " + student.getPassword();
+
+			userService.saveStudent(student);
+			
+			boolean mailSent = mailservice.sendMail(student.getUserName(), subject, text);
+			
+			if (mailSent)
+				message = "You have created Student " + student + ". Acount details has been sent to the Student.";
+			else
+				message = "You have created Student " + student + ".";			
+		}
+		else
+		{
+			String oldPassword = adminService.findStudentById(student.getId()).getPassword();
+			String newPassword = student.getPassword();
+			
+			if (passwordEncoder.matches(oldPassword, newPassword))
+				adminService.saveStudent(student);
+			else {
+				String subject = "CAPS Account Updated";
+				String text = "Your password has been updated.\n"
+						+ "Username: " + student.getUserName() + "\n"
+						+ "Password: " + student.getPassword();
+				
+				userService.saveStudent(student);
+				mailservice.sendMail(student.getUserName(), subject, text);
+			}				
+			
+			message = "You have updated Student " + student + ".";
+		}	
+				
+		model.addAttribute("message", message);
+		
 		return "forward:/admin/student/list";
 	}
 	
@@ -281,9 +351,11 @@ public class AdminController {
 	}
 	
 	@GetMapping("/student/delete/{id}")
-	public String deleteStudent(@PathVariable("id") Integer id) {
+	public String deleteStudent(@PathVariable("id") Integer id, Model model) {
 		Student student = adminService.findStudentById(id);
 		adminService.deleteStudent(student);
+		String message = "You have deleted Student " + student + ".";
+		model.addAttribute("message", message);
 		return "forward:/admin/student/list";
 	}
 	
@@ -299,6 +371,7 @@ public class AdminController {
 	
 	@RequestMapping("/enrol/student")
 	public String enrolStudent(@RequestParam(value="enrol", required = false) List<Integer> studentId, @RequestParam("cid") Integer courseId) {
+
 		List<Student> enrolstudents = new ArrayList<>();
 		for (Integer sid : studentId) {
 			enrolstudents.add(adminService.findStudentById(sid));

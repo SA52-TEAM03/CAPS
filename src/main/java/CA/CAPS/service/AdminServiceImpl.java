@@ -71,7 +71,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Lecturer findByUserName(String name) {
+	public Lecturer findLecturerByUserName(String name) {
 		return lecturerRepo.findLecturerByUserName(name);
 	}
 
@@ -81,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Boolean isUserNameExist(Lecturer lecturer) {
+	public Boolean isLecturerExist(Lecturer lecturer) {			
 		for (Lecturer l : lecturerRepo.findAll()) {
 			if (l.getId() == lecturer.getId())
 				continue;
@@ -107,11 +107,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void saveCourse(Course course) {
-		courseRepo.save(course);
-	}
-
-	@Override
-	public void updateCourse(Course course) {
 		courseRepo.save(course);
 	}
 
@@ -148,11 +143,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Course findByCode(String code) {
-		return courseRepo.findCourseByCode(code);
-	}
-
-	@Override
 	public Boolean isCourseCodeExist(Course course) {
 		for (Course c : courseRepo.findAll()) {
 			if (c.getId() == course.getId())
@@ -165,11 +155,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void saveStudent(Student student) {
-		studentRepo.save(student);
-	}
-
-	@Override
-	public void updateStudent(Student student) {
 		studentRepo.save(student);
 	}
 
@@ -208,6 +193,14 @@ public class AdminServiceImpl implements AdminService {
 			if (s.getUserName().equalsIgnoreCase(student.getUserName()))
 				return true;
 		}
+		for (Lecturer l : lecturerRepo.findAll()) {
+			if(l.getUserName().equalsIgnoreCase(student.getUserName()))
+				return true;
+		}
+		for (Admin a : adminRepo.findAll()) {
+			if (a.getUserName().equalsIgnoreCase(student.getUserName()))
+				return true;
+		}
 		return false;
 	}
 
@@ -218,11 +211,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void saveEnrolment(Enrolment enrolment) {
-		enrolmentRepo.save(enrolment);
-	}
-
-	@Override
-	public void updateEnrolment(Enrolment enrolment) {
 		enrolmentRepo.save(enrolment);
 	}
 
@@ -271,20 +259,20 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Student> findNotEnrolStudentsByCourseId(Integer id) {
-
-		List<Student> student = enrolmentRepo.findStudentIdbyCourseId(id);
+	public List<Student> findNotEnrolStudentsByCourseId(Integer id){
+		
+		List<Student> student = enrolmentRepo.findStudentsbyCourseId(id);
 		if (student.isEmpty()) {
 			return studentRepo.findAll();
 		}
-
-		return studentRepo.findStudentsNotIn(enrolmentRepo.findStudentIdbyCourseId(id));
-
+		
+		return studentRepo.findStudentsNotIn(enrolmentRepo.findStudentsbyCourseId(id));
+		
 	}
 
 	@Override
-	public List<Student> findEnrolStudentsByCourseId(Integer id) {
-		return studentRepo.findStudentsIn(enrolmentRepo.findStudentIdbyCourseId(id));
+	public List<Student> findEnrolStudentsByCourseId(Integer id){
+		return enrolmentRepo.findStudentsbyCourseId(id);
 	}
 
 	@Override
