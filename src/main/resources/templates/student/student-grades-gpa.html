@@ -63,7 +63,7 @@
 						<td></td>
 						<td></td>
 						<td>Grade Point Average (GPA)</td>
-						<td th:text=${gpa}>GPA</td>
+						<td th:text="${#numbers.formatDecimal(gpa,1,2)}">GPA</td>
 						<td></td>					
 					</tr>
 					
