@@ -12,7 +12,6 @@ import CA.CAPS.domain.Student;
 
 public interface AdminService {
 
-	public void saveLecturer(Lecturer lecturer);
 	public void deleteLecturer(Lecturer lecturer);
 	public List<Lecturer> listAllLecturers();
 	public List<Lecturer> listAllLecturers(Pageable pageable);
@@ -30,7 +29,6 @@ public interface AdminService {
 	public Course findCourseById(Integer id);
 	public Boolean isCourseCodeExist(Course course);
 	
-	public void saveStudent(Student student);
 	public void deleteStudent(Student student);
 	public List<Student> listStudents();
 	public List<Student> listStudents(Pageable pageable);
@@ -41,12 +39,7 @@ public interface AdminService {
 	public void saveEnrolment(Enrolment enrolment);
 	public void deleteEnrolment(Enrolment enrolment);
 	public List<Enrolment> listAllEnrolments();
-	
-	public List<Enrolment> listAllEnrolments(Pageable pageable);
-	public Page<Enrolment> findEnrolmentPaginated(Pageable pageable);
-	public List<Enrolment> findEnrolmentByStudentId(Integer id);
-	public Boolean isEnrolmentExist(Enrolment enrolment);
-	
+	public List<Enrolment> findEnrolmentByStudentId(Integer id);	
 	public List<Student> findNotEnrolStudentsByCourseId(Integer id);
 	public List<Student> findEnrolStudentsByCourseId(Integer id);
 	public void enrollStudentsInCourse(List<Student> students, int courseId);

@@ -39,11 +39,6 @@ public class AdminServiceImpl implements AdminService {
 	private EnrolmentRepository enrolmentRepo;
 
 	@Override
-	public void saveLecturer(Lecturer lecturer) {
-		lecturerRepo.save(lecturer);
-	}
-
-	@Override
 	public void deleteLecturer(Lecturer lecturer) {
 		lecturerRepo.delete(lecturer);
 	}
@@ -154,11 +149,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void saveStudent(Student student) {
-		studentRepo.save(student);
-	}
-
-	@Override
 	public void deleteStudent(Student student) {
 		studentRepo.delete(student);
 	}
@@ -225,37 +215,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Enrolment> listAllEnrolments(Pageable pageable) {
-
-		Page<Enrolment> pagedResult = enrolmentRepo.findAll(pageable);
-
-		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
-		} else {
-			return new ArrayList<Enrolment>();
-		}
-	}
-
-	@Override
-	public Page<Enrolment> findEnrolmentPaginated(Pageable pageable) {
-		return new PageImpl<Enrolment>(listAllEnrolments(pageable), pageable, enrolmentRepo.findAll().size());
-	}
-
-	@Override
 	public List<Enrolment> findEnrolmentByStudentId(Integer id) {
 		List<Enrolment> enrolment = enrolmentRepo.findEnrolByStudentId(id);
 		return enrolment;
-	}
-
-	@Override
-	public Boolean isEnrolmentExist(Enrolment enrolment) {
-		for (Enrolment e : enrolmentRepo.findAll()) {
-			if (e.getStudent() == enrolment.getStudent() && e.getCourse() == enrolment.getCourse())
-				continue;
-			if (e.getStudent().getUserName().equals(enrolment.getStudent().getUserName()))
-				return true;
-		}
-		return false;
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public class AdminController {
 			String newPassword = lecturer.getPassword();
 
 			if (passwordEncoder.matches(oldPassword, newPassword))
-				adminService.saveLecturer(lecturer);
+				userService.saveLecturer(lecturer);
 			else {
 				String subject = "CAPS Account Updated";
 				String text = "Your password has been updated.\n" + "Username: " + lecturer.getUserName() + "\n"
@@ -116,7 +116,15 @@ public class AdminController {
 	@GetMapping("/lecturer/delete/{id}")
 	public String deleteLecturer(@PathVariable("id") Integer id, Model model) {
 
-		Lecturer lecturer = adminService.findLecturerById(id);
+		Lecturer lecturer;
+		
+		try{
+			lecturer = adminService.findLecturerById(id);
+		}
+		catch(Exception e) {
+			return "forward:/admin/lecturer/list";
+		}
+		
 		adminService.removeLecturerFromCourses(lecturer);
 		adminService.deleteLecturer(lecturer);
 
@@ -209,10 +217,17 @@ public class AdminController {
 
 	@GetMapping("/course/delete/{id}")
 	public String deleteCourse(@PathVariable("id") Integer id, Model model) {
-
-		Course course = adminService.findCourseById(id);
+		
+		Course course;
+		
+		try {
+			course = adminService.findCourseById(id);
+		}
+		catch(Exception e) {
+			return "forward:/admin/course/list";
+		}
+	
 		adminService.deleteCourse(course);
-
 		String message = "You have deleted Course " + course + ".";
 		model.addAttribute("message", message);
 
@@ -300,7 +315,7 @@ public class AdminController {
 			String newPassword = student.getPassword();
 
 			if (passwordEncoder.matches(oldPassword, newPassword))
-				adminService.saveStudent(student);
+				userService.saveStudent(student);
 			else {
 				String subject = "CAPS Account Updated";
 				String text = "Your password has been updated.\n" + "Username: " + student.getUserName() + "\n"
@@ -327,10 +342,20 @@ public class AdminController {
 
 	@GetMapping("/student/delete/{id}")
 	public String deleteStudent(@PathVariable("id") Integer id, Model model) {
-		Student student = adminService.findStudentById(id);
+		
+		Student student;
+		
+		try{		
+			student = adminService.findStudentById(id);		
+		}
+		catch(Exception e) {		
+			return "forward:/admin/student/list";		
+		}
+		
 		adminService.deleteStudent(student);
 		String message = "You have deleted Student " + student + ".";
 		model.addAttribute("message", message);
+		
 		return "forward:/admin/student/list";
 	}
 
