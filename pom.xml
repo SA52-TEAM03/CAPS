@@ -81,7 +81,7 @@
 				<configuration>
 					<schemaVersion>V2</schemaVersion>
 					<resourceGroup>Team3</resourceGroup>
-					<appName>CAPS-1625027875869</appName>
+					<appName>SA52Team3-CourseApplicationProcessingSystem</appName>
 					<pricingTier>F1</pricingTier>
 					<region>westeurope</region>
 					<appSettings>
