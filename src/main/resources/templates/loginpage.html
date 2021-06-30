@@ -15,12 +15,10 @@
 	<div th:fragment="header" id="header">
 		<table>
 			<tr>
-				<td width="120px" height="50px"><img width="100%"
-					th:src="@{/image/logo.png}" /></td>
+				<td width="120px" height="50px"><a th:href="@{/}"><img
+						width="100%" th:src="@{/image/logo.png}" /></a></td>
 				<td style="padding-left: 30px;"><h1>Course Application
 						Processing System</h1></td>
-				<td><a th:href="@{/}"><i class="fa fa-home"
-						style="font-size: 96px; color: grey; padding-left: 240px"></i></a></td>
 			</tr>
 		</table>
 	</div>
@@ -34,8 +32,7 @@
 		</h2>
 		<div class="login">
 			<div class="inset">
-				<form action="/login" method="post"
-					class="login-form">
+				<form action="/login" method="post" class="login-form">
 					<fieldset>
 						UserName: <input type="text" name="username" class="login-pwd">
 					</fieldset>
@@ -46,10 +43,6 @@
 						<input type="submit" class="btn btn-info btn-primary"
 							value="login">
 					</fieldset>
-					<div class="text-foot">
-						Don't have an account? <a th:href="@{/registerpage}"
-							class="register-link">Register</a>
-					</div>
 				</form>
 			</div>
 		</div>
