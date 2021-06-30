@@ -16,23 +16,15 @@
 					<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
 				</tr>
 			</table>
-			<h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
-						<li class="nav-item active">
-							<a class="nav-link" href="#" th:href="@{/student/grades}">Grades & GPA</a>
-						</li>
-						<li class="nav-item active">
-							<a class="nav-link" href="#" th:href="@{/student/courses}">View & Enroll Courses</a>
-						</li>
-					</ul>
-				</div>
-				<a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
-			</nav>
+			<div>
+				<a class="nav-link" href="#" th:href="@{/student/grades}">Grades & GPA</a>
+				<a class="nav-link" href="#" th:href="@{/student/courses}">View & Enroll Courses</a>
+				<div style="float:right; margin-right:15px;">
+                   <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.5cm">Welcome</h6>
+                   &nbsp;
+                   <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
+                </div>
+			</div>
 		</header>
 		<br/>
 		<h2>I'm sorry, the course size has reached maximum capacity!</h2>

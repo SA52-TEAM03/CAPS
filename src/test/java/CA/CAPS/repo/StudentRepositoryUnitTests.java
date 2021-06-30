@@ -102,7 +102,6 @@ public class StudentRepositoryUnitTests {
 	public void testDeleteUser() {
 
 		Student student6 = new Student("jiakuang@u.nus.edu", "123456", "jiakuang", "lastName", date);
-		Student expected = studentRepository.save(student6);
 
 		studentRepository.delete(student6);
 

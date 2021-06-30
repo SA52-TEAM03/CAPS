@@ -8,10 +8,9 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 </head>
-<body style="margin-left: 20px; margin-top:20px">
-<header th:insert="admin/fragments/general.html :: header"> </header>
+<body>
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
-<h2 th:text="${course.code} +' ' + ${course.name} + ' '+ ${course.startDate} + ' Result Chart'">Course Name</h2>
+<h2 th:text="${course.code} +' ' + ${course.name} + ' Result Chart'">Course Name</h2>
 <br/>
 <script th:inline="javascript">
 window.onload = function() {
@@ -28,7 +27,7 @@ window.onload = function() {
     	animationEnabled: true,
     	theme: "light2",
     	axisX: {
-    		title:"Marks",
+    		title:"Grades",
     		interval: 10,
     		minimum: 0,
     		maximum: 100
@@ -59,7 +58,7 @@ window.onload = function() {
 		<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{'/lecturer/enrolment/' + ${course.id}}">Back to Enrolment</a>
 		<br/>
 		 <small>Now is: <b
-			th:text="${execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
+			th:text="${#execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
 	</footer>
 	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>

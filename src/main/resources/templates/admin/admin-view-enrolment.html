@@ -19,7 +19,7 @@
 
 	<h2 style="margin-top: 15px; margin-bottom: 15px;"
 		th:if="${not #lists.isEmpty(enrolStudents)}">Enrollment List</h2>
-	<table th:if="${not #lists.isEmpty(enrolStudents)}">
+	<table th:if="${not #lists.isEmpty(enrolStudents)}" class="table table-striped">
 		<tr>
 			
 			<th>Student Id</th>
@@ -40,11 +40,14 @@
 			<td th:text="${student.firstName}">Student firstName</td>
 			<td th:text="${student.lastName}">Student lastName</td>
 		<td>
-		<table th:if="${not #lists.isEmpty(student.enrolments)}">
+		<!--<table th:if="${not #lists.isEmpty(student.enrolments)}">
 		<tr th:each="enrolment:${student.enrolments}">
 		<td th:text=${enrolment.course.getName()}>Course</td>
 		</tr>
-		</table>
+		</table>-->
+		<ul th:each="enrolment:${student.enrolments}">
+		<li th:text=${enrolment.course.getName()} >Course</li>
+		</ul>
 		</tr>
 		
 		<!-- 			<td th:text="${course.size}">Size</td>

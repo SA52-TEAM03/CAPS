@@ -24,9 +24,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable()
+		http
+		.logout()
+        .logoutUrl("/logout")
+        .logoutSuccessUrl("/loginpage")
+        .and()
 		.rememberMe()
 		.and()
+		.csrf().disable()
 		.formLogin()
 		.loginPage("/loginpage")
 		.loginProcessingUrl("/login")
@@ -35,15 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.successHandler(authenticationSuccessHandlerImpl)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/loginpage","/login","/").permitAll()
+		.antMatchers("/loginpage","/login").permitAll()
 		.antMatchers("/student/**").hasAnyAuthority("student")
 		.antMatchers("/lecturer/**").hasAnyAuthority("lecturer")
 		.antMatchers("/admin/**").hasAnyAuthority("admin")
 		.anyRequest().authenticated()
 		.and()
-        .logout()
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/");
+		.sessionManagement()
+		.maximumSessions(1)
+		.maxSessionsPreventsLogin(false)
+		.and();
 	}
 
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {

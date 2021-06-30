@@ -23,14 +23,4 @@ public class UserController {
 		return "loginpage";
 	}
 
-//	@ResponseBody
-//	@RequestMapping(path = "/couseinfo/{date}")
-//	public String home(@PathVariable("date") String date,Model model) {
-//		String d=date;
-//		String m="6";
-//		String y="2021";
-//		LocalDate ld=LocalDate.parse(y+"-"+m+"-"+d);
-//		model.addAttribute("courses",cservice.needIformEnrollmentCourses(ld));
-//		return "<p th:text=${c.name}> Course will start from </p><p th:text=${c.startDate}>, can enroll now.</p>";
-//	}
 }

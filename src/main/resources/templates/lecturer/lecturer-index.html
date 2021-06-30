@@ -7,30 +7,30 @@
 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
 </head>
 <body>
-<div th:fragment="copyh">
-<h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<div class="container-fluid">
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#" th:href="@{/lecturer/courses/}">View Teaching Courses</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" th:href="@{'/lecturer/enrolment/' +'0'}">Course Enrolment/Grading</a>
-      </li>
-    </ul>
-  </div>
-  <a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
+<header th:fragment="copyh">
+<table>
+	<tr style="margin-left: 20px; margin-top:20px">
+		<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
+		<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
+	</tr>
+</table>
+<br>
+
+<div>
+    <a class="btn btn-outline-info head1" href="#" th:href="@{/lecturer/courses/}">View Teaching Courses</a>
+    <a class="btn btn-outline-info head1" href="#" th:href="@{'/lecturer/enrolment/' +'0'}">Course Enrolment/Grading</a>
+    <div style="float:right; margin-right:15px;">
+       <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.2cm">Welcome</h6>
+       &nbsp;
+       <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
+    </div>
 </div>
-</nav>
-</div>
+
+
+</header>
 <footer>
 		 <small>Now is: <b
-			th:text="${execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
+			th:text="${#execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
 </footer>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

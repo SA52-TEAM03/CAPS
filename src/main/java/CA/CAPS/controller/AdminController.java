@@ -420,8 +420,8 @@ public class AdminController {
 
 	@RequestMapping("/enrol/delete")
 	public String enrolDelete(@RequestParam(value = "enrol", required = false) List<Integer> studentId,
-			@RequestParam("cid") Integer courseId) {
-
+			@RequestParam("cid") Integer courseId, Model model) {
+		
 		for (Integer sid : studentId) {
 
 			List<Enrolment> enrolments = adminService.findEnrolmentByStudentId(sid);
@@ -433,7 +433,11 @@ public class AdminController {
 				}
 			}
 		}
+		Course course = adminService.findCourseById(courseId);
+		List<Student> students = adminService.findEnrolStudentsByCourseId(courseId);
 
+		model.addAttribute("course", course);
+		model.addAttribute("students", students);
 		return "admin/admin-enrol-delete";
 	}
 

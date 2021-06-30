@@ -1,14 +1,10 @@
 package CA.CAPS.repo;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-
 import java.util.List;
 
-
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,10 +13,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import CA.CAPS.CapsApplication;
 import CA.CAPS.domain.Course;
-import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
 import CA.CAPS.service.LecturerServiceImpl;
-
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = CapsApplication.class)
@@ -29,31 +23,28 @@ import CA.CAPS.service.LecturerServiceImpl;
 
 public class LecturerControllerTest {
 
-	
 	@Autowired
 	private LecturerServiceImpl lecturerservice;
-	
-	
+
 	@Test
 	public void testcoursebylecusingid() {
-		List <Course> course = lecturerservice.findLecturerCourses(5);
+		List<Course> course = lecturerservice.findLecturerCourses(5);
 		for (Course c : course) {
 			System.out.println(c);
-		}		
+		}
 	}
-	
+
 	@Test
 	public void testLecturerforstudents() {
 		List<Integer> grafe = lecturerservice.findGradesByCourse(5);
 		List<Student> s = lecturerservice.findStudentsByCourse(5);
-		
+
 		for (Integer i : grafe) {
 			System.out.println(i);
 		}
-		for (Student ss: s) {
+		for (Student ss : s) {
 			System.out.println(ss);
 		}
 	}
-	
 
 }

@@ -21,25 +21,25 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			Authentication authentication) throws IOException, ServletException {
 
 		Set<String> authorities = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        
-        if (authorities.contains("admin")){
-            new DefaultRedirectStrategy().sendRedirect(request, response, "/admin/student/list");
-            return;
-        }
-        
-        if (authorities.contains("student")){
-            new DefaultRedirectStrategy().sendRedirect(request, response, "/student/grades");
-            return;
-        }
-        
-        if (authorities.contains("lecturer")){
-            new DefaultRedirectStrategy().sendRedirect(request, response, "/lecturer/courses");
-            return;
-        }
-        
-        new DefaultRedirectStrategy().sendRedirect(request, response, "/");
-        
-        return;
+
+		if (authorities.contains("admin")) {
+			new DefaultRedirectStrategy().sendRedirect(request, response, "/admin/student/list");
+			return;
+		}
+
+		if (authorities.contains("student")) {
+			new DefaultRedirectStrategy().sendRedirect(request, response, "/student/grades");
+			return;
+		}
+
+		if (authorities.contains("lecturer")) {
+			new DefaultRedirectStrategy().sendRedirect(request, response, "/lecturer/courses");
+			return;
+		}
+
+		new DefaultRedirectStrategy().sendRedirect(request, response, "/");
+
+		return;
 	}
 
 }

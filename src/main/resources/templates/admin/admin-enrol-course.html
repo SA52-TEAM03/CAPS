@@ -18,7 +18,7 @@
 	<span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(courses)}">Course List</h2>
-	<table th:if="${not #lists.isEmpty(courses)}">
+	<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
 		<tr>
 			<th>Code</th>
 			<th>Name</th>
@@ -42,7 +42,7 @@
 			<td th:text="${course.lecturer}">Lecturer</td>
 			<td><a class="btn btn-secondary" 
 				th:href="@{/admin/enrol/course/}+${course.Id}">Enrol</a></td>
-			<td width="80px;"><a class="btn btn-info" 
+			<td width="80px;"><a class="btn btn-info btn-sm" 
 				th:href="@{/admin/enrol/list/}+${course.Id}">Show Enrolled Students</a></td>
 		</tr>
 	</table>

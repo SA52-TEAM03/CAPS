@@ -6,7 +6,9 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+
 </head>
 <body>
 	<div th:fragment="header" id="header">
@@ -22,25 +24,28 @@
 	</div>
 	<div th:fragment="menu" id="menu">
 
-
 		<a class="btn btn-outline-info head1" th:href="@{/admin/student/list}">Manage
-			Students</a> <a class="btn btn-outline-info head1"
-			th:href="@{/admin/lecturer/list}">Manage Lecturers</a> <a
-			class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage
-			Courses</a> <a class="btn btn-outline-info head1"
-			th:href="@{/admin/enrol/}">Manage Enrollment</a> <a
-			class="btn btn-outline-dark"
-			style="float: right; margin-right: 15px;" th:href="@{/logout}">Logout</a>
+			Students</a> 
+		<a class="btn btn-outline-info head1"
+			th:href="@{/admin/lecturer/list}">Manage Lecturers</a> 
+		<a class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage
+			Courses</a> 
+		<a class="btn btn-outline-info head1"
+			th:href="@{/admin/enrol/}">Manage Enrollment</a> 
+		<div style="float:right; margin-right:15px;">
+            <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.5cm">Welcome</h6>
+             &nbsp;
+            <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
+        </div>
 		<br/>
-		<h2
-			th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
+		
 
 	</div>
 	<footer th:fragment="footer">
 		<a class="btn btn-success"
 			style="width: 250px !important; margin-bottom: 20px;" href="Home"
 			th:href="@{/admin/student/list}">Back to Home</a> <br /> <small>Now
-			is: <b th:text="${execInfo.now.time}"></b>
+			is: <b th:text="${#execInfo.now.time}"></b>
 		</small> <br /> <small> &copy; Course Application Processing System ,
 			ISS, NUS 2021</small>
 	</footer>

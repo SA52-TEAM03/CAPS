@@ -18,7 +18,7 @@
 	<span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(courses)}">Course List</h2>
-	<table th:if="${not #lists.isEmpty(courses)}">
+	<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
 		<tr>
 			<th>Code</th>
 			<th>Name</th>
