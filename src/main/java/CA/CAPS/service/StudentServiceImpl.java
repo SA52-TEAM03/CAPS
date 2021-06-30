@@ -109,5 +109,11 @@ public class StudentServiceImpl implements StudentService{
 			
 		return gpa;
 	}
+	
+	@Override
+	public Course getCourseById(int courseId) {
+		
+		return courseRepo.getById(courseId);
+	}
 
 }

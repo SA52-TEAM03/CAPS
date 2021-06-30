@@ -24,6 +24,8 @@ public interface StudentService {
 	
 	public Double getGPAOfStudent(Student student);
 
-	Student findByUserName(String username);
+	public Student findByUserName(String username);
+	
+	public Course getCourseById(int courseId);
 
 }
