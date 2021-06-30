@@ -7,27 +7,26 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import CA.CAPS.domain.Admin;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
 import CA.CAPS.domain.Student;
-import CA.CAPS.repo.EnrolmentRepository;
 import CA.CAPS.service.AdminServiceImpl;
 import CA.CAPS.service.UserServiceImple;
 
+@EnableAsync
 @SpringBootApplication
 public class CapsApplication {
 
 	@Autowired
 	private UserServiceImple userService;
-	
+
 	@Autowired
 	private AdminServiceImpl adminService;
-	
-	@Autowired
-	private EnrolmentRepository erepo;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(CapsApplication.class, args);
@@ -37,9 +36,9 @@ public class CapsApplication {
 	CommandLineRunner runner() {
 		return args -> {
 			LocalDate date = LocalDate.now();
-			
-			Admin admin1=new Admin("esther", "tan", "admin1@email.com", "123456");
-			Admin admin2=new Admin("megan", "wang", "admin2@email.com", "123456");
+
+			Admin admin1 = new Admin("esther", "tan", "admin1@email.com", "123456");
+			Admin admin2 = new Admin("megan", "wang", "admin2@email.com", "123456");
 			userService.saveAdmin(admin1);
 			userService.saveAdmin(admin2);
 
@@ -65,8 +64,8 @@ public class CapsApplication {
 			Lecturer lecturer3 = new Lecturer("Tri Tin", "Nguyen", "lecturer3@email.com", "123456");
 			userService.saveLecturer(lecturer1);
 			userService.saveLecturer(lecturer2);
-			userService.saveLecturer(lecturer3);	
-			
+			userService.saveLecturer(lecturer3);
+
 			Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
 			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);
 			Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01), 5);
@@ -74,11 +73,11 @@ public class CapsApplication {
 			Course course5 = new Course("COMP105", "FOPCS", 50, 5, LocalDate.of(2021, 9, 01), 5);
 			Course course6 = new Course("COMP106", "C#", 50, 5, LocalDate.of(2021, 9, 01), 5);
 			Course course7 = new Course("COMP107", "JAVA", 50, 5, LocalDate.of(2021, 9, 01), 5);
-			Course course8 = new Course("COMP108", ".NET", 50, 5, LocalDate.of(2021, 9, 01), 5);			
+			Course course8 = new Course("COMP108", ".NET", 50, 5, LocalDate.of(2021, 9, 01), 5);
 			Course course12 = new Course("COMP112", "FOPCS", 50, 5, LocalDate.of(2021, 11, 01), 5);
 			Course course9 = new Course("COMP109", "C#", 50, 5, LocalDate.of(2021, 11, 01), 5);
 			Course course10 = new Course("COMP110", "JAVA", 50, 5, LocalDate.of(2021, 11, 01), 5);
-			Course course11= new Course("COMP111", ".NET", 50, 5, LocalDate.of(2021, 11, 01), 5);
+			Course course11 = new Course("COMP111", ".NET", 50, 5, LocalDate.of(2021, 11, 01), 5);
 			adminService.saveCourse(course1);
 			adminService.saveCourse(course2);
 			adminService.saveCourse(course3);
@@ -86,12 +85,12 @@ public class CapsApplication {
 			adminService.saveCourse(course5);
 			adminService.saveCourse(course6);
 			adminService.saveCourse(course7);
-			adminService.saveCourse(course8);			
+			adminService.saveCourse(course8);
 			adminService.saveCourse(course9);
 			adminService.saveCourse(course10);
 			adminService.saveCourse(course11);
 			adminService.saveCourse(course12);
-			
+
 			course1.setLecturer(lecturer1);
 			course2.setLecturer(lecturer2);
 			course3.setLecturer(lecturer3);
@@ -99,7 +98,7 @@ public class CapsApplication {
 			course5.setLecturer(lecturer1);
 			course6.setLecturer(lecturer2);
 			course7.setLecturer(lecturer3);
-			course8.setLecturer(lecturer3);			
+			course8.setLecturer(lecturer3);
 			course9.setLecturer(lecturer1);
 			course10.setLecturer(lecturer2);
 			course11.setLecturer(lecturer3);
@@ -116,31 +115,31 @@ public class CapsApplication {
 			adminService.saveCourse(course10);
 			adminService.saveCourse(course11);
 			adminService.saveCourse(course12);
-		
-			Enrolment enrolment1=new Enrolment(student5,course4);
-			Enrolment enrolment2=new Enrolment(student6,course3);
-			Enrolment enrolment3=new Enrolment(student7,course2);
-			Enrolment enrolment4=new Enrolment(student8,course1);
-			Enrolment enrolment5=new Enrolment(student1,course1);
-			Enrolment enrolment6=new Enrolment(student2,course2);
-			Enrolment enrolment7=new Enrolment(student3,course3);
-			Enrolment enrolment8=new Enrolment(student4,course4);
-			Enrolment enrolment11=new Enrolment(student5,course5);
-			Enrolment enrolment22=new Enrolment(student6,course6);
-			Enrolment enrolment33=new Enrolment(student7,course7);
-			Enrolment enrolment44=new Enrolment(student8,course8);
-			Enrolment enrolment55=new Enrolment(student1,course8);
-			Enrolment enrolment66=new Enrolment(student2,course7);
-			Enrolment enrolment77=new Enrolment(student3,course6);
-			Enrolment enrolment88=new Enrolment(student4,course5);
-			Enrolment enrolment111=new Enrolment(student5,course9);
-			Enrolment enrolment222=new Enrolment(student6,course10);
-			Enrolment enrolment333=new Enrolment(student7,course12);
-			Enrolment enrolment444=new Enrolment(student8,course11);
-			Enrolment enrolment555=new Enrolment(student1,course11);
-			Enrolment enrolment666=new Enrolment(student2,course12);
-			Enrolment enrolment777=new Enrolment(student3,course10);
-			Enrolment enrolment888=new Enrolment(student4,course9);
+
+			Enrolment enrolment1 = new Enrolment(student5, course4);
+			Enrolment enrolment2 = new Enrolment(student6, course3);
+			Enrolment enrolment3 = new Enrolment(student7, course2);
+			Enrolment enrolment4 = new Enrolment(student8, course1);
+			Enrolment enrolment5 = new Enrolment(student1, course1);
+			Enrolment enrolment6 = new Enrolment(student2, course2);
+			Enrolment enrolment7 = new Enrolment(student3, course3);
+			Enrolment enrolment8 = new Enrolment(student4, course4);
+			Enrolment enrolment11 = new Enrolment(student5, course5);
+			Enrolment enrolment22 = new Enrolment(student6, course6);
+			Enrolment enrolment33 = new Enrolment(student7, course7);
+			Enrolment enrolment44 = new Enrolment(student8, course8);
+			Enrolment enrolment55 = new Enrolment(student1, course8);
+			Enrolment enrolment66 = new Enrolment(student2, course7);
+			Enrolment enrolment77 = new Enrolment(student3, course6);
+			Enrolment enrolment88 = new Enrolment(student4, course5);
+			Enrolment enrolment111 = new Enrolment(student5, course9);
+			Enrolment enrolment222 = new Enrolment(student6, course10);
+			Enrolment enrolment333 = new Enrolment(student7, course12);
+			Enrolment enrolment444 = new Enrolment(student8, course11);
+			Enrolment enrolment555 = new Enrolment(student1, course11);
+			Enrolment enrolment666 = new Enrolment(student2, course12);
+			Enrolment enrolment777 = new Enrolment(student3, course10);
+			Enrolment enrolment888 = new Enrolment(student4, course9);
 
 			adminService.saveEnrolment(enrolment1);
 			adminService.saveEnrolment(enrolment2);
@@ -166,8 +165,6 @@ public class CapsApplication {
 			adminService.saveEnrolment(enrolment666);
 			adminService.saveEnrolment(enrolment777);
 			adminService.saveEnrolment(enrolment888);
-			
-
 
 		};
 	}
