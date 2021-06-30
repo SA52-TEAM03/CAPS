@@ -33,7 +33,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
         }
         
         if (authorities.contains("lecturer")){
-            new DefaultRedirectStrategy().sendRedirect(request, response, "/lecturer/index");
+            new DefaultRedirectStrategy().sendRedirect(request, response, "/lecturer/courses");
             return;
         }
         

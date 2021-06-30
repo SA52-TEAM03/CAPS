@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,16 +26,6 @@ public class LecturerController {
 
 	@Autowired
 	private LecturerService lecturerService;
-	
-	@GetMapping("/index")
-	public String getHomePage(Model model) {
-		
-		String username=SecurityContextHolder.getContext().getAuthentication().getName();
-		Lecturer lecturer=lecturerService.findLecturerByUserName(username);	
-		
-		model.addAttribute("lecturer", lecturerService.findLecturer(lecturer.getId()));
-		return "lecturer/lecturer-index";
-	}
 	
 	@GetMapping("/courses")
 	public String getLecturerCourse(Model model) {
