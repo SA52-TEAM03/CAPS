@@ -15,8 +15,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import org.springframework.web.context.WebApplicationContext;
-
 import CA.CAPS.CapsApplication;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Lecturer;
@@ -30,10 +28,7 @@ import CA.CAPS.service.LecturerServiceImpl;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 
 public class LecturerControllerTest {
-	
-	
-	@Autowired
-	private WebApplicationContext webapplication;
+
 	
 	@Autowired
 	private LecturerServiceImpl lecturerservice;
