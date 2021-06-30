@@ -33,11 +33,11 @@ public class Student {
 	private Collection<Enrolment> enrolments;
 
 	@NotEmpty(message = "First Name is required.")
-	@Pattern(regexp = "^[a-zA-Z]*", message = "First Name must not contain numbers/special characters")
+	@Pattern(regexp = "^[a-zA-Z ]*", message = "First Name must not contain numbers/special characters")
 	private String firstName;
 
 	@NotEmpty(message = "Last Name is required.")
-	@Pattern(regexp = "^[a-zA-Z]*", message = "Last Name must not contain numbers/special characters")
+	@Pattern(regexp = "^[a-zA-Z ]*", message = "Last Name must not contain numbers/special characters")
 	private String lastName;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

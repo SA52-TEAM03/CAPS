@@ -43,14 +43,14 @@ public class CapsApplication {
 			userService.createAdmin(admin1);
 			userService.createAdmin(admin2);
 
-			Student student1 = new Student("student1@email.com", "123456", "william", "lastName", date);
-			Student student2 = new Student("student2@email.com", "123456", "larry", "lastName", date);
-			Student student3 = new Student("student3@email.com", "123456", "min", "lastName", date);
-			Student student4 = new Student("student4@email.com", "123456", "andy", "lastName", date);
-			Student student5 = new Student("student5@email.com", "123456", "kaman", "lastName", date);
-			Student student6 = new Student("student6@email.com", "123456", "jiakuang", "lastName", date);
-			Student student7 = new Student("student7@email.com", "123456", "xunlong", "lastName", date);
-			Student student8 = new Student("student8@email.com", "123456", "danlin", "lastName", date);
+			Student student1 = new Student("student1@email.com", "123456", "William", "Wu", date);
+			Student student2 = new Student("student2@email.com", "123456", "Larry", "Sim", date);
+			Student student3 = new Student("student3@email.com", "123456", "Min Thein", "Kyaw", date);
+			Student student4 = new Student("student4@email.com", "123456", "Andy", "Seah", date);
+			Student student5 = new Student("student5@email.com", "123456", "Ka Man", "Chan", date);
+			Student student6 = new Student("student6@email.com", "123456", "Jia Kuang", "Wong", date);
+			Student student7 = new Student("student7@email.com", "123456", "Xunlong", "Zou", date);
+			Student student8 = new Student("student8@email.com", "123456", "Dan Lin", "Chen", date);
 			userService.createStudent(student1);
 			userService.createStudent(student2);
 			userService.createStudent(student3);
@@ -61,7 +61,7 @@ public class CapsApplication {
 			userService.createStudent(student8);
 
 			Lecturer lecturer1 = new Lecturer("Liu", "Fan", "lecturer1@email.com", "123456");
-			Lecturer lecturer2 = new Lecturer("Cher", "Wa", "lecturer2@email.com", "123456");
+			Lecturer lecturer2 = new Lecturer("Cher", "Wah", "lecturer2@email.com", "123456");
 			Lecturer lecturer3 = new Lecturer("Tri", "Tin", "lecturer3@email.com", "123456");
 			userService.createLecturer(lecturer1);
 			userService.createLecturer(lecturer2);
@@ -142,78 +142,32 @@ public class CapsApplication {
 			Enrolment enrolment777=new Enrolment(student3,course10);
 			Enrolment enrolment888=new Enrolment(student4,course9);
 
-			erepo.save(enrolment1);
-			erepo.save(enrolment2);
-			erepo.save(enrolment3);
-			erepo.save(enrolment4);
-			erepo.save(enrolment5);
-			erepo.save(enrolment6);
-			erepo.save(enrolment7);
-			erepo.save(enrolment8);
-			erepo.save(enrolment11);
-			erepo.save(enrolment22);
-			erepo.save(enrolment33);
-			erepo.save(enrolment44);
-			erepo.save(enrolment55);
-			erepo.save(enrolment66);
-			erepo.save(enrolment77);
-			erepo.save(enrolment88);
-			erepo.save(enrolment111);
-			erepo.save(enrolment222);
-			erepo.save(enrolment333);
-			erepo.save(enrolment444);
-			erepo.save(enrolment555);
-			erepo.save(enrolment666);
-			erepo.save(enrolment777);
-			erepo.save(enrolment888);
+			adminService.saveEnrolment(enrolment1);
+			adminService.saveEnrolment(enrolment2);
+			adminService.saveEnrolment(enrolment3);
+			adminService.saveEnrolment(enrolment4);
+			adminService.saveEnrolment(enrolment5);
+			adminService.saveEnrolment(enrolment6);
+			adminService.saveEnrolment(enrolment7);
+			adminService.saveEnrolment(enrolment8);
+			adminService.saveEnrolment(enrolment11);
+			adminService.saveEnrolment(enrolment22);
+			adminService.saveEnrolment(enrolment33);
+			adminService.saveEnrolment(enrolment44);
+			adminService.saveEnrolment(enrolment55);
+			adminService.saveEnrolment(enrolment66);
+			adminService.saveEnrolment(enrolment77);
+			adminService.saveEnrolment(enrolment88);
+			adminService.saveEnrolment(enrolment111);
+			adminService.saveEnrolment(enrolment222);
+			adminService.saveEnrolment(enrolment333);
+			adminService.saveEnrolment(enrolment444);
+			adminService.saveEnrolment(enrolment555);
+			adminService.saveEnrolment(enrolment666);
+			adminService.saveEnrolment(enrolment777);
+			adminService.saveEnrolment(enrolment888);
 			
-//			Course c1 = new Course("CourseA", 50, 5);
-//			Course c2 = new Course("CourseB", 50, 4);
-//			Course c3 = new Course("CourseC", 50, 3);
-//			
-//			courseService.save(c1);
-//			courseService.save(c2);
-//			courseService.save(c3);
 
-//			Course c4 = new Course("CourseD", 50, 3);
-//			Course c5 = new Course("CourseE", 50, 3);
-//			Course c6 = new Course("CourseF", 50, 3);
-//			
-//			courseService.save(c4);
-//			courseService.save(c5);
-//			courseService.save(c6);		
-
-//			Student s1 = new Student("st1", "st1", "Harry", "Potter", LocalDate.of(2021, 1, 1) );
-//			Student s2 = new Student("st2", "st2", "Ron", "Weasley", LocalDate.of(2021, 1, 1) );
-//			
-//			studentService.save(s1);
-//			studentService.save(s2);
-
-//			Enrolment en1 = new Enrolment(studentService.getById(4), courseService.getById(1));
-//			Enrolment en2 = new Enrolment(studentService.getById(4), courseService.getById(2));
-//			Enrolment en3 = new Enrolment(studentService.getById(5), courseService.getById(2));
-//			Enrolment en4 = new Enrolment(studentService.getById(5), courseService.getById(3));
-//			
-//			enrolmentService.save(en1);
-//			enrolmentService.save(en2);
-//			enrolmentService.save(en3);
-//			enrolmentService.save(en4);
-
-			// WW Test files
-//			Student s1 = new Student("queeniewong@email.com", "password123", "Wong", "Queenie", LocalDate.now());
-//			Student s2 = new Student("queenieleeg@email.com", "password123", "Lee", "Queenie", LocalDate.now());
-//			Student s3 = new Student("queeniegoh@email.com", "password123", "Goh", "Queenie", LocalDate.now());
-//			Student s4 = new Student("queeniezhou@email.com", "password123", "Zhou", "Queenie", LocalDate.now());
-//			Student s5 = new Student("queeniecheng@email.com", "password123", "Cheng", "Queenie", LocalDate.now());
-//
-//			ArrayList<Student> studentlist = new ArrayList<Student>();
-//			studentlist.add(s1);
-//			studentlist.add(s2);
-//			studentlist.add(s3);
-//			studentlist.add(s4);
-//			studentlist.add(s5);
-
-//			srepo.saveAll(studentlist);
 
 		};
 	}
