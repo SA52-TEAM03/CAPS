@@ -6,14 +6,15 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
 </head>
-<body>
+<body style="margin-left: 20px; margin-top:20px">
+<header th:insert="admin/fragments/general.html :: header"> </header>
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
 <br/>
 <div>
 <div class="btn-group" role="group" aria-label="Basic example" th:each="course : ${lecturerCourses}">
   <a class="btn btn-secondary" href="#" th:href="@{'/lecturer/enrolment/' + ${course.id}}" role="button" th:text=${course.name}>Courses</a>
 </div>
-<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course Enrolment: '+ ${course.name} +' '+ ${course.code}">Class List</h2>
+<h2 th:if="${not #lists.isEmpty(students)}" th:text="'Course Enrolment: '+ ${course.name} +' '+ ${course.code} +' '+ ${course.startDate}">Class List</h2>
 <div>
 <table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
   <thead>
@@ -21,7 +22,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
       <th  scope="col">Student Id</th>
       <th  scope="col">Name</th>
       <th  scope="col">Enrollment Date</th>
-      <th  scope="col">Grade</th>
+      <th  scope="col">Marks</th>
       <th></th>
     </tr>
   </thead>
@@ -31,7 +32,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
       <td  th:text="${student.firstName + ' ' + student.lastName}">Name</td>
 	  <td  th:text=${student.enrollmentDate}>Enrollment Date</td>
 	  <td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grades</td>
-	  <td><a class="btn btn-secondary" href="#" th:href="@{'/lecturer/student/' + ${student.id}}" role="button" th:text="${grades[iStat.index]}!=null? 'Edit Grade' : 'Add Grade'">Add Grade</a></td>
+	  <td><a class="btn btn-secondary" href="#" th:href="@{'/lecturer/student/' + ${student.id}}" role="button" th:text="${grades[iStat.index]}!=null? 'Edit Marks' : 'Add Marks'">Add Marks</a></td>
 	</tr>
   </tbody>
 </table>
@@ -45,5 +46,6 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
 </footer>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

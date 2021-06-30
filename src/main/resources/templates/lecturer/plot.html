@@ -8,9 +8,10 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous" />
 </head>
-<body>
+<body style="margin-left: 20px; margin-top:20px">
+<header th:insert="admin/fragments/general.html :: header"> </header>
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
-<h2 th:text="${course.code} +' ' + ${course.name} + ' Result Chart'">Course Name</h2>
+<h2 th:text="${course.code} +' ' + ${course.name} + ' '+ ${course.startDate} + ' Result Chart'">Course Name</h2>
 <br/>
 <script th:inline="javascript">
 window.onload = function() {
@@ -27,7 +28,7 @@ window.onload = function() {
     	animationEnabled: true,
     	theme: "light2",
     	axisX: {
-    		title:"Grades",
+    		title:"Marks",
     		interval: 10,
     		minimum: 0,
     		maximum: 100

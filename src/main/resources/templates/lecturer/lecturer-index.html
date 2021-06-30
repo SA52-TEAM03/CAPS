@@ -7,13 +7,7 @@
 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
 </head>
 <body>
-<header th:fragment="copyh">
-<table>
-	<tr style="margin-left: 20px; margin-top:20px">
-		<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
-		<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
-	</tr>
-</table>
+<div th:fragment="copyh">
 <h2 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">Welcome</h2>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <div class="container-fluid">
@@ -33,7 +27,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
   <a class="btn btn-outline-dark" style="float:right; margin-right:15px;" th:href="@{/logout}">Logout</a>
 </div>
 </nav>
-</header>
+</div>
 <footer>
 		 <small>Now is: <b
 			th:text="${execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
