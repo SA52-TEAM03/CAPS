@@ -2,8 +2,12 @@ package CA.CAPS.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
+import CA.CAPS.domain.Student;
 import CA.CAPS.service.LecturerService;
 import CA.CAPS.util.GradeCount;
 
@@ -25,39 +30,55 @@ public class LecturerController {
 
 	@Autowired
 	private LecturerService lecturerService;
+	
+	static int pageSize = 5;
 
 	@GetMapping("/courses")
-	public String getLecturerCourse(Model model) {
+	public String getLecturerCourse(@RequestParam("page") Optional<Integer> page, Model model) {
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Lecturer lecturer = lecturerService.findLecturerByUserName(username);
 		
-		int id = lecturer.getId();
-		model.addAttribute("courses", lecturerService.findLecturerCourses(id));
-		model.addAttribute("lecturer", lecturerService.findLecturer(id));
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize);
+		Page<Course> lectPage = lecturerService.coursePageForLecturer(pageable, lecturer);
+		List<Course> courses = lectPage.getContent();
+		
+		model.addAttribute("lectPage", lectPage);
+		model.addAttribute("courses", courses);
+	
 		return "lecturer/lecturer-view-courses";
 	}
 
 	@GetMapping("/enrolment/{courseId}")
-	public String getCourseEnrolment(@PathVariable("courseId") int courseId, Model model) {
+	public String getCourseEnrolment(@PathVariable("courseId") int courseId, 
+			@RequestParam("page") Optional<Integer> page,
+			Model model) {
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		Lecturer lecturer = lecturerService.findLecturerByUserName(username);
-
+		
+		Course course;
 		int id = lecturer.getId();
-
-		if (courseId == 0) {
-			model.addAttribute("students", new ArrayList<>());
-			model.addAttribute("course", new Course());
-			model.addAttribute("grades", new ArrayList<>());
-		} else {
-			model.addAttribute("students", lecturerService.findStudentsByCourse(courseId));
-			model.addAttribute("course", lecturerService.findById(courseId));
-			model.addAttribute("grades", lecturerService.findGradesByCourse(courseId));
+		
+		if(courseId == 0) {
+			List<Course> courses = lecturerService.findLecturerCourses(id);
+			course = courses.get(0);
 		}
+		else {
+			
+			course = lecturerService.findById(courseId);
+		}
+		
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize);
+		Page<Student> lectPage = lecturerService.enrolmentPageForLecturer(pageable, course);
+		List<Student> students = lectPage.getContent();
 
-		model.addAttribute("lecturer", lecturer);
 		model.addAttribute("lecturerCourses", lecturerService.findLecturerCourses(id));
+		model.addAttribute("course", lecturerService.findById(course.getId()));
+		model.addAttribute("grades", lecturerService.findGradesByCourse(course.getId()));
+		model.addAttribute("lectPage", lectPage);
+		model.addAttribute("students", students);
+		
 		return "lecturer/lecturer-view-enrolment";
 	}
 

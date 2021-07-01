@@ -138,8 +138,23 @@ public class CapsApplication {
 			Enrolment enrolment555 = new Enrolment(student1, course11);
 			Enrolment enrolment666 = new Enrolment(student2, course12);
 			Enrolment enrolment777 = new Enrolment(student3, course10);
-			Enrolment enrolment888 = new Enrolment(student4, course9);
+			Enrolment enrolment888 = new Enrolment(student4, course3);
+			Enrolment enrolment1111 = new Enrolment(student1, course3);
+			Enrolment enrolment2222 = new Enrolment(student2, course3);
+			Enrolment enrolment3333 = new Enrolment(student4, course3);
+			Enrolment enrolment4444 = new Enrolment(student5, course3);
+			Enrolment enrolment5555 = new Enrolment(student7, course3);
+			Enrolment enrolment6666 = new Enrolment(student8, course3);
 
+			enrolment2.setGrade(30);
+			enrolment7.setGrade(55);
+			enrolment1111.setGrade(55);
+			enrolment2222.setGrade(62);
+			enrolment3333.setGrade(73);
+			enrolment4444.setGrade(69);
+			enrolment5555.setGrade(34);
+			enrolment6666.setGrade(91);
+			
 			adminService.saveEnrolment(enrolment1);
 			adminService.saveEnrolment(enrolment2);
 			adminService.saveEnrolment(enrolment3);
@@ -164,6 +179,12 @@ public class CapsApplication {
 			adminService.saveEnrolment(enrolment666);
 			adminService.saveEnrolment(enrolment777);
 			adminService.saveEnrolment(enrolment888);
+			adminService.saveEnrolment(enrolment1111);
+			adminService.saveEnrolment(enrolment2222);
+			adminService.saveEnrolment(enrolment3333);
+			adminService.saveEnrolment(enrolment4444);
+			adminService.saveEnrolment(enrolment5555);
+			adminService.saveEnrolment(enrolment6666);
 
 		};
 	}

@@ -2,6 +2,9 @@ package CA.CAPS.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Lecturer;
@@ -33,4 +36,8 @@ public interface LecturerService {
 	public void save(Enrolment enrolment);
 
 	public List<GradeCount> getDataPoints(int id);
+	
+	public Page<Course> coursePageForLecturer(Pageable pageable, Lecturer lecturer);
+	
+	public Page<Student> enrolmentPageForLecturer(Pageable pageable, Course course);
 }
