@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 		.logout()
         .logoutUrl("/logout")
-        .logoutSuccessUrl("/loginpage")
+        .logoutSuccessUrl("/")
         .and()
 		.rememberMe()
 		.and()
@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.successHandler(authenticationSuccessHandlerImpl)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/loginpage","/login").permitAll()
+		.antMatchers("/loginpage","/login","/","/validation/**","/registerpage","/register","/sendcode/**").permitAll()
 		.antMatchers("/student/**").hasAnyAuthority("student")
 		.antMatchers("/lecturer/**").hasAnyAuthority("lecturer")
 		.antMatchers("/admin/**").hasAnyAuthority("admin")

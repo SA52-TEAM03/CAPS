@@ -3,10 +3,9 @@
 <head th:fragment="headerfiles">
 <meta charset="UTF-8" />
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
 
 </head>
@@ -25,20 +24,19 @@
 	<div th:fragment="menu" id="menu">
 
 		<a class="btn btn-outline-info head1" th:href="@{/admin/student/list}">Manage
-			Students</a> 
-		<a class="btn btn-outline-info head1"
-			th:href="@{/admin/lecturer/list}">Manage Lecturers</a> 
-		<a class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage
-			Courses</a> 
-		<a class="btn btn-outline-info head1"
-			th:href="@{/admin/enrol/}">Manage Enrollment</a> 
-		<div style="float:right; margin-right:15px;">
-            <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.5cm">Welcome</h6>
-             &nbsp;
-            <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
-        </div>
-		<br/>
-		
+			Students</a> <a class="btn btn-outline-info head1"
+			th:href="@{/admin/lecturer/list}">Manage Lecturers</a> <a
+			class="btn btn-outline-info head1" th:href="@{/admin/course/list}">Manage
+			Courses</a> <a class="btn btn-outline-info head1"
+			th:href="@{/admin/enrol/}">Manage Enrollment</a>
+		<div style="float: right; margin-right: 15px;">
+			<h6
+				th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+				style="float: left; padding-top: 0.5cm">Welcome</h6>
+			&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
+		</div>
+		<br />
+
 
 	</div>
 	<footer th:fragment="footer">
