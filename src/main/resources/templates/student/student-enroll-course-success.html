@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>Enrollment Success</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-	</head>
+<head>
+<meta charset="ISO-8859-1">
+<title>Enrollment Success</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+</head>
 
-	<body>
-		<header th:fragment="copyh">
-			<table>
-				<tr style="margin-left: 20px; margin-top:20px">
-					<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
-					<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
-				</tr>
-			</table>
-			<div>
-				<a class="btn btn-outline-info head1" href="#" th:href="@{/student/grades}">Grades & GPA</a>
-				<a class="btn btn-outline-info head1" href="#" th:href="@{/student/courses}">View & Enroll Courses</a>
-				<div style="float:right; margin-right:15px;">
-                   <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.5cm">Welcome</h6>
-                   &nbsp;
-                   <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
-                </div>
+<body>
+	<header th:fragment="copyh">
+		<table>
+			<tr style="margin-left: 20px; margin-top: 20px">
+				<td width="120px" height="50px"><img width="100%"
+					th:src="@{/image/logo.png}" /></td>
+				<td style="padding-left: 30px;"><h1>Course Application
+						Processing System</h1></td>
+			</tr>
+		</table>
+		<div>
+			<a class="btn btn-outline-info head1" href="#"
+				th:href="@{/student/grades}">Grades & GPA</a> <a
+				class="btn btn-outline-info head1" href="#"
+				th:href="@{/student/courses/list}">View & Enroll Courses</a>
+			<div style="float: right; margin-right: 15px;">
+				<h6
+					th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+					style="float: left; padding-top: 0.5cm">Welcome</h6>
+				&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
 			</div>
-		</header>
-		<br/>
-		<h2>Congratulations, You have successfully enrolled for the course!</h2>
-		<br/>
-		<footer th:fragment="footer">
-			<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/student/grades}">Back to Home</a>
-			<br/>
-			<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> 
-			<br /> 
-			<small>&copy; Course Application Processing System , ISS, NUS 2021</small>
-		</footer>
-	</body>
+		</div>
+	</header>
+	<br />
+	<h2>Congratulations, You have successfully enrolled for the
+		course!</h2>
+	<br />
+	<footer th:fragment="footer">
+		<a class="btn btn-success"
+			style="width: 250px !important; margin-bottom: 20px;" href="Home"
+			th:href="@{/student/grades}">Back to Home</a> <br /> <small>Now
+			is: <b th:text="${#execInfo.now.time}"></b>
+		</small> <br /> <small>&copy; Course Application Processing System ,
+			ISS, NUS 2021</small>
+	</footer>
+</body>
 </html>

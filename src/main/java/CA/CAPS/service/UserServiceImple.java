@@ -51,6 +51,19 @@ public class UserServiceImple implements UserDetailsService {
 		arepo.save(admin);
 	}
 
+	public Admin findAdminByUserName(String userName) {
+		return arepo.findUserByUserName(userName);
+	}
+
+	public Student findStudentByUserName(String userName) {
+		return srepo.findUserByUserName(userName);
+	}
+
+	public Lecturer findLecturerByUserName(String userName) {
+		return lrepo.findUserByUserName(userName);
+	}
+
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Admin admin = arepo.findUserByUserName(username);
@@ -58,7 +71,7 @@ public class UserServiceImple implements UserDetailsService {
 		Lecturer lecturer = lrepo.findUserByUserName(username);
 
 		List<String> authorities = new ArrayList<>();
-		
+
 		if (admin != null) {
 			userDetails.setUsername(username);
 			userDetails.setPassword(admin.getPassword());

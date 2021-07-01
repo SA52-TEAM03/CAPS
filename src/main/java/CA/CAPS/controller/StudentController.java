@@ -2,13 +2,18 @@ package CA.CAPS.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
@@ -64,27 +69,24 @@ public class StudentController {
 		return "student/student-grades-gpa";
 	}
 	
-	@RequestMapping("/courses")
-	public String viewCourses(Model model) {
+	@RequestMapping("/courses/list")
+	public String viewCourses(@RequestParam("page") Optional<Integer> page, Model model) {
 		
 		String username=SecurityContextHolder.getContext().getAuthentication().getName();
 
 		Student student=studentService.findByUserName(username);
 		
 		List<Course> coursesTakenByStudent = studentService.findCoursesEnrolledByStudent(student);
+	    	    
+	    Pageable pageable = PageRequest.of(page.orElse(1) - 1, 5);
 	    
-	    List<Course> allCourses = studentService.listAllCourses();
+	    Page<Course> coursesNotTakenByStudent = studentService.findCoursesNotIn(coursesTakenByStudent, pageable);	    
 	    
-	    List<Course> coursesNotTakenByStudent = new ArrayList<Course>();
+	    List<Course> coursesNotTakenByStudentPageCourse = coursesNotTakenByStudent.getContent();
 	    
-	    for(Course course : allCourses) {
-	    	
-	    	if(!coursesTakenByStudent.contains(course)) {
-	    		coursesNotTakenByStudent.add(course);
-	    	}	    	
-	    }
+	    model.addAttribute("courses", coursesNotTakenByStudentPageCourse);
 	    
-	    model.addAttribute("courses", coursesNotTakenByStudent);
+	    model.addAttribute("coursePage", coursesNotTakenByStudent);
 		
 		return "student/student-view-courses";
 	}

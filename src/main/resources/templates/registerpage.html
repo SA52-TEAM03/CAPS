@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+<link rel="stylesheet"
+	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+</head>
+<body>
+	<div th:fragment="header" id="header">
+		<table>
+			<tr>
+				<td width="120px" height="50px"><a th:href="@{/}"><img
+						width="100%" th:src="@{/image/logo.png}" /></a></td>
+				<td style="padding-left: 30px;"><h1>Course Application
+						Processing System</h1></td>
+			</tr>
+		</table>
+	</div>
+	<div class="page-header" style="height:800px">
+		<div class="page-header-image"
+			style="background-image: url(image/main.jpg);"></div>
+		<h2>
+			<span></span> <br> <span></span>
+		</h2>
+		<div class="login">
+			<div class="inset" style="position: absolute; top: 5px">
+				<form action="/register" method="post" class="login-form" id="form">
+					<fieldset style="text-align: center">
+						<span id="p1" style="color: red;" th:text="${message}"></span>
+					</fieldset>
+					<fieldset>
+						Email <input type="text" name="username" class="login-pwd"
+							id="username">
+					</fieldset>
+					<fieldset>
+						Validation Code<br> <input type="text" name="vcode"
+							class="login-pwd" style="width: 160px" id="vcode">
+						<button type="button" onclick="sendcode()" class="login-pwd"
+							style="width: 150px; background: #a7cbdb;">send code</button>
+					</fieldset>
+					<fieldset>
+						First Name <input type="text" name="firstname" id="firstname"
+							onKeyUp="value=value.replace(/[^a-zA-Z]/g,'')" class="login-pwd">
+					</fieldset>
+					<fieldset>
+						Last Name <input type="text" name="lastname" id="lastname"
+							onKeyUp="value=value.replace(/[^a-zA-Z]/g,'')" class="login-pwd">
+					</fieldset>
+					<fieldset>
+						Password <input type="password" id="pw1" class="login-pwd">
+					</fieldset>
+					<fieldset>
+						Ensure Password <input type="password" name="password" id="pw2"
+							class="login-pwd">
+					</fieldset>
+					<fieldset style="text-align: center">
+						<span id="p2" style="color: red;"></span>
+					</fieldset>
+					<fieldset class="sign">
+						<button type="submit" onclick="return validateForm()"
+							value="register" class="btn btn-info btn-primary">Register</button>
+					</fieldset>
+					<p class="sign">
+						Already have an account? <a href="/loginpage"
+							style="display: unblock;">login</a>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="block no-bottom">
+		<div class="container-fluid">
+			<div class="gallery-car owl-carousel owl-theme row">
+				<div class="gallery-meta">
+					&nbsp; <img class="gallery-img" src="image/gallery1.jpeg" alt="">
+					<img class="gallery-img" src="image/gallery2.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery3.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery4.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<br />
+	<footer>
+		<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> <br />
+		<small>&copy;Course Application Processing System , ISS, NUS
+			2021</small>
+	</footer>
+
+	<script>
+		function sendcode() {
+			document.getElementById('p1').innerHTML = "";
+			document.getElementById('p2').innerHTML = "";
+
+			var email = document.getElementById('username').value;
+			var xmlhttp = new XMLHttpRequest();
+			if (email.search("@") == -1) {
+				document.getElementById("p1").innerHTML = "please input your email";
+				return null;
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && this.status == 200) {
+					document.getElementById('p1').innerHTML = this.responseText;
+				}
+			}
+
+			xmlhttp.open("POST", '/sendcode/' + email, true);
+			xmlhttp.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded; charset=utf8");
+			xmlhttp.send();
+		}
+
+		function validateForm() {
+			document.getElementById('p1').innerHTML = "";
+			document.getElementById('p2').innerHTML = "";
+
+			var email = document.getElementById("username").value;
+			var validationcode = document.getElementById("vcode").value;
+			var firstname = document.getElementById("firstname").value;
+			var lastname = document.getElementById("lastname").value;
+			var pw1 = document.getElementById("pw1").value;
+			var pw2 = document.getElementById("pw2").value;
+
+			if (email.search("@") == -1) {
+				document.getElementById("p2").innerHTML = "please input your email";
+				return false;
+			} else if (validationcode == "") {
+				document.getElementById("p2").innerHTML = "validation code can not be null";
+				return false;
+			} else if (firstname == "") {
+				document.getElementById("p2").innerHTML = "firstname can not be null";
+				return false;
+			} else if (lastname == "") {
+				document.getElementById("p2").innerHTML = "lastname can not be null";
+				return false;
+			} else if (pw1 == "") {
+				document.getElementById("p2").innerHTML = "password can not be null";
+				return false;
+			} else if (pw1 != pw2) {
+				document.getElementById("p2").innerHTML = "different password";
+				return false;
+			} else {
+				return true;
+			}
+		}
+	</script>
+
+</body>
+</html>

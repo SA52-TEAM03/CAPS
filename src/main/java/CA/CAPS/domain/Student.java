@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,6 +22,8 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	private String matricNo = "STU" + RandomStringUtils.randomNumeric(5);
 
 	@Column(unique = true)
 	@NotEmpty(message = "Username is required.")
@@ -43,15 +46,13 @@ public class Student {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate enrollmentDate;
 
-	public Student(String userName, String password, Collection<Enrolment> enrolments, String firstName,
-			String lastName, LocalDate enrollmentDate) {
+	public Student(String userName, String password, String firstName,	String lastName) {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.enrolments = enrolments;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.enrollmentDate = enrollmentDate;
+		this.enrollmentDate = LocalDate.now();
 	}
 
 	public Student(String userName, String password, String firstName, String lastName, LocalDate enrollmentDate) {
@@ -61,16 +62,6 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.enrollmentDate = enrollmentDate;
-		this.enrolments = new ArrayList<Enrolment>();
-	}
-
-	public Student(String userName, String password, String firstName, String lastName) {
-		super();
-		this.userName = userName;
-		this.password = password;
-		this.enrolments = new ArrayList<Enrolment>();
-		this.firstName = firstName;
-		this.lastName = lastName;
 	}
 
 	public Student(String userName, String password) {
@@ -81,7 +72,7 @@ public class Student {
 
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.enrolments = new ArrayList<Enrolment>();
 	}
 
 	public int getId() {
@@ -138,6 +129,10 @@ public class Student {
 
 	public void setEnrollmentDate(LocalDate enrollmentDate) {
 		this.enrollmentDate = enrollmentDate;
+	}
+
+	public String getMatricNo() {
+		return matricNo;
 	}
 
 	@Override

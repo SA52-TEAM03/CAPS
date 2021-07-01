@@ -14,52 +14,26 @@
 
 	<h1>Manage Enrolment</h1>
 	<!-- Add Hyperlink -->
-	<!-- 	<a class="btn btn-primary" href="courseform.html" th:href="@{/admin/course/add}">Add Course</a>
-	<span th:text="${message}">message</span> -->
 
 	<h2 style="margin-top: 15px; margin-bottom: 15px;"
 		th:if="${not #lists.isEmpty(students)}">Enrollment List</h2>
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
-		<tr>
-			
-			<th>Student Id</th>
+		<tr>		
+			<th>Student matric No.</th>
 			<th>Student FirstName</th>
 			<th>Student LastName</th>
 			<th>Enrolled Course Name</th>
-			<!-- 			<th>Size</th>
-			<th>Credit</th>
-			<th>Start Date</th>
-			<th>End Date</th>
-			<th>Duration (days)</th>			
-			<th>Lecturer</th>
-			<th>Edit Course</th>
-			<th>Delete Course</th> -->
 		</tr>
 		<tr th:each="student:${students}">
-			<td th:text="${student.Id}">Student Id</td>
+			<td th:text="${student.matricNo}">Student Matric No.</td>
 			<td th:text="${student.firstName}">Student firstName</td>
 			<td th:text="${student.lastName}">Student lastName</td>
-		<td>
-		<!--<table th:if="${not #lists.isEmpty(student.enrolments)}">
-		<tr th:each="enrolment:${student.enrolments}">
-		<td th:text=${enrolment.course.getName()}>Course</td>
+			<td>
+				<ul style="padding-left: 20px" th:each="enrolment:${student.enrolments}">
+					<li th:text=${enrolment.course} >Course</li>
+				</ul>
+			</td>
 		</tr>
-		</table>-->
-		<ul style="padding-left: 20px" th:each="enrolment:${student.enrolments}">
-		<li th:text=${enrolment.course} >Course</li>
-		</ul>
-		</tr>
-		
-		<!-- 			<td th:text="${course.size}">Size</td>
-			<td th:text="${course.credit}">Credit</td>
-			<td th:text="${course.startDate}">StartDate</td>
-			<td th:text="${course.startDate.plusDays(course.duration)}">EndDate</td>
-			<td class="text-center" th:text="${course.duration}">Duration</td>			
-			<td th:text="${course.lecturer}">Lecturer</td>
-			<td><a class="btn btn-secondary" 
-				th:href="@{/admin/enrol/course/}+${course.Id}">Enrol</a></td> -->
-		</tr>
-
 	</table>
 	<nav aria-label="Page navigation" th:if="${adminPage.totalPages > 0}">
 		<ul class="pagination">

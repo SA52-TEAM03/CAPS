@@ -22,38 +22,94 @@
 			</tr>
 		</table>
 	</div>
-
-	<div class="page-header">
+	<div class="page-header" style="height:800px">
 		<div class="page-header-image"
 			style="background-image: url(image/main.jpg)"></div>
 		<h2>
-			<span th:text="${message}"></span> <br> <span th:text="${msg}"
-				th:if="${not #strings.isEmpty(msg)}"></span>
+			<span></span> <br> <span></span>
 		</h2>
 		<div class="login">
-			<div class="inset">
-				<form action="/login" method="post" class="login-form">
-					<fieldset>
-						UserName: <input type="text" name="username" class="login-pwd">
+			<div class="inset" style="position: absolute; top: 10px;">
+				<form action="/login" method="post" class="login-form" id="form">
+					<fieldset style="text-align: center">
+						<span id="p1" style="color: red;" th:text="${message}"></span>
 					</fieldset>
 					<fieldset>
-						Password: <input type="password" name="password" class="login-pwd">
+						Email <input type="text" name="username" class="login-pwd"
+							id="username">
 					</fieldset>
 					<fieldset>
-						<label>Remember me: <input type="checkbox"
-							name="remember-me"></label>
+						Password <input type="password" name="password" class="login-pwd"
+							id="password">
+					</fieldset>
+					<fieldset>
+						Remember me: <input type="checkbox" name="remember-me">
 					</fieldset>
 					<fieldset class="sign">
-						<input type="submit" class="btn btn-info btn-primary"
-							value="login">
+						<input type="button" onclick="validation()"
+							class="btn btn-info btn-primary" value="login">
+					</fieldset>
+					<fieldset class="sign">
+						Don't have an account? <a href="/registerpage">Register</a>
 					</fieldset>
 				</form>
 			</div>
 		</div>
 	</div>
+	<div class="block no-bottom">
+		<div class="container-fluid">
+			<div class="gallery-car owl-carousel owl-theme row">
+				<div class="gallery-meta">
+					&nbsp; <img class="gallery-img" src="image/gallery1.jpeg" alt="">
+					<img class="gallery-img" src="image/gallery2.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery3.jpeg" alt=""> <img
+						class="gallery-img" src="image/gallery4.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<br />
 	<footer>
 		<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> <br />
-		<small>&copy;Course Application Processing System , ISS, NUS 2021</small>
+		<small>&copy;Course Application Processing System , ISS, NUS
+			2021</small>
 	</footer>
+
+	<script>
+		function validation() {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+
+			if (username == "") {
+				document.getElementById("p1").innerHTML = "username can not be null";
+				return null
+			}
+
+			if (password == "") {
+				document.getElementById("p1").innerHTML = "password can not be null";
+				return null
+			}
+
+			var xmlhttp = new XMLHttpRequest();
+
+			xmlhttp.onreadystatechange = function() {
+				if (xmlhttp.readyState == 4 && this.status == 200) {
+					if (this.responseText == "valid") {
+						document.getElementById('form').submit();
+					} else {
+						document.getElementById('p1').innerHTML = this.responseText;
+					}
+				}
+			}
+			xmlhttp.open("POST", '/validation/' + username + '/' + password,
+					true);
+			xmlhttp.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded; charset=utf8");
+			xmlhttp.send();
+		}
+	</script>
+
 </body>
 </html>

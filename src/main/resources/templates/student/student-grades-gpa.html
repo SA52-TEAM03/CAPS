@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>Student Grades and GPA</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-		<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
-	</head>
-	
-	<body>
-		<div>
-			<header th:fragment="copyh">
-				<table>
-					<tr style="margin-left: 20px; margin-top:20px">
-						<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
-						<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
-					</tr>
-				</table>
-				<div>
-				<a class="btn btn-outline-info head1" href="#" th:href="@{/student/grades}">Grades & GPA</a>
-				<a class="btn btn-outline-info head1" href="#" th:href="@{/student/courses}">View & Enroll Courses</a>
-				<div style="float:right; margin-right:15px;">
-                   <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.5cm">Welcome</h6>
-                   &nbsp;
-                   <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
-                </div>
-			</div>
-			</header>
-			<br/>
-			<h2 th:if="${not #lists.isEmpty(enrolments)}">Grades and GPA</h2>
-			<table th:if="${not #lists.isEmpty(enrolments)}" class="table table-striped">
-				<thead>
-				    <tr>
-				      <th scope="col">Course Code</th>
-				      <th scope="col">Course Name</th>
-				      <th scope="col">Credit</th>
-				      <th scope="col">Grade Point</th>
-				      <th scope="col">Grade</th>
-				      <th></th>
-				    </tr>
-			    </thead>
-			    <tbody>
-					
-					<tr th:each="enrolment, iStat :${enrolments}">
-						<td th:text=${enrolment.course.code}>Course Code</td>
-						<td th:text=${enrolment.course.name}>Course Name</td>
-						<td th:text=${enrolment.course.credit}>Credit</td>						
-						<td  th:text="(${gradePoints[iStat.index]}!= null)? ${gradePoints[iStat.index]} : ''">GradePoint</td>	
-						<td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grade</td>
-						
-					</tr>
-					
-					<tr>
-						<td></td>
-						<td></td>
-						<td>Grade Point Average (GPA)</td>
-						<td th:text="${#numbers.formatDecimal(gpa,1,2)}">GPA</td>
-						<td></td>					
-					</tr>
-					
-				</tbody>
+<head>
+<meta charset="ISO-8859-1">
+<title>Student Grades and GPA</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+</head>
+
+<body>
+	<div>
+		<header th:fragment="copyh">
+			<table>
+				<tr style="margin-left: 20px; margin-top: 20px">
+					<td width="120px" height="50px"><img width="100%"
+						th:src="@{/image/logo.png}" /></td>
+					<td style="padding-left: 30px;"><h1>Course Application
+							Processing System</h1></td>
+				</tr>
 			</table>
-		</div>
-		<br/>
-		<footer th:fragment="footer">
-			<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/student/grades/}">Back to Home</a>
-			<br/>
-			<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> 
-			<br /> 
-			<small>&copy; Course Application Processing System , ISS, NUS 2021</small>
-		</footer>
-	</body>
+			<div>
+				<a class="btn btn-outline-info head1" href="#"
+					th:href="@{/student/grades}">Grades & GPA</a> <a
+					class="btn btn-outline-info head1" href="#"
+					th:href="@{/student/courses/list}">View & Enroll Courses</a>
+				<div style="float: right; margin-right: 15px;">
+					<h6
+						th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+						style="float: left; padding-top: 0.5cm">Welcome</h6>
+					&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
+				</div>
+			</div>
+		</header>
+		<br />
+		<h2 th:if="${not #lists.isEmpty(enrolments)}">Grades and GPA</h2>
+		<table th:if="${not #lists.isEmpty(enrolments)}"
+			class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Course Code</th>
+					<th scope="col">Course Name</th>
+					<th scope="col">Credit</th>
+					<th scope="col">Grade Point</th>
+					<th scope="col">Grade</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="enrolment, iStat :${enrolments}">
+					<td th:text=${enrolment.course.code}>Course Code</td>
+					<td th:text=${enrolment.course.name}>Course Name</td>
+					<td th:text=${enrolment.course.credit}>Credit</td>
+					<td
+						th:text="(${gradePoints[iStat.index]}!= null)? ${gradePoints[iStat.index]} : ''">GradePoint</td>
+					<td
+						th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grade</td>
+
+				</tr>
+
+				<tr>
+					<td></td>
+					<td></td>
+					<td>Grade Point Average (GPA)</td>
+					<td th:text="${#numbers.formatDecimal(gpa,1,2)}">GPA</td>
+					<td></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<br />
+	<footer th:fragment="footer">
+		<a class="btn btn-success"
+			style="width: 250px !important; margin-bottom: 20px;" href="Home"
+			th:href="@{/student/grades/}">Back to Home</a> <br /> <small>Now
+			is: <b th:text="${#execInfo.now.time}"></b>
+		</small> <br /> <small>&copy; Course Application Processing System ,
+			ISS, NUS 2021</small>
+	</footer>
+</body>
 </html>

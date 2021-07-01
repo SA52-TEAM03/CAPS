@@ -3,35 +3,43 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>CAPS</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
 <body>
-<header th:fragment="copyh">
-<table>
-	<tr>
-		<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
-		<td style="padding-left:30px;"><h1>Course Application Processing System</h1></td>
-	</tr>
-</table>
-<br>
+	<header th:fragment="copyh">
+		<table>
+			<tr>
+				<td width="120px" height="50px"><img width="100%"
+					th:src="@{/image/logo.png}" /></td>
+				<td style="padding-left: 30px;"><h1>Course Application
+						Processing System</h1></td>
+			</tr>
+		</table>
+		<br>
 
-<div>
-    <a class="btn btn-outline-info head1" href="#" th:href="@{/lecturer/courses/}">View Teaching Courses</a>
-    <a class="btn btn-outline-info head1" href="#" th:href="@{'/lecturer/enrolment/' +'0'}">Course Enrolment/Grading</a>
-    <div style="float:right; margin-right:15px;">
-       <h6 th:utext="'Welcome ' + ${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" style="float:left;padding-top: 0.2cm">Welcome</h6>
-       &nbsp;
-       <a class="btn btn-outline-dark"  th:href="@{/logout}" >Logout</a>
-    </div>
-</div>
+		<div>
+			<a class="btn btn-outline-info head1" href="#"
+				th:href="@{/lecturer/courses/}">View Teaching Courses</a> <a
+				class="btn btn-outline-info head1" href="#"
+				th:href="@{'/lecturer/enrolment/' +'0'}">Course
+				Enrolment/Grading</a>
+			<div style="float: right; margin-right: 15px;">
+				<h6
+					th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+					style="float: left; padding-top: 0.5cm">Welcome</h6>
+				&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
+			</div>
+		</div>
 
 
-</header>
-<footer>
-		 <small>Now is: <b
-			th:text="${#execInfo.now.time}"></b></small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
-</footer>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+	</header>
+	<footer>
+		<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> <br />
+		<small>&copy; Course Application Processing System , ISS, NUS
+			2021</small>
+	</footer>
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

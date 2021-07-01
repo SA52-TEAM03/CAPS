@@ -3,6 +3,8 @@ package CA.CAPS.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import CA.CAPS.domain.Course;
@@ -88,7 +90,7 @@ public class StudentServiceImpl implements StudentService{
 	public Double getGPAOfStudent(Student student) {
 		
 		Double gpa = null;
-		int creditGradePoints = 0;
+		double creditGradePoints = 0;
 		int totalCredit = 0;
 		int moduleCount = 0;
 		
@@ -115,6 +117,16 @@ public class StudentServiceImpl implements StudentService{
 	public Course getCourseById(int courseId) {
 		
 		return courseRepo.getById(courseId);
+	}
+	
+	@Override
+	public Page<Course> findCoursesNotIn(List<Course> courses, Pageable pageable){
+		
+		if(courses.size()==0) {
+			return courseRepo.findAll(pageable);
+		}
+		
+		return courseRepo.findCourseNotIn(courses, pageable);
 	}
 
 }

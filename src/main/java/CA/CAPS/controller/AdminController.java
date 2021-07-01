@@ -3,8 +3,6 @@ package CA.CAPS.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import javax.validation.Valid;
 
@@ -86,7 +84,7 @@ public class AdminController {
 			String oldPassword = adminService.findLecturerById(lecturer.getId()).getPassword();
 			String newPassword = lecturer.getPassword();
 
-			if (passwordEncoder.matches(oldPassword, newPassword))
+			if (passwordEncoder.matches(newPassword, oldPassword))
 				userService.saveLecturer(lecturer);
 			else {
 				String subject = "CAPS Account Updated";
@@ -299,7 +297,7 @@ public class AdminController {
 			String oldPassword = adminService.findStudentById(student.getId()).getPassword();
 			String newPassword = student.getPassword();
 
-			if (passwordEncoder.matches(oldPassword, newPassword))
+			if (passwordEncoder.matches(newPassword, oldPassword))
 				userService.saveStudent(student);
 			else {
 				String subject = "CAPS Account Updated";
@@ -447,11 +445,8 @@ public class AdminController {
 					List<Enrolment> enrolments = adminService.findEnrolmentByStudentId(sid);
 
 					for (Enrolment enrolment : enrolments) {
-						if (enrolment.getCourse().getId() == courseId) {
+						if (enrolment.getCourse().getId() == courseId)
 							adminService.deleteEnrolment(enrolment);
-//							adminService.ReturnCourseSize(courseId);
-							
-						}
 					}
 				}
 				message = "Remove Enrollment successful.";
