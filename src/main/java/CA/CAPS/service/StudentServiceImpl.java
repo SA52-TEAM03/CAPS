@@ -90,7 +90,7 @@ public class StudentServiceImpl implements StudentService{
 	public Double getGPAOfStudent(Student student) {
 		
 		Double gpa = null;
-		int creditGradePoints = 0;
+		double creditGradePoints = 0;
 		int totalCredit = 0;
 		int moduleCount = 0;
 		
