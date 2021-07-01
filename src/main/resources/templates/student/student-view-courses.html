@@ -19,7 +19,6 @@
 							Processing System</h1></td>
 				</tr>
 			</table>
-<<<<<<< HEAD
 			<div>
 				<a class="btn btn-outline-info head1" href="#"
 					th:href="@{/student/grades}">Grades & GPA</a> <a
@@ -54,6 +53,35 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<nav aria-label="Page navigation" th:if="${coursePage.totalPages > 0}">
+			<ul class="pagination">
+				<li
+					th:class="${coursePage.hasPrevious} ? 'page-item' : 'page-item disabled'">
+					<a class="page-link"
+					th:href="@{/student/courses/list(page=${coursePage.number})}"
+					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+				</a>
+				</li>
+				<li
+					th:class="${pageNumber==coursePage.number + 1} ? 'page-item active' : 'page-item'"
+					th:each="pageNumber : ${#numbers.sequence(1,coursePage.totalPages)}">
+					<a class="page-link"
+					th:href="@{/student/courses/list(page=${pageNumber})}"
+					th:text="${pageNumber}">pageNumber</a>
+				</li>
+				<li
+					th:class="${coursePage.hasNext} ? 'page-item' : 'page-item disabled'">
+					<a class="page-link"
+					th:href="@{/student/courses/list(page=${coursePage.number+2})}"
+					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+						class="sr-only">Next</span>
+				</a>
+				</li>
+			</ul>
+		</nav>
+
 	</div>
 	<br />
 	<footer th:fragment="footer">
@@ -65,38 +93,4 @@
 			ISS, NUS 2021</small>
 	</footer>
 </body>
-=======
-			
-			<nav aria-label="Page navigation" th:if="${coursePage.totalPages > 0}">
-				<ul class="pagination">
-					<li th:class="${coursePage.hasPrevious} ? 'page-item' : 'page-item disabled'">
-						<a class="page-link" th:href="@{/student/courses/list(page=${coursePage.number})}" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-							<span class="sr-only">Previous</span>
-						</a>
-					</li>
-					<li th:class="${pageNumber==coursePage.number + 1} ? 'page-item active' : 'page-item'" 
-						th:each="pageNumber : ${#numbers.sequence(1,coursePage.totalPages)}">
-						<a class="page-link" th:href="@{/student/courses/list(page=${pageNumber})}" 
-							th:text="${pageNumber}">pageNumber</a></li>			
-					<li th:class="${coursePage.hasNext} ? 'page-item' : 'page-item disabled'">
-						<a class="page-link" th:href="@{/student/courses/list(page=${coursePage.number+2})}" aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-							<span class="sr-only">Next</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
-	
-		</div>
-		<br/>
-		<footer th:fragment="footer">
-			<a class="btn btn-success"  style="width:250px !important; margin-bottom:20px;" href="Home" th:href="@{/student/grades}">Back to Home</a>
-			<br/>
-			<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> 
-			<br /> 
-			<small>&copy; Course Application Processing System , ISS, NUS 2021</small>
-		</footer>
-	</body>
->>>>>>> 6e17f9cdb3f3601b8e0f9ec715377774e6aca1a6
 </html>
