@@ -49,23 +49,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Lecturer> listAllLecturers(Pageable pageable) {
-
-		Page<Lecturer> pagedResult = lecturerRepo.findAll(pageable);
-
-		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
-		} else {
-			return new ArrayList<Lecturer>();
-		}
-	}
-
-	@Override
-	public Page<Lecturer> findLecturerPaginated(Pageable pageable) {
-		return new PageImpl<Lecturer>(listAllLecturers(pageable), pageable, lecturerRepo.findAll().size());
-	}
-
-	@Override
 	public Lecturer findLecturerByUserName(String name) {
 		return lecturerRepo.findLecturerByUserName(name);
 	}
@@ -99,6 +82,11 @@ public class AdminServiceImpl implements AdminService {
 		for (Course c : lecturer.getCourses())
 			c.setLecturer(null);
 	}
+	
+	@Override
+	public Page<Lecturer> lecturerPage(Pageable pageable){
+		return lecturerRepo.findAll(pageable);
+	}
 
 	@Override
 	public void saveCourse(Course course) {
@@ -116,23 +104,6 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Course> listAllCourses(Pageable pageable) {
-
-		Page<Course> pagedResult = courseRepo.findAll(pageable);
-
-		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
-		} else {
-			return new ArrayList<Course>();
-		}
-	}
-
-	@Override
-	public Page<Course> findCoursePaginated(Pageable pageable) {
-		return new PageImpl<Course>(listAllCourses(pageable), pageable, courseRepo.findAll().size());
-	}
-
-	@Override
 	public Course findCourseById(Integer id) {
 		return courseRepo.findById(id).get();
 	}
@@ -147,6 +118,11 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return false;
 	}
+	
+	@Override
+	public Page<Course> coursePage(Pageable pageable){
+		return courseRepo.findAll(pageable);
+	}
 
 	@Override
 	public void deleteStudent(Student student) {
@@ -159,22 +135,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Student> listStudents(Pageable pageable) {
-
-		Page<Student> pagedResult = studentRepo.findAll(pageable);
-
-		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
-		} else {
-			return new ArrayList<Student>();
-		}
+	public Student findStudentById(Integer id) {
+		return studentRepo.findById(id).get();
 	}
-
-	@Override
-	public Page<Student> findStudentPaginated(Pageable pageable) {
-		return new PageImpl<Student>(listStudents(pageable), pageable, studentRepo.findAll().size());
-	}
-
+	
 	@Override
 	public Boolean isStudentExist(Student student) {
 		for (Student s : studentRepo.findAll()) {
@@ -193,10 +157,10 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return false;
 	}
-
+	
 	@Override
-	public Student findStudentById(Integer id) {
-		return studentRepo.findById(id).get();
+	public Page<Student> studentPage(Pageable pageable){
+		return studentRepo.findAll(pageable);
 	}
 
 	@Override

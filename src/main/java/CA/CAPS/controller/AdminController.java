@@ -137,18 +137,12 @@ public class AdminController {
 	@RequestMapping("/lecturer/list")
 	public String listLecturers(@RequestParam("page") Optional<Integer> page, Model model) {
 
-		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage - 1, pageSize, Sort.by("userName"));
-		Page<Lecturer> adminPage = adminService.findLecturerPaginated(pageable);
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("userName"));
+		Page<Lecturer> adminPage = adminService.lecturerPage(pageable);
+		List<Lecturer> lecturers = adminPage.getContent();
+		
 		model.addAttribute("adminPage", adminPage);
-
-		int totalPages = adminPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-
-		model.addAttribute("lecturers", adminService.listAllLecturers(pageable));
+		model.addAttribute("lecturers", lecturers);
 
 		return "admin/admin-view-lecturer";
 	}
@@ -237,35 +231,26 @@ public class AdminController {
 	@RequestMapping("/course/list")
 	public String listCourses(@RequestParam("page") Optional<Integer> page, Model model) {
 
-		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage - 1, pageSize, Sort.by("code"));
-		Page<Course> adminPage = adminService.findCoursePaginated(pageable);
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("code"));
+		Page<Course> adminPage = adminService.coursePage(pageable);
+		List<Course> courses = adminPage.getContent();
+		
 		model.addAttribute("adminPage", adminPage);
-
-		int totalPages = adminPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-
-		model.addAttribute("courses", adminService.listAllCourses(pageable));
+		model.addAttribute("courses", courses);
 
 		return "admin/admin-view-course";
 	}
 
 	@RequestMapping("/student/list")
 	public String listStudents(@RequestParam("page") Optional<Integer> page, Model model) {
-		int requestPage = page.orElse(1);
-		Pageable pageable = PageRequest.of(requestPage - 1, pageSize, Sort.by("userName"));
-		Page<Student> adminPage = adminService.findStudentPaginated(pageable);
-		model.addAttribute("adminPage", adminPage);
 
-		int totalPages = adminPage.getTotalPages();
-		if (totalPages > 0) {
-			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
-			model.addAttribute("pageNumbers", pageNumbers);
-		}
-		model.addAttribute("students", adminService.listStudents(pageable));
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("userName"));
+		Page<Student> adminPage = adminService.studentPage(pageable);
+		List<Student> students = adminPage.getContent();
+		
+		model.addAttribute("adminPage", adminPage);
+		model.addAttribute("students", students);
+		
 		return "admin/admin-view-student";
 	}
 
@@ -402,9 +387,15 @@ public class AdminController {
 	}
 
 	@GetMapping("/enrol")
-	public String enrolment(Model model) {
-		List<Course> courses = adminService.listAllCourses();
+	public String enrolment(@RequestParam("page") Optional<Integer> page, Model model) {
+		
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("code"));
+		Page<Course> adminPage = adminService.coursePage(pageable);
+		List<Course> courses = adminPage.getContent();
+		
+		model.addAttribute("adminPage", adminPage);
 		model.addAttribute("courses", courses);
+		
 		return "admin/admin-enrol-course";
 	}
 

@@ -39,7 +39,7 @@
 				th:href="@{/admin/student/delete/}+${student.Id}">Delete</a></td>
 		</tr>
 	</table>
-<nav aria-label="Page navigation" th:if="${adminPage.TotalPages > 0}">
+	<nav aria-label="Page navigation" th:if="${adminPage.totalPages > 0}">
 		<ul class="pagination">
 			<li th:class="${adminPage.hasPrevious} ? 'page-item' : 'page-item disabled'">
 				<a class="page-link" th:href="@{/admin/student/list(page=${adminPage.number})}" aria-label="Previous">
@@ -48,7 +48,7 @@
 				</a>
 			</li>
 			<li th:class="${pageNumber==adminPage.number + 1} ? 'page-item active' : 'page-item'" 
-				th:each="pageNumber : ${pageNumbers}">
+				th:each="pageNumber : ${#numbers.sequence(1,adminPage.totalPages)}">
 				<a class="page-link" th:href="@{/admin/student/list(page=${pageNumber})}" 
 					th:text="${pageNumber}">pageNumber</a></li>			
 			<li th:class="${adminPage.hasNext} ? 'page-item' : 'page-item disabled'">

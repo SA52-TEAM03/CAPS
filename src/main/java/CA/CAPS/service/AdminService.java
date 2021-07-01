@@ -14,27 +14,24 @@ public interface AdminService {
 
 	public void deleteLecturer(Lecturer lecturer);
 	public List<Lecturer> listAllLecturers();
-	public List<Lecturer> listAllLecturers(Pageable pageable);
-	public Page<Lecturer> findLecturerPaginated(Pageable pageable);
 	public Lecturer findLecturerByUserName(String name);
 	public Lecturer findLecturerById(Integer id);
 	public Boolean isLecturerExist(Lecturer lecturer);
 	public void removeLecturerFromCourses(Lecturer Lecturer);
+	public Page<Lecturer> lecturerPage(Pageable pageable);
 	
 	public void saveCourse(Course course);
 	public void deleteCourse(Course course);
 	public List<Course> listAllCourses();
-	public List<Course> listAllCourses(Pageable pageable);
-	public Page<Course> findCoursePaginated(Pageable pageable);
 	public Course findCourseById(Integer id);
 	public Boolean isCourseCodeExist(Course course);
+	public Page<Course> coursePage(Pageable pageable);
 	
 	public void deleteStudent(Student student);
 	public List<Student> listStudents();
-	public List<Student> listStudents(Pageable pageable);
-	public Page<Student> findStudentPaginated(Pageable pageable);
 	public Student findStudentById(Integer id);
 	public Boolean isStudentExist(Student student);
+	public Page<Student> studentPage(Pageable pageable);
 	
 	public void saveEnrolment(Enrolment enrolment);
 	public void deleteEnrolment(Enrolment enrolment);

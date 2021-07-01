@@ -66,17 +66,17 @@ public class CapsApplication {
 			userService.saveLecturer(lecturer3);
 
 			Course course1 = new Course("COMP101", "FOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course2 = new Course("COMP102", "C#", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course3 = new Course("COMP103", "JAVA", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course4 = new Course("COMP104", ".NET", 50, 5, LocalDate.of(2021, 8, 01), 5);
-			Course course5 = new Course("COMP105", "FOPCS", 50, 5, LocalDate.of(2021, 9, 01), 5);
-			Course course6 = new Course("COMP106", "C#", 50, 5, LocalDate.of(2021, 9, 01), 5);
-			Course course7 = new Course("COMP107", "JAVA", 50, 5, LocalDate.of(2021, 9, 01), 5);
-			Course course8 = new Course("COMP108", ".NET", 50, 5, LocalDate.of(2021, 9, 01), 5);
-			Course course12 = new Course("COMP112", "FOPCS", 50, 5, LocalDate.of(2021, 11, 01), 5);
-			Course course9 = new Course("COMP109", "C#", 50, 5, LocalDate.of(2021, 11, 01), 5);
-			Course course10 = new Course("COMP110", "JAVA", 50, 5, LocalDate.of(2021, 11, 01), 5);
-			Course course11 = new Course("COMP111", ".NET", 50, 5, LocalDate.of(2021, 11, 01), 5);
+			Course course2 = new Course("COMP102", "OOPCS", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course3 = new Course("COMP103", "SQL", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course4 = new Course("COMP104", "ASP.NET", 50, 5, LocalDate.of(2021, 8, 01), 5);
+			Course course5 = new Course("COMP201", "C++ 1", 50, 5, LocalDate.of(2021, 9, 01), 5);
+			Course course6 = new Course("COMP202", "C++ 2", 50, 5, LocalDate.of(2021, 9, 01), 5);
+			Course course7 = new Course("COMP203", "JAVA 1", 50, 5, LocalDate.of(2021, 9, 01), 5);
+			Course course8 = new Course("COMP204", "JAVA 2", 50, 5, LocalDate.of(2021, 9, 01), 5);
+			Course course9 = new Course("COMP205", "PYTHON 1", 50, 5, LocalDate.of(2021, 11, 01), 5);
+			Course course10 = new Course("COMP206", "PYTHON 2", 50, 5, LocalDate.of(2021, 11, 01), 5);
+			Course course11 = new Course("COMP301", "ANDROID 1", 50, 5, LocalDate.of(2021, 11, 01), 5);
+			Course course12 = new Course("COMP302", "ANDROID 2", 50, 5, LocalDate.of(2021, 11, 01), 5);
 			adminService.saveCourse(course1);
 			adminService.saveCourse(course2);
 			adminService.saveCourse(course3);
