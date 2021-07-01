@@ -137,7 +137,7 @@ public class AdminController {
 	@RequestMapping("/lecturer/list")
 	public String listLecturers(@RequestParam("page") Optional<Integer> page, Model model) {
 
-		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("userName"));
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("id"));
 		Page<Lecturer> adminPage = adminService.lecturerPage(pageable);
 		List<Lecturer> lecturers = adminPage.getContent();
 		
@@ -356,33 +356,56 @@ public class AdminController {
 
 	@RequestMapping("/enrol/student")
 	public String enrolStudent(@RequestParam(value = "enrol", required = false) List<Integer> studentId,
-			@RequestParam("cid") Integer courseId) {
+			@RequestParam("cid") Integer courseId, Model model) {
 
-		List<Student> enrolstudents = new ArrayList<>();
-		for (Integer sid : studentId) {
-			enrolstudents.add(adminService.findStudentById(sid));
+		Course course = adminService.findCourseById(courseId);
+		model.addAttribute("course", course);
+		
+		String message = "";
+		if (studentId!=null) {
+			if (course.getEnrolments().size()+studentId.size()<=course.getSize()) {
+				List<Student> enrolstudents = new ArrayList<>();
+				for (Integer sid : studentId) {
+					enrolstudents.add(adminService.findStudentById(sid));
+				}
+				try {
+					adminService.enrollStudentsInCourse(enrolstudents, courseId);
+					message = "Enrollment successful.";
+				}
+				catch(Exception e) {
+	
+					List<Student> students = adminService.findNotEnrolStudentsByCourseId(courseId);
+					
+					message = "Enrollment unsuccessful.";
+
+					model.addAttribute("students", students);
+					model.addAttribute("message", message);
+					
+					return "admin/admin-enrol-student";
+				}
+			}
+			else
+				message = "Enrollment unsuccessful. Course has reached maximum capacity.";
 		}
-		adminService.enrollStudentsInCourse(enrolstudents, courseId);
-		for (Student s : enrolstudents) {
-			adminService.updateCourseSize(courseId);
-		}
+			
+		List<Student> students = adminService.findNotEnrolStudentsByCourseId(courseId);
+		
+		model.addAttribute("students", students);
+		model.addAttribute("message", message);
+		
 		return "admin/admin-enrol-student";
 	}
 
 	@GetMapping("/enrol/list")
-	public String enrolmentList(Model model) {
-		List<Enrolment> enrolments = adminService.listAllEnrolments();
-		model.addAttribute("enrolments", enrolments);
-		List<Student> enrolStudents = new ArrayList<>();
-		List<Course> courses = new ArrayList<>();
-		for (Enrolment enrolment : enrolments) {
-			Student student = enrolment.getStudent();
-			Course course = enrolment.getCourse();
-			enrolStudents.add(student);
-			courses.add(course);
-		}
-		model.addAttribute("courses", courses);
-		model.addAttribute("enrolStudents", enrolStudents);
+	public String enrolmentList(@RequestParam("page") Optional<Integer> page, Model model) {
+		
+		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize, Sort.by("id"));
+		Page<Student> adminPage = adminService.studentPage(pageable);
+		List<Student> students = adminPage.getContent();
+		
+		model.addAttribute("adminPage", adminPage);
+		model.addAttribute("students", students);
+		
 		return "admin/admin-view-enrolment";
 	}
 
@@ -413,22 +436,45 @@ public class AdminController {
 	public String enrolDelete(@RequestParam(value = "enrol", required = false) List<Integer> studentId,
 			@RequestParam("cid") Integer courseId, Model model) {
 		
-		for (Integer sid : studentId) {
-
-			List<Enrolment> enrolments = adminService.findEnrolmentByStudentId(sid);
-
-			for (Enrolment enrolment : enrolments) {
-				if (enrolment.getCourse().getId() == courseId) {
-					adminService.deleteEnrolment(enrolment);
-					adminService.ReturnCourseSize(courseId);
-				}
-			}
-		}
 		Course course = adminService.findCourseById(courseId);
-		List<Student> students = adminService.findEnrolStudentsByCourseId(courseId);
-
 		model.addAttribute("course", course);
+		
+		String message = "";
+		if (studentId!=null){
+			try {
+				for (Integer sid : studentId) {
+
+					List<Enrolment> enrolments = adminService.findEnrolmentByStudentId(sid);
+
+					for (Enrolment enrolment : enrolments) {
+						if (enrolment.getCourse().getId() == courseId) {
+							adminService.deleteEnrolment(enrolment);
+//							adminService.ReturnCourseSize(courseId);
+							
+						}
+					}
+				}
+				message = "Remove Enrollment successful.";
+			}
+			catch (Exception e) {
+				
+				List<Student> students = adminService.findEnrolStudentsByCourseId(courseId);
+				message = "Remove Enrollment unsuccessful.";
+				
+				model.addAttribute("students", students);
+				model.addAttribute("message", message);
+				
+				return "admin/admin-enrol-delete";
+			}
+
+		}
+
+		
+		List<Student> students = adminService.findEnrolStudentsByCourseId(courseId);
+		
 		model.addAttribute("students", students);
+		model.addAttribute("message", message);
+		
 		return "admin/admin-enrol-delete";
 	}
 

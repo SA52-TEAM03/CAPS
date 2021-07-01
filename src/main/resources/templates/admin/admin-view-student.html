@@ -14,12 +14,12 @@
 	<h1>Manage Students</h1>
 	<!-- Add Hyperlink -->
 	<a class="btn btn-primary" href="admin-student-form.html" th:href="@{/admin/student/add}">Add Student</a>
-	<span th:text="${message}">message</span>
+	&nbsp; <span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(students)}">Student List</h2>
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>
-
+			<th>Student Id</th>
 			<th>First Name</th>
 			<th>Last Name</th>
 			<th>Username</th>
@@ -28,7 +28,7 @@
 			<th>Delete Student</th>
 		</tr>
 		<tr th:each="student:${students}">
-			
+			<td th:text=${student.id}>Id</td>
 			<td th:text=${student.firstName}>First Name</td>
 			<td th:text=${student.lastName}>Last Name</td>
 			<td th:text=${student.userName}>Username</td>

@@ -40,7 +40,5 @@ public interface AdminService {
 	public List<Student> findNotEnrolStudentsByCourseId(Integer id);
 	public List<Student> findEnrolStudentsByCourseId(Integer id);
 	public void enrollStudentsInCourse(List<Student> students, int courseId);
-	
-	public void updateCourseSize(int courseId);
-	public void ReturnCourseSize(int courseId);
+
 }

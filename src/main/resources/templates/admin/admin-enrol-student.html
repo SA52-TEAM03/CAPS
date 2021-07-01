@@ -14,8 +14,11 @@
 	<h1>Manage Enrolments</h1>
 	<!-- Add Hyperlink -->
 	<a class="btn btn-primary" href="admin-student-form.html" th:href="@{/admin/enrol/list}">View All Enrollments</a>
+	&nbsp; <span th:text="${message}">message</span>
 
-	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(students)}"></h2>
+	<h2 style="margin-top:15px;margin-bottom:15px;"
+			th:utext="${not #lists.isEmpty(students)} ?
+						'Students not yet enrolled in ' +${course} : 'All students enrolled in ' +${course}"></h2>
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>
 			<th>Student Id</th>
@@ -25,7 +28,6 @@
 			<th>Check to Enrol</th>
 
 		</tr>
-		<h2 th:utext="'Student List of ' +${course.getName()}"></h2>
 		<form class="form-card" th:action="@{/admin/enrol/student}" method="post">
 		<input type="hidden" name="cid" th:value="${course.Id}"/>
 		<tr th:each="student:${students}">
@@ -37,7 +39,7 @@
 		</tr>
 	</table>
 		<div class="row justify-content-start">
-			<div class="form-group col-sm-5">
+			<div class="form-group col-sm-5" th:if="${not #lists.isEmpty(students)}">
 				<button type="submit" class="btn btn-primary">Enrol</button>
 			</div>
 		</div>

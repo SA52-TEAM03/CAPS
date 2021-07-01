@@ -15,7 +15,7 @@
 	<h1>Manage Courses</h1>
 	<!-- Add Hyperlink -->
 	<a class="btn btn-primary" href="courseform.html" th:href="@{/admin/course/add}">Add Course</a>
-	<span th:text="${message}">message</span>
+	&nbsp; <span th:text="${message}">message</span>
 
 	<h2 style="margin-top:15px;margin-bottom:15px;" th:if="${not #lists.isEmpty(courses)}">Course List</h2>
 	<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">

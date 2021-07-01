@@ -212,40 +212,4 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
-	@Override
-	public void updateCourseSize(int courseId) {
-		Course course = courseRepo.findCourseById(courseId);
-		Integer courseSize = course.getSize();
-		try {
-			if (courseSize > 0) {
-				course.setSize(courseSize - 1);
-				courseRepo.save(course);
-			} else {
-				throw new Exception("Course size exceeded");
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-	}
-
-	@Override
-	public void ReturnCourseSize(int courseId) {
-		Course course = courseRepo.findCourseById(courseId);
-		Integer courseSize = course.getSize();
-		try {
-			if (courseSize >= 0) {
-				course.setSize(courseSize + 1);
-				courseRepo.save(course);
-			} else {
-				throw new Exception("Error in course capacity");
-			}
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-
-	}
-
 }

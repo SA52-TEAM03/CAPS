@@ -18,14 +18,14 @@
 	<span th:text="${message}">message</span> -->
 
 	<h2 style="margin-top: 15px; margin-bottom: 15px;"
-		th:if="${not #lists.isEmpty(enrolStudents)}">Enrollment List</h2>
-	<table th:if="${not #lists.isEmpty(enrolStudents)}" class="table table-striped">
+		th:if="${not #lists.isEmpty(students)}">Enrollment List</h2>
+	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>
 			
 			<th>Student Id</th>
 			<th>Student FirstName</th>
 			<th>Student LastName</th>
-			<th>Course Name</th>
+			<th>Enrolled Course Name</th>
 			<!-- 			<th>Size</th>
 			<th>Credit</th>
 			<th>Start Date</th>
@@ -35,7 +35,7 @@
 			<th>Edit Course</th>
 			<th>Delete Course</th> -->
 		</tr>
-		<tr th:each="student:${enrolStudents}">
+		<tr th:each="student:${students}">
 			<td th:text="${student.Id}">Student Id</td>
 			<td th:text="${student.firstName}">Student firstName</td>
 			<td th:text="${student.lastName}">Student lastName</td>
@@ -45,8 +45,8 @@
 		<td th:text=${enrolment.course.getName()}>Course</td>
 		</tr>
 		</table>-->
-		<ul th:each="enrolment:${student.enrolments}">
-		<li th:text=${enrolment.course.getName()} >Course</li>
+		<ul style="padding-left: 20px" th:each="enrolment:${student.enrolments}">
+		<li th:text=${enrolment.course} >Course</li>
 		</ul>
 		</tr>
 		
@@ -61,6 +61,26 @@
 		</tr>
 
 	</table>
+	<nav aria-label="Page navigation" th:if="${adminPage.totalPages > 0}">
+		<ul class="pagination">
+			<li th:class="${adminPage.hasPrevious} ? 'page-item' : 'page-item disabled'">
+				<a class="page-link" th:href="@{/admin/student/list(page=${adminPage.number})}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+				</a>
+			</li>
+			<li th:class="${pageNumber==adminPage.number + 1} ? 'page-item active' : 'page-item'" 
+				th:each="pageNumber : ${#numbers.sequence(1,adminPage.totalPages)}">
+				<a class="page-link" th:href="@{/admin/enrol/list(page=${pageNumber})}" 
+					th:text="${pageNumber}">pageNumber</a></li>			
+			<li th:class="${adminPage.hasNext} ? 'page-item' : 'page-item disabled'">
+				<a class="page-link" th:href="@{/admin/enrol/list(page=${adminPage.number+2})}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
 	<br />
 	<div th:replace="admin/fragments/general.html :: footer"></div>
 </body>
