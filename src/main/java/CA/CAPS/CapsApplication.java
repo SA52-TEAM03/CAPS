@@ -36,8 +36,8 @@ public class CapsApplication {
 		return args -> {
 			LocalDate date = LocalDate.now();
 
-			Admin admin1 = new Admin("esther", "tan", "admin1@email.com", "123456");
-			Admin admin2 = new Admin("megan", "wang", "admin2@email.com", "123456");
+			Admin admin1 = new Admin("Esther", "Tan", "admin1@email.com", "123456");
+			Admin admin2 = new Admin("Megan", "Wang", "admin2@email.com", "123456");
 			userService.saveAdmin(admin1);
 			userService.saveAdmin(admin2);
 
