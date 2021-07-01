@@ -63,7 +63,7 @@ public class AdminController {
 		if (adminService.isLecturerExist(lecturer))
 			bindingResult.rejectValue("userName", "error.userName", "Username already exists.");
 
-		if (!lecturer.getUserName().isBlank() && !lecturer.getUserName().contains("@"))
+		if (!lecturer.getUserName().isEmpty() && !lecturer.getUserName().contains("@"))
 			bindingResult.rejectValue("userName", "error.userName", "Please use email as Username.");
 
 		if (bindingResult.hasErrors())
@@ -269,7 +269,7 @@ public class AdminController {
 			bindingResult.rejectValue("Username", "error.username", "Username already exists.");
 		}
 
-		if (!student.getUserName().isBlank() && !student.getUserName().contains("@"))
+		if (!student.getUserName().isEmpty() && !student.getUserName().contains("@"))
 			bindingResult.rejectValue("userName", "error.userName", "Please use email as Username.");
 
 		if (bindingResult.hasErrors()) {
