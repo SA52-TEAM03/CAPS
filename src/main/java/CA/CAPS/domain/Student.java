@@ -46,15 +46,13 @@ public class Student {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate enrollmentDate;
 
-	public Student(String userName, String password, Collection<Enrolment> enrolments, String firstName,
-			String lastName, LocalDate enrollmentDate) {
+	public Student(String userName, String password, String firstName,	String lastName) {
 		super();
 		this.userName = userName;
 		this.password = password;
-		this.enrolments = enrolments;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.enrollmentDate = enrollmentDate;
+		this.enrollmentDate = LocalDate.now();
 	}
 
 	public Student(String userName, String password, String firstName, String lastName, LocalDate enrollmentDate) {
@@ -64,16 +62,6 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.enrollmentDate = enrollmentDate;
-		this.enrolments = new ArrayList<Enrolment>();
-	}
-
-	public Student(String userName, String password, String firstName, String lastName) {
-		super();
-		this.userName = userName;
-		this.password = password;
-		this.enrolments = new ArrayList<Enrolment>();
-		this.firstName = firstName;
-		this.lastName = lastName;
 	}
 
 	public Student(String userName, String password) {
@@ -84,7 +72,7 @@ public class Student {
 
 	public Student() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.enrolments = new ArrayList<Enrolment>();
 	}
 
 	public int getId() {
