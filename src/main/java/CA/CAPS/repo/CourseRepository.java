@@ -21,4 +21,7 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
 	
 	public Page<Course> findByLecturer(Pageable pageable, Lecturer lecturer);
 	
+	@Query("SELECT c FROM Course c WHERE c NOT IN (:courses)")
+    public Page<Course> findCourseNotIn(@Param("courses") List<Course> courses, Pageable pageable);
+	
 }
