@@ -14,14 +14,14 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">Student Id</th>
+					<th scope="col">Student Matric No.</th>
 					<th scope="col">Name</th>
 					<th scope="col">Enrollment Date</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td th:text=${student.id}>Id</td>
+					<td th:text=${student.matricNo}>matric No.</td>
 					<td th:text="${student.firstName + ' ' + student.lastName}">Name</td>
 					<td th:text=${student.enrollmentDate}>Enrollment Date</td>
 				</tr>

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -21,6 +22,8 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	private String matricNo = "STU" + RandomStringUtils.randomNumeric(5);
 
 	@Column(unique = true)
 	@NotEmpty(message = "Username is required.")
@@ -138,6 +141,10 @@ public class Student {
 
 	public void setEnrollmentDate(LocalDate enrollmentDate) {
 		this.enrollmentDate = enrollmentDate;
+	}
+
+	public String getMatricNo() {
+		return matricNo;
 	}
 
 	@Override

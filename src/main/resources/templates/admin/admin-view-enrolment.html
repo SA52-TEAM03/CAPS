@@ -22,7 +22,7 @@
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>
 			
-			<th>Student Id</th>
+			<th>Student matric No.</th>
 			<th>Student FirstName</th>
 			<th>Student LastName</th>
 			<th>Enrolled Course Name</th>
@@ -36,7 +36,7 @@
 			<th>Delete Course</th> -->
 		</tr>
 		<tr th:each="student:${students}">
-			<td th:text="${student.Id}">Student Id</td>
+			<td th:text="${student.matricNo}">Student Matric No.</td>
 			<td th:text="${student.firstName}">Student firstName</td>
 			<td th:text="${student.lastName}">Student lastName</td>
 		<td>

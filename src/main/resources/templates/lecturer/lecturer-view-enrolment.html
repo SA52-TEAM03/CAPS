@@ -17,7 +17,7 @@
 <table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
   <thead>
     <tr>
-      <th  scope="col">Student Id</th>
+      <th  scope="col">Student Matric No.</th>
       <th  scope="col">Name</th>
       <th  scope="col">Enrollment Date</th>
       <th  scope="col">Marks</th>
@@ -26,7 +26,7 @@
   </thead>
   <tbody>
     <tr th:each="student, iStat : ${students}">
-      <td  th:text=${student.id}>Id</td>
+      <td  th:text=${student.matricNo}>Matric No.</td>
       <td  th:text="${student.firstName + ' ' + student.lastName}">Name</td>
 	  <td  th:text=${student.enrollmentDate}>Enrollment Date</td>
 	  <td  th:text="(${grades[iStat.index]}!= null)? ${grades[iStat.index]} : ''">Grades</td>
