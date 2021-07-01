@@ -2,6 +2,9 @@ package CA.CAPS.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import CA.CAPS.domain.Course;
 import CA.CAPS.domain.Enrolment;
 import CA.CAPS.domain.Student;
@@ -27,5 +30,7 @@ public interface StudentService {
 	public Student findByUserName(String username);
 	
 	public Course getCourseById(int courseId);
+	
+	public Page<Course> findCoursesNotIn(List<Course> courses, Pageable pageable);
 
 }
