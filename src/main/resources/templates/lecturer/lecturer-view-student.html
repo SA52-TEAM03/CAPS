@@ -9,7 +9,7 @@
 	crossorigin="anonymous" />
 </head>
 <div th:insert="~{lecturer/lecturer-index.html :: copyh}"></div>
-<body>
+<body style="margin-left: 20px; margin-top:20px">
 <div>
 <br/>
 <h2>Student's Detail</h2>
@@ -34,7 +34,7 @@
     <tr>
       <th  scope="col">Course Code</th>
       <th  scope="col">Name</th>
-      <th  scope="col">Grade</th>
+      <th  scope="col">Marks</th>
       <th  scope="col">Changes</th>
     </tr>
   </thead>
@@ -46,9 +46,9 @@
 	  <td>
 	  <form method="get" action="#" th:action="@{'/lecturer/save/' + ${student.id} + '/' + ${enrolment.course.id}}" class="form-inline" th:each="lectCourse : ${lecturer.courses}" th:if="${lectCourse.id} == ${enrolment.course.id}">
 	    <div class="form-group">
-	      <input type="number" class="form-control w-10" id="grade" placeholder="Grade" th:name="grade" th:value="${grade}" min="0" max="100" required>
+	      <input type="number" class="form-control w-10" id="grade" placeholder="Marks" th:name="grade" th:value="${grade}" min="0" max="100" required>
   	    </div>
-  	    <br/>
+  	    &nbsp;
   	    <button type="submit" value="submit" class="btn btn-secondary pl-2">Confirm Changes</button>
 	  </form>
 	  </td>
