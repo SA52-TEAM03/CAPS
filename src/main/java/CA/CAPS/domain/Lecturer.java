@@ -13,11 +13,16 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 @Entity
 public class Lecturer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	private String staffId = "LEC" + RandomStringUtils.randomNumeric(5);
+
 	@NotEmpty(message = "First Name is required.")
 	@Pattern(regexp = "^[a-zA-Z ]*", message = "First Name must not contain numbers/special characters")
 	private String firstName;
@@ -102,6 +107,10 @@ public class Lecturer {
 
 	public void setCourses(Collection<Course> courses) {
 		this.courses = courses;
+	}
+
+	public String getStaffId() {
+		return staffId;
 	}
 
 	@Override
