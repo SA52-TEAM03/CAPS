@@ -121,6 +121,11 @@ public class StudentServiceImpl implements StudentService{
 	
 	@Override
 	public Page<Course> findCoursesNotIn(List<Course> courses, Pageable pageable){
+		
+		if(courses.size()==0) {
+			return courseRepo.findAll(pageable);
+		}
+		
 		return courseRepo.findCourseNotIn(courses, pageable);
 	}
 
