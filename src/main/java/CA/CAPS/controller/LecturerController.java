@@ -72,10 +72,12 @@ public class LecturerController {
 		Pageable pageable = PageRequest.of(page.orElse(1) - 1, pageSize);
 		Page<Student> lectPage = lecturerService.enrolmentPageForLecturer(pageable, course);
 		List<Student> students = lectPage.getContent();
+		Page<Integer> marks = lecturerService.marksList(pageable, course);
+		List<Integer> grades = marks.getContent();
 
 		model.addAttribute("lecturerCourses", lecturerService.findLecturerCourses(id));
 		model.addAttribute("course", lecturerService.findById(course.getId()));
-		model.addAttribute("grades", lecturerService.findGradesByCourse(course.getId()));
+		model.addAttribute("grades", grades);
 		model.addAttribute("lectPage", lectPage);
 		model.addAttribute("students", students);
 		

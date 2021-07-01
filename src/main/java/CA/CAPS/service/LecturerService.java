@@ -40,4 +40,6 @@ public interface LecturerService {
 	public Page<Course> coursePageForLecturer(Pageable pageable, Lecturer lecturer);
 	
 	public Page<Student> enrolmentPageForLecturer(Pageable pageable, Course course);
+	
+	public Page<Integer> marksList(Pageable pageable, Course course);
 }

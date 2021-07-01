@@ -128,4 +128,9 @@ public class LecturerServiceImpl implements LecturerService {
 	public Page<Student> enrolmentPageForLecturer(Pageable pageable, Course course) {
 		return studentRepo.findByCourse(pageable, course);
 	}
+
+	@Override
+	public Page<Integer> marksList(Pageable pageable, Course course) {
+		return enrolmentRepo.findByMarks(pageable, course);
+	}
 }

@@ -2,6 +2,8 @@ package CA.CAPS.repo;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -32,4 +34,7 @@ public interface EnrolmentRepository extends JpaRepository<Enrolment, enrolmentU
 	
 	@Query("SELECT e FROM Enrolment e WHERE e.student = :student AND e.course = :course")
 	public Enrolment findEnrolByStudentCourse(Student student, Course course);
+	
+	@Query("SELECT e.marks FROM Enrolment e WHERE e.course = :course")
+	public Page<Integer> findByMarks(Pageable pageable, @Param("course") Course course);
 }
