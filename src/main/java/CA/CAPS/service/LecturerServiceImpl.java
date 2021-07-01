@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import CA.CAPS.domain.Course;
@@ -116,5 +118,14 @@ public class LecturerServiceImpl implements LecturerService {
 		}
 		return gradeCounts;
 	}
+	
+	@Override
+	public Page<Course> coursePageForLecturer(Pageable pageable, Lecturer lecturer){
+		return courseRepo.findByLecturer(pageable, lecturer);
+	}
 
+	@Override
+	public Page<Student> enrolmentPageForLecturer(Pageable pageable, Course course) {
+		return studentRepo.findByCourse(pageable, course);
+	}
 }
