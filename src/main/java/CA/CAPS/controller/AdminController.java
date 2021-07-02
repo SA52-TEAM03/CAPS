@@ -291,7 +291,7 @@ public class AdminController {
 
 			mailservice.sendMail(student.getUserName(), subject, text);
 
-			message = "You have created Student " + student + ". Acount details has been sent to the Student.";
+			message = "You have created Student " + student + ". Account details has been sent to the Student.";
 
 		} else {
 			String oldPassword = adminService.findStudentById(student.getId()).getPassword();
