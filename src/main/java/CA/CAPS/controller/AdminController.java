@@ -78,7 +78,7 @@ public class AdminController {
 			userService.saveLecturer(lecturer);
 
 			mailservice.sendMail(lecturer.getUserName(), subject, text);
-			message = "You have created Lecturer " + lecturer + ". Acount details has been sent to the Lecturer.";
+			message = "You have created Lecturer " + lecturer + ". Account details has been sent to the Lecturer.";
 
 		} else {
 			String oldPassword = adminService.findLecturerById(lecturer.getId()).getPassword();
