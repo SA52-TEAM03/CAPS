@@ -20,14 +20,14 @@
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>		
 			<th>Student matric No.</th>
-			<th>Student FirstName</th>
 			<th>Student LastName</th>
+			<th>Student FirsttName</th>
 			<th>Enrolled Course Name</th>
 		</tr>
 		<tr th:each="student:${students}">
 			<td th:text="${student.matricNo}">Student Matric No.</td>
-			<td th:text="${student.firstName}">Student firstName</td>
-			<td th:text="${student.lastName}">Student lastName</td>
+			<td th:text="${student.lasttName}">Student lastName</td>
+			<td th:text="${student.firsttName}">Student firstName</td>
 			<td>
 				<ul style="padding-left: 20px" th:each="enrolment:${student.enrolments}">
 					<li th:text=${enrolment.course} >Course</li>
