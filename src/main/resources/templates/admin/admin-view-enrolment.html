@@ -16,12 +16,12 @@
 	<!-- Add Hyperlink -->
 
 	<h2 style="margin-top: 15px; margin-bottom: 15px;"
-		th:if="${not #lists.isEmpty(students)}">Enrollment List</h2>
+		th:if="${not #lists.isEmpty(students)}">Enrolment List</h2>
 	<table th:if="${not #lists.isEmpty(students)}" class="table table-striped">
 		<tr>		
-			<th>Student matric No.</th>
+			<th>Student Matric No.</th>
 			<th>Student LastName</th>
-			<th>Student FirsttName</th>
+			<th>Student FirstName</th>
 			<th>Enrolled Course Name</th>
 		</tr>
 		<tr th:each="student:${students}">
