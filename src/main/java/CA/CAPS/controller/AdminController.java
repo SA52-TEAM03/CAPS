@@ -276,11 +276,6 @@ public class AdminController {
 			return "admin/admin-student-form";
 		}
 
-		if (student.getEnrolments() == null)
-			student.setEnrolments(null);
-		else
-			student.setEnrolments(adminService.findEnrolmentByStudentId((Integer) student.getId()));
-
 		String message = "";
 		if (student.getId() == 0) {
 			String subject = "CAPS Account";
