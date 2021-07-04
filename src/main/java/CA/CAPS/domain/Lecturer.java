@@ -20,20 +20,24 @@ public class Lecturer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String staffId = "LEC" + RandomStringUtils.randomNumeric(5);
 
 	@NotEmpty(message = "First Name is required.")
 	@Pattern(regexp = "^[a-zA-Z ]*", message = "First Name must not contain numbers/special characters")
 	private String firstName;
+	
 	@NotEmpty(message = "Last Name is required.")
 	@Pattern(regexp = "^[a-zA-Z ]*", message = "Last Name must not contain numbers/special characters")
 	private String lastName;
+	
 	@Column(unique = true)
 	@NotEmpty(message = "Username is required.")
 	private String userName;
+	
 	@NotEmpty(message = "Password is required.")
 	private String password;
+	
 	@OneToMany(mappedBy = "lecturer", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Collection<Course> courses;
 

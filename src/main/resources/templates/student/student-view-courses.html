@@ -3,8 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Student Courses</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
 </head>
 
@@ -13,20 +12,16 @@
 		<header th:fragment="copyh">
 			<table>
 				<tr style="margin-left: 20px; margin-top: 20px">
-					<td width="120px" height="50px"><img width="100%"
-						th:src="@{/image/logo.png}" /></td>
-					<td style="padding-left: 30px;"><h1>Course Application
-							Processing System</h1></td>
+					<td width="120px" height="50px"><img width="100%" th:src="@{/image/logo.png}" /></td>
+					<td style="padding-left: 30px;"><h1>Course Application Processing System</h1></td>
 				</tr>
 			</table>
 			<div>
-				<a class="btn btn-outline-info head1" href="#"
-					th:href="@{/student/grades}">Grades & GPA</a> <a
-					class="btn btn-outline-info head1" href="#"
-					th:href="@{/student/courses/list}">View & Enroll Courses</a>
+				<a class="btn btn-outline-info head1" href="#" th:href="@{/student/grades}">Grades & GPA</a> <a class="btn btn-outline-info head1"
+					href="#" th:href="@{/student/courses/list}">View & Enroll Courses</a>
 				<div style="float: right; margin-right: 15px;">
-					<h6
-						th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+					<h6 th:href="@{/face_register_page}"
+						th:utext="'<a href=\'/face_register_page\'>'+'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}+'</a>'"
 						style="float: left; padding-top: 0.5cm">Welcome</h6>
 					&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
 				</div>
@@ -34,8 +29,7 @@
 		</header>
 		<br />
 		<h2 th:if="${not #lists.isEmpty(courses)}">Course List</h2>
-		<table th:if="${not #lists.isEmpty(courses)}"
-			class="table table-striped">
+		<table th:if="${not #lists.isEmpty(courses)}" class="table table-striped">
 			<thead>
 				<tr>
 					<th scope="col">Course Code</th>
@@ -49,51 +43,34 @@
 				<tr th:each="course:${courses}">
 					<td th:text=${course.code}>Course Code</td>
 					<td th:text=${course.name}>Course Name</td>
-					<td
-						th:text="${course.lecturer.firstName}+' '+${course.lecturer.lastName}">Lecturer</td>
-					<td><a class="btn btn-secondary"
-						th:href="@{/student/enroll-course/}+${course.id}">Enroll Now</a></td>
+					<td th:text="${course.lecturer.firstName}+' '+${course.lecturer.lastName}">Lecturer</td>
+					<td><a class="btn btn-secondary" th:href="@{/student/enroll-course/}+${course.id}">Enroll Now</a></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<nav aria-label="Page navigation" th:if="${coursePage.totalPages > 0}">
 			<ul class="pagination">
-				<li
-					th:class="${coursePage.hasPrevious} ? 'page-item' : 'page-item disabled'">
-					<a class="page-link"
-					th:href="@{/student/courses/list(page=${coursePage.number})}"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-				</a>
-				</li>
-				<li
-					th:class="${pageNumber==coursePage.number + 1} ? 'page-item active' : 'page-item'"
-					th:each="pageNumber : ${#numbers.sequence(1,coursePage.totalPages)}">
-					<a class="page-link"
-					th:href="@{/student/courses/list(page=${pageNumber})}"
-					th:text="${pageNumber}">pageNumber</a>
-				</li>
-				<li
-					th:class="${coursePage.hasNext} ? 'page-item' : 'page-item disabled'">
-					<a class="page-link"
-					th:href="@{/student/courses/list(page=${coursePage.number+2})}"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+				<li th:class="${coursePage.hasPrevious} ? 'page-item' : 'page-item disabled'"><a class="page-link"
+					th:href="@{/student/courses/list(page=${coursePage.number})}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
+						class="sr-only">Previous</span>
+				</a></li>
+				<li th:class="${pageNumber==coursePage.number + 1} ? 'page-item active' : 'page-item'"
+					th:each="pageNumber : ${#numbers.sequence(1,coursePage.totalPages)}"><a class="page-link"
+					th:href="@{/student/courses/list(page=${pageNumber})}" th:text="${pageNumber}">pageNumber</a></li>
+				<li th:class="${coursePage.hasNext} ? 'page-item' : 'page-item disabled'"><a class="page-link"
+					th:href="@{/student/courses/list(page=${coursePage.number+2})}" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
 						class="sr-only">Next</span>
-				</a>
-				</li>
+				</a></li>
 			</ul>
 		</nav>
 
 	</div>
 	<br />
 	<footer th:fragment="footer">
-		<a class="btn btn-success"
-			style="width: 250px !important; margin-bottom: 20px;" href="Home"
-			th:href="@{/student/grades}">Back to Home</a> <br /> <small>Now
-			is: <b th:text="${#execInfo.now.time}"></b>
-		</small> <br /> <small>&copy; Course Application Processing System ,
-			ISS, NUS 2021</small>
+		<a class="btn btn-success" style="width: 250px !important; margin-bottom: 20px;" href="Home" th:href="@{/student/grades}">Back to Home</a>
+		<br /> <small>Now is: <b th:text="${#execInfo.now.time}"></b>
+		</small> <br /> <small>&copy; Course Application Processing System , ISS, NUS 2021</small>
 	</footer>
 </body>
 </html>

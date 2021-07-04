@@ -24,7 +24,7 @@
 				& Enroll Courses</a>
 			<div style="float: right; margin-right: 15px;">
 				<h6
-					th:utext="'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}"
+					th:utext="'<a href=\'/face_register_page\'>'+'Welcome! ' + ${session.role} +' '+${session.user.firstName} +' '+ ${session.user.lastName}+'</a>'"
 					style="float: left; padding-top: 0.5cm">Welcome</h6>
 				&nbsp; <a class="btn btn-outline-dark" th:href="@{/logout}">Logout</a>
 			</div>

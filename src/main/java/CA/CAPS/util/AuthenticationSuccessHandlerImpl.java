@@ -39,7 +39,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		if (authorities.contains("admin")) {
 			Admin admin = userService.findAdminByUserName(username);
 			session.setAttribute("role", "Admin");
-
 			session.setAttribute("user", admin);
 			new DefaultRedirectStrategy().sendRedirect(request, response, "/admin/student/list");
 			return;
@@ -56,7 +55,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		if (authorities.contains("lecturer")) {
 			Lecturer lecturer = userService.findLecturerByUserName(username);
 			session.setAttribute("role", "Lecturer");
-
 			session.setAttribute("user", lecturer);
 			new DefaultRedirectStrategy().sendRedirect(request, response, "/lecturer/courses");
 			return;

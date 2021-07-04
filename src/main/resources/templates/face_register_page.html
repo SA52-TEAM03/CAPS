@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Face Register Page</title>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body style="text-align: center;">
+
+	<video id="video" width="400px" height="300px"></video>
+
+	<canvas id="canvas" width="400px" height="300px" style="display: none;"></canvas>
+
+	<br>
+	<br>
+	<br>
+	<h4 class="img-tip2" id="h1">
+		hello, <span th:utext="${session.user.firstName} +' '+ ${session.user.lastName}"></span>
+	</h4>
+	<br>
+	<br>
+	<br>
+	<a th:href="@{/admin/student/list}"><button style="width: 250px !important" class="btn btn-success" th:if="${session.role} eq 'Admin'">Back
+			to Home</button></a>
+
+	<a th:href="@{/lecturer/courses}"><button style="width: 250px !important" class="btn btn-success" th:if="${session.role} eq 'Lecturer'">Back
+			to Home</button></a>
+
+	<a th:href="@{/student/grades}"><button style="width: 250px !important" class="btn btn-success" th:if="${session.role} eq 'Student'">Back
+			to Home</button></a>
+
+
+	<script>
+		var h1 = document.getElementById('h1'), canvas = document
+				.getElementById('canvas'), context = canvas.getContext('2d'), video = document
+				.getElementById('video'), mediaStreamTrack;
+
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+					.getUserMedia({
+						video : true
+					})
+					.then(
+							function(stream) {
+								mediaStreamTrack = typeof stream.stop === 'function' ? stream
+										: stream.getTracks()[1];
+								video.srcObject = stream;
+								video.play();
+								h1.innerHTML = "please look into the camera";
+								setTimeout("face_register()", "1200");
+							});
+		}
+
+		function face_register() {
+
+			context.drawImage(video, 0, 0, 400, 300);
+
+			jQuery.post('/faceRegister', {
+				snapData : canvas.toDataURL('image/png')
+			}).done(function(rs) {
+				console.log(JSON.stringify(rs));
+				if (rs.error_msg == "SUCCESS") {
+					h1.innerHTML = "SUCCESS";
+				} else {
+					h1.innerHTML = "register unsuccess, try again";
+					setTimeout("face_register()", "800");
+				}
+			});
+		}
+	</script>
+</body>
+</html>

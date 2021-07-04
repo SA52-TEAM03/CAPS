@@ -4,27 +4,22 @@
 <meta charset="UTF-8">
 <title>Login</title>
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
-<link rel="stylesheet"
-	href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 
 </head>
 <body>
 	<div th:fragment="header" id="header">
 		<table>
 			<tr>
-				<td width="120px" height="50px"><a th:href="@{/}"><img
-						width="100%" th:src="@{/image/logo.png}" /></a></td>
-				<td style="padding-left: 30px;"><h1>Course Application
-						Processing System</h1></td>
+				<td width="120px" height="50px"><a th:href="@{/}"><img width="100%" th:src="@{/image/logo.png}" /></a></td>
+				<td style="padding-left: 30px;"><h1>Course Application Processing System</h1></td>
 			</tr>
 		</table>
 	</div>
-	<div class="page-header" style="height:800px">
-		<div class="page-header-image"
-			style="background-image: url(image/main.jpg)"></div>
+	<div class="page-header">
+		<div class="page-header-image" style="background-image: url(image/main.jpg)"></div>
 		<h2>
 			<span></span> <br> <span></span>
 		</h2>
@@ -35,22 +30,22 @@
 						<span id="p1" style="color: red;" th:text="${message}"></span>
 					</fieldset>
 					<fieldset>
-						Email <input type="text" name="username" class="login-pwd"
-							id="username">
+						<input type="text" name="username" class="login-pwd" id="username" placeholder="email">
 					</fieldset>
 					<fieldset>
-						Password <input type="password" name="password" class="login-pwd"
-							id="password">
+						<input type="password" name="password" class="login-pwd" id="password" placeholder="password">
 					</fieldset>
 					<fieldset>
 						Remember me: <input type="checkbox" name="remember-me">
 					</fieldset>
 					<fieldset class="sign">
-						<input type="button" onclick="validation()"
-							class="btn btn-info btn-primary" value="login">
+						<input type="submit" onclick="validation()" class="btn btn-info btn-primary" value="login">
 					</fieldset>
 					<fieldset class="sign">
 						Don't have an account? <a href="/registerpage">Register</a>
+					</fieldset>
+					<fieldset class="sign">
+						try face login? <a href="/face_login_page">face login</a>
 					</fieldset>
 				</form>
 			</div>
@@ -60,10 +55,8 @@
 		<div class="container-fluid">
 			<div class="gallery-car owl-carousel owl-theme row">
 				<div class="gallery-meta">
-					&nbsp; <img class="gallery-img" src="image/gallery1.jpeg" alt="">
-					<img class="gallery-img" src="image/gallery2.jpeg" alt=""> <img
-						class="gallery-img" src="image/gallery3.jpeg" alt=""> <img
-						class="gallery-img" src="image/gallery4.jpg" alt="">
+					&nbsp; <img class="gallery-img" src="image/gallery1.jpeg" alt=""> <img class="gallery-img" src="image/gallery2.jpeg" alt="">
+					<img class="gallery-img" src="image/gallery3.jpeg" alt=""> <img class="gallery-img" src="image/gallery4.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -72,9 +65,8 @@
 	<br />
 	<br />
 	<footer>
-		<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> <br />
-		<small>&copy;Course Application Processing System , ISS, NUS
-			2021</small>
+		<small>Now is: <b th:text="${#execInfo.now.time}"></b></small> <br /> <small>&copy;Course Application Processing System , ISS,
+			NUS 2021</small>
 	</footer>
 
 	<script>

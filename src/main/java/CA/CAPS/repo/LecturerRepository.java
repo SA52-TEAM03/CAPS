@@ -12,4 +12,7 @@ public interface LecturerRepository extends JpaRepository<Lecturer, Integer> {
 	
 	public Lecturer findLecturerByUserName(String userName);
 	
+	public Lecturer findById(int id);
+
+	
 }

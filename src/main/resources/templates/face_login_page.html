@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Face Login Page</title>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body style="text-align: center;">
+
+	<video id="video" width="400px" height="300px"></video>
+
+	<canvas id="canvas" width="400px" height="300px" style="display: none;"></canvas>
+
+	<br>
+	<br>
+	<br>
+	<h4 class="img-tip2" id="h1">hello</h4>
+	<br>
+	<br>
+	<br>
+	<a th:href="@{/loginpage}"><button style="width: 250px !important" class="btn btn-success">Back to login with username and
+			password</button></a>
+
+
+	<script>
+		var h1 = document.getElementById('h1'), canvas = document
+				.getElementById('canvas'), context = canvas.getContext('2d'), video = document
+				.getElementById('video'), mediaStreamTrack;
+
+		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+			navigator.mediaDevices
+					.getUserMedia({
+						video : true
+					})
+					.then(
+							function(stream) {
+								mediaStreamTrack = typeof stream.stop === 'function' ? stream
+										: stream.getTracks()[1];
+								video.srcObject = stream;
+								video.play();
+								h1.innerHTML = "please look into the camera";
+								setTimeout("face_login()", "1200");
+							});
+		}
+
+		function face_login() {
+
+			context.drawImage(video, 0, 0, 400, 300);
+
+			jQuery.post('/faceLogin', {
+				snapData : canvas.toDataURL('image/png')
+			}).done(function(rs) {
+				console.log(JSON.stringify(rs));
+				if (rs.error_code == "222202") {
+					h1.innerHTML = "no face detect";
+					setTimeout("face_login()", "800");
+				} else if (rs.error_code == "222207") {
+					h1.innerHTML = "match user is not found";
+					setTimeout("face_login()", "800");
+				} else if (rs.error_code == "223120") {
+					h1.innerHTML = "fake face";
+					setTimeout("face_login()", "800");
+				} else if (rs.error_msg == "SUCCESS") {
+					h1.innerHTML = "SUCCESS";
+					if (rs.role == "student")
+						window.location = "/student/grades";
+					if (rs.role == "admin")
+						window.location = "/admin/student/list";
+					if (rs.role == "lecturer")
+						window.location = "/lecturer/courses";
+				} else {
+					h1.innerHTML = "login unsuccess";
+				}
+			});
+		}
+	</script>
+</body>
+</html>
